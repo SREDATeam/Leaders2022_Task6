@@ -7,11 +7,10 @@ import shapely.geometry
 import numpy as np
 from yandex_geocoder import Client
 import json
-import folium
 from leaders.leaders.settings import DEBUG, SREDA_DOMAIN, API_STORAGE, \
-    ADS_USER, ADS_TOKEN
+    ADS_USER, ADS_TOKEN, YANDEX_TOKEN
 
-DIR = 'coefs_dir/'
+DIR = 'coefs_dir'
 area_corr = pd.read_csv(f'{DIR}/area_corr.csv', index_col='index')
 balk_corr = pd.read_csv(f'{DIR}/balk_corr.csv', index_col='index')
 floor_corr = pd.read_csv(f'{DIR}/floor_coor.csv', index_col='index')
@@ -31,7 +30,7 @@ def get_ads(date1, city='Москва'):
 def get_ads_data():
     last_date = '2022-7-1'
     concated_df = pd.DataFrame()
-    for i in range(10):
+    for i in range(2):
         res = get_ads(last_date)
         df, last_date = get_data_from_res(res)
         concated_df = pd.concat([concated_df, df])
@@ -75,7 +74,6 @@ def get_data_from_res(res, cord_delta=1):
 
 
 def obj_in_circle_check(standart, row):
-    #     print(standart, row)
     n_points, d = 20, 5000
     p = shapely.geometry.Point(standart)
     angles = np.linspace(0, 360, n_points)
@@ -106,40 +104,15 @@ def get_filtered_by_zone_df(standart, df, filter_nuction):
     return ans_df.drop(columns=['in_polygon'])
 
 
-def add_to_map(new_df, m):
-    for i, j, z, k in zip(new_df.lat, new_df.lng, new_df.price, new_df.address):
-        folium.Marker(
-            [i, j], popup=f"<i>{z}   {k}</i>",
-        ).add_to(m)
-    return m
-
-
-# def get_inpars(date1, polygon=None):
-#     token = 'RswqInPUVZhuUyoF6iQCoSSJNO1yutZI'
-#     data = {
-#         'access-token': token,
-#         'limit': '50',
-#         'sourceId': '2',
-#         'typeAd': '2',
-#         'categoryId': '28,29,30,31,48',
-#         'cityId': '1'
-#     }
-#
-#     if polygon:
-#         polygon_arr = []
-#         for i in polygon:
-#             polygon_arr.extend(i)
-#         data['&polygon'] = ''.join(polygon_arr)
-#
-#     res = requests.get('https://inpars.ru/api/v2/estate?', data).json()
-#     return res
-
-def rank_standatrt_object(data_to_rank, data):
-    api_k = '67fcc2d7-58bb-4206-a881-8317d76b22b5'
-    client = Client(api_k)
+def rank_standart_object(data_to_rank, data):
+    client = Client(YANDEX_TOKEN)
     data_to_rank.columns = ren_cols
     data_to_rank['lng'], data_to_rank['lat'] = client.coordinates(data_to_rank['address'])
     filtered_data = get_filtered_by_zone_df([data_to_rank.lng, data_to_rank.lat], data, obj_in_circle_check)
+    filtered_data = find_nearest_objects(data_to_rank, filtered_data)
+    filtered_data = prepare_data_to_rank(filtered_data)
+    data_to_rank = rank_standart_object(filtered_data, data_to_rank)
+    return data_to_rank
 
 
 def find_nearest_objects(standart, data):
@@ -150,24 +123,43 @@ def find_nearest_objects(standart, data):
                            5 * (abs(standart['area'] - data['area'].astype(float))) + \
                            0.7 * (abs(abs(standart['floors'] - standart['floor']) - abs(
         data['floors'] - data['floor']).astype(float)))
-    return dataframe.sort_values('compare').merge(data, how='inner', on='idk')
+    return dataframe.sort_values('compare').merge(data, how='inner', on='idk').head(4)
 
 
-def prepare_data_to_rank(get_filter_nearest):
+def prepare_data_to_rank(get_filter_nearest, mode='standart'):
+    data_compare = get_filter_nearest.copy()
     torg_corr = -4.5
-    data_compare = get_filter_nearest
-    data_compare['balk'] = 1
-    data_compare['metro'] = 10
-    data_compare['repair'] = 1
-    data_compare['seg'] = 1
+    if mode == 'standart':
+        data_compare['balk'] = 1
+        data_compare['metro'] = 10
+        data_compare['repair'] = 1
+        data_compare['seg'] = 1
+    ########написать вариант для загруженного пула#########
     data_compare['per_meter'] = round(data_compare['price'].astype(float) / data_compare['area'].astype(float))
     data_compare['main_corr'] = torg_corr
-    data_compare = data_compare.drop(columns=['description', 'images', 'owner', 'is_rent'])
-    data_compare['floor_from_floors'] = data_compare.apply(lambda x: return_floor_from_floors([x.floor, x.floors]),
-                                                           axis=1)
+    data_compare = data_compare.drop(columns=['description', 'images', 'owner', 'is_rent', 'in_polygon'])
+    data_compare['floor_from_floors'] = data_compare.apply(
+        lambda x: return_floor_from_floors([x.floor, x.floors]), axis=1)
+    return data_compare
 
 
-def rank_standart_object(data_compare):
+def rank_standart_object(data_compare, data_to_rank):
+    data_to_rank['floor_from_floors'] = data_to_rank.apply(
+        lambda x: return_floor_from_floors([x.floor, x.floors]), axis=1)
+    data_compare['balk_coef'] = data_compare.apply(
+        lambda x: get_balk_coef(data_to_rank, x, balk_corr), axis=1)
+    data_compare.area_kitchen = data_compare.area_kitchen.astype(float)
+    data_compare['kit_coef'] = data_compare.apply(
+        lambda x: get_kit_area_coef(data_to_rank, x, kit_area_corr), axis=1)
+    data_compare['floor_coef'] = data_compare.apply(
+        lambda x: get_floor_coef(data_to_rank, x, floor_corr), axis=1)
+    data_compare.area = data_compare.area.astype(float)
+    data_compare['area_coef'] = data_compare.apply(
+        lambda x: get_area_coef(data_to_rank, x, area_corr), axis=1)
+    data_compare['metro_coef'] = data_compare.apply(
+        lambda x: get_metro_coef(data_to_rank, x, area_corr), axis=1)
+    data_compare['rep_coef'] = data_compare.apply(
+        lambda x: get_rep_coef(data_to_rank, x, area_corr), axis=1)
     data_compare['new_per_meter'] = data_compare['per_meter'] + (
             (data_compare['main_corr'] / 100) * data_compare['per_meter'])
     data_compare['new_per_meter'] = data_compare['new_per_meter'] + (
@@ -180,9 +172,21 @@ def rank_standart_object(data_compare):
             (data_compare['area_coef'] / 100) * data_compare['new_per_meter'])
     data_compare['new_per_meter'] = data_compare['new_per_meter'] + (
             (data_compare['metro_coef'] / 100) * data_compare['new_per_meter'])
-    data_compare['new_per_meter'] = data_compare['new_per_meter'] + data_compare['rep_coef']
     data_compare['new_per_meter'] = round(data_compare['new_per_meter'])
     data_compare['new_price'] = (data_compare['area'] * data_compare['new_per_meter'])
+    data_compare['sum_coef'] = abs(data_compare['balk_coef']) + abs(
+        data_compare['kit_coef']) + abs(data_compare['floor_coef']) + abs(
+        data_compare['area_coef']) + abs(data_compare['metro_coef'])
+    data_compare['to_weight_calculation'] = data_compare.apply(
+        lambda x: get_weight_calculation(x.sum_coef), axis=1)
+    data_compare['analog_w'] = data_compare['to_weight_calculation'] / data_compare['to_weight_calculation'].sum()
+    data_compare['to_analog_rate'] = round(data_compare['analog_w'] * data_compare['new_per_meter'])
+    data_compare['new_per_meter'] = round(data_compare['new_per_meter'])
+    data_compare['new_price'] = (data_compare['area'] * data_compare['new_per_meter'])
+    data_to_rank['per_meter'] = data_compare['to_analog_rate'].sum()
+    data_to_rank['price'] = data_to_rank['per_meter'].astype(float) * data_to_rank['area'].astype(float)
+    return data_to_rank
+
 
 def return_floor_from_floors(row):
     if row[1] - row[0] == 0:
@@ -407,3 +411,61 @@ def get_metro_coef(standart, row, coef_table):
         if row['metro'] > 30 and row['metro'] <= 60:
             return coef_table.iloc[5, 4]
     return 0
+
+
+def get_weight_calculation(sum_coef):
+    return 1 if sum_coef == 0 else 1 / sum_coef
+
+
+def get_pool_segmentation_and_standart_objs(data):
+    rooms_pool_seg = data.rooms.unique()
+    rooms_pool_seg_low_4 = [i for i in rooms_pool_seg if i < 4]
+    rooms_pool_seg_gt_4 = [i for i in rooms_pool_seg if i >= 4]
+    pool_dict_lw_4 = dict()
+    for i in rooms_pool_seg_low_4:
+        pool_dict_lw_4[i] = data[data['rooms'] == i]
+
+    pool_dict_gt_4 = dict()
+    for i in rooms_pool_seg_gt_4:
+        pool_dict_gt_4[i] = data[data['rooms'] == i]
+
+    plus_4 = pd.DataFrame()
+    for i in pool_dict_gt_4:
+        plus_4 = pd.concat([pool_dict_gt_4[i], plus_4])
+    standart_plus_4 = plus_4.iloc[len(plus_4) // 2]
+    standart_dict = dict()
+    for i in pool_dict_lw_4:
+        df = pool_dict_lw_4[i]
+        df = prepare_data_to_rank(df, mode='pool')
+        df.sort_values(['floor_in_house', 'area', 'area_kitchen', 'balk'])
+        standart_el = df.iloc[len(df) // 2]
+        standart_dict[i] = standart_el
+    standart_dict['4+'] = standart_plus_4
+    dfs_dict = pool_dict_lw_4.copy()
+    dfs_dict['4+'] = plus_4
+    return standart_dict, dfs_dict
+
+
+def rank_aparts_pool(standart, pool):
+    #     standart['floor_from_floors'] = standart.apply(lambda x: return_floor_from_floors([x.floor, x.floors]), axis=1)
+    pool['balk_coef'] = pool.apply(
+        lambda x: get_balk_coef(standart, x, balk_corr), axis=1)
+    pool.area_kitchen = pool.area_kitchen.astype(float)
+    pool['kit_coef'] = pool.apply(
+        lambda x: get_kit_area_coef(standart, x, kit_area_corr), axis=1)
+    pool['floor_coef'] = pool.apply(
+        lambda x: get_floor_coef(standart, x, floor_corr), axis=1)
+    pool.area = pool.area.astype(float)
+    pool['area_coef'] = pool.apply(
+        lambda x: get_area_coef(standart, x, area_corr), axis=1)
+    pool['metro_coef'] = pool.apply(
+        lambda x: get_metro_coef(standart, x, metro_corr), axis=1)
+    pool['rep_coef'] = pool.apply(
+        lambda x: get_rep_coef(standart, x, rep_corr), axis=1)
+    pool['per_meter'] = standart['per_meter'] + ((pool['main_corr'] / 100) * pool['per_meter'])
+    pool['per_meter'] = pool['per_meter'] + ((pool['balk_coef'] / 100) * pool['per_meter'])
+    pool['per_meter'] = pool['per_meter'] + ((pool['kit_coef'] / 100) * pool['per_meter'])
+    pool['per_meter'] = pool['per_meter'] + ((pool['floor_coef'] / 100) * pool['per_meter'])
+    pool['per_meter'] = pool['per_meter'] + ((pool['area_coef'] / 100) * pool['per_meter'])
+    pool['per_meter'] = pool['per_meter'] + ((pool['metro_coef'] / 100) * pool['per_meter'])
+    pool['per_meter'] = pool['per_meter'] + pool['rep_coef']
