@@ -30,7 +30,7 @@ API_STORAGE = '/home/work/api/'
 ADS_USER = ''
 ADS_TOKEN = ''
 YANDEX_TOKEN = '67fcc2d7-58bb-4206-a881-8317d76b22b5'
-ALLOWED_HOSTS = ['134.0.118.112']
+ALLOWED_HOSTS = ['134.0.118.112', '127.0.0.1']
 
 
 # Application definition
