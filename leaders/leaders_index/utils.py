@@ -28,7 +28,7 @@ def get_ads(date1, city='Москва'):
 
 
 def get_ads_data():
-    last_date = '2022-7-1'
+    last_date = '2022-9-26'
     concated_df = pd.DataFrame()
     for i in range(2):
         res = get_ads(last_date)
