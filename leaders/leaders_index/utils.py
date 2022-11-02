@@ -6,6 +6,7 @@ import geog
 import shapely.geometry
 import numpy as np
 from yandex_geocoder import Client
+from geopy.distance import geodesic
 import json
 from leaders.leaders.settings import DEBUG, SREDA_DOMAIN, API_STORAGE, \
     ADS_USER, ADS_TOKEN, YANDEX_TOKEN
@@ -17,6 +18,7 @@ floor_corr = pd.read_csv(f'{DIR}/floor_coor.csv', index_col='index')
 kit_area_corr = pd.read_csv(f'{DIR}/kit_area_corr.csv', index_col='index')
 metro_corr = pd.read_csv(f'{DIR}/metro_corr.csv', index_col='index')
 rep_corr = pd.read_csv(f'{DIR}/rep_corr.csv', index_col='index')
+metro_stations = pd.read_csv('geo_data/metro_coords.csv')
 
 
 def get_ads(date1, city='Москва'):
@@ -126,15 +128,13 @@ def find_nearest_objects(standart, data):
     return dataframe.sort_values('compare').merge(data, how='inner', on='idk').head(4)
 
 
-def prepare_data_to_rank(get_filter_nearest, mode='standart'):
+def prepare_data_to_rank(get_filter_nearest):
     data_compare = get_filter_nearest.copy()
     torg_corr = -4.5
-    if mode == 'standart':
-        data_compare['balk'] = 1
-        data_compare['metro'] = 10
-        data_compare['repair'] = 1
-        data_compare['seg'] = 1
-    ########написать вариант для загруженного пула#########
+    data_compare['balk'] = 1
+    data_compare['metro'] = 10
+    data_compare['repair'] = 1
+    data_compare['seg'] = 1
     data_compare['per_meter'] = round(data_compare['price'].astype(float) / data_compare['area'].astype(float))
     data_compare['main_corr'] = torg_corr
     data_compare = data_compare.drop(columns=['description', 'images', 'owner', 'is_rent', 'in_polygon'])
@@ -417,6 +417,17 @@ def get_weight_calculation(sum_coef):
     return 1 if sum_coef == 0 else 1 / sum_coef
 
 
+def prepare_to_rate_pool(data):
+    torg_corr = -4.5
+    df = data.copy()
+    df['floor_in_house'] = df['floors'] - df['floor']
+    df['balk'] = 1
+    df['floor_from_floors'] = df.apply(lambda x: return_floor_from_floors([x.floor, x.floors]), axis=1)
+    df['main_corr'] = torg_corr
+    df = df.drop(columns=['description', 'images', 'owner', 'is_rent', 'in_polygon'])
+    return df
+
+
 def get_pool_segmentation_and_standart_objs(data):
     rooms_pool_seg = data.rooms.unique()
     rooms_pool_seg_low_4 = [i for i in rooms_pool_seg if i < 4]
@@ -436,13 +447,14 @@ def get_pool_segmentation_and_standart_objs(data):
     standart_dict = dict()
     for i in pool_dict_lw_4:
         df = pool_dict_lw_4[i]
-        df = prepare_data_to_rank(df, mode='pool')
+        df = prepare_to_rate_pool(df)
         df.sort_values(['floor_in_house', 'area', 'area_kitchen', 'balk'])
         standart_el = df.iloc[len(df) // 2]
         standart_dict[i] = standart_el
     standart_dict['4+'] = standart_plus_4
     dfs_dict = pool_dict_lw_4.copy()
     dfs_dict['4+'] = plus_4
+    # убрать дубликаты
     return standart_dict, dfs_dict
 
 
@@ -469,3 +481,16 @@ def rank_aparts_pool(standart, pool):
     pool['per_meter'] = pool['per_meter'] + ((pool['area_coef'] / 100) * pool['per_meter'])
     pool['per_meter'] = pool['per_meter'] + ((pool['metro_coef'] / 100) * pool['per_meter'])
     pool['per_meter'] = pool['per_meter'] + pool['rep_coef']
+
+
+def get_geo_dist_for_obj(obj, metro_station):
+    return geodesic((obj[0], obj[1]), (metro_station[0], metro_station[1])).kilometers
+
+
+def find_dist_from_nearest_metro(obj, metro_stations):
+    df = metro_stations.copy()
+    df['dist_from_point'] = df.apply(lambda x: get_geo_dist_for_obj((obj.lat, obj.lng), (x.lat, x.lng)), axis=1)
+    #     return df[df['dist_from_point'] == df.dist_from_point.min()]
+    df = df.sort_values('dist_from_point').head(1)
+    df.index = [0]
+    return round((df.dist_from_point / 4) * 60)
