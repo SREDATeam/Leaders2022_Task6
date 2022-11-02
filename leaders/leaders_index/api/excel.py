@@ -23,6 +23,7 @@ def analyse(request):
     writer = pandas.ExcelWriter('res.xlsx')
     data.to_excel(writer)
     writer.save()
-    file = open('res.xlsx', 'rb')
+    with open('res.xlsx', 'rb') as f:
+        response = HttpResponse(FileResponse(file))
     os.remove('res.xlsx')
-    return HttpResponse(FileResponse(file))
+    return response
