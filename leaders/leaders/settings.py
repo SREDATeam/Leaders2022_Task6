@@ -27,10 +27,11 @@ SECRET_KEY = 'django-insecure-a_26g0gz_s-1gu=dgz(qcks63em*1u2!0)-ho-psh*a*0z$155
 DEBUG = True
 SREDA_DOMAIN = 'work'
 API_STORAGE = '/home/work/api/'
+
 ADS_USER = 'metrix.market@gmail.com'
 ADS_TOKEN = 'de17eaf011d54970ba5c0981cb337149'
 YANDEX_TOKEN = '478245df-abcf-414a-8105-22a09c0b54b6'
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['134.0.118.112', '127.0.0.1']
 
 
 # Application definition
@@ -120,10 +121,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-if DEBUG:
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# if DEBUG:
+#     STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# else:
+#     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
