@@ -179,6 +179,7 @@ def prepare_raw_exl(data):
             return 2
         if row == 'старый жилой фонд' or row == 'Старый жилой фонд':
             return 3
+        return 0
 
     def rename_walls(row):
         if row == 'Кирпич' or row == 'кирпич':
@@ -187,6 +188,7 @@ def prepare_raw_exl(data):
             return 2
         if row == 'Монолит' or row == 'монолит':
             return 3
+        return 0
 
     def rename_rep(row):
         if row == 'Без отделки' or row == 'без отделки':
@@ -195,6 +197,7 @@ def prepare_raw_exl(data):
             return 2
         if row == 'современная отделка' or row == 'Современная отделка':
             return 3
+        return 0
 
     data = data.copy()
     data['Количество комнат'] = data['Количество комнат'].apply(lambda x: 0 if x == 'студия' else x)
