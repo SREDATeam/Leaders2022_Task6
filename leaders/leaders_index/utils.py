@@ -173,27 +173,27 @@ def prepare_raw_exl(data):
     ren_cols = ['address', 'rooms', 'seg', 'floors', 'mat', 'floor', 'area', 'area_kitchen', 'balk', 'metro', 'repair']
 
     def rename_seg(row):
-        if row == 'Новостройка':
+        if row == 'Новостройка' or row == 'новостройка':
             return 1
-        if row == 'современное жилье':
+        if row == 'современное жилье' or row == 'Современное жилье':
             return 2
-        if row == 'старый жилой фонд':
+        if row == 'старый жилой фонд' or row == 'Старый жилой фонд':
             return 3
 
     def rename_walls(row):
-        if row == 'Кипич':
+        if row == 'Кирпич' or row == 'кирпич':
             return 1
-        if row == 'панель':
+        if row == 'Панель' or row == 'панель':
             return 2
-        if row == 'монолит':
+        if row == 'Монолит' or row == 'монолит':
             return 3
 
     def rename_rep(row):
-        if row == 'Без отделки':
+        if row == 'Без отделки' or row == 'без отделки':
             return 1
-        if row == 'муниципальный ремонт':
+        if row == 'муниципальный ремонт' or row == 'Муниципальный ремонт':
             return 2
-        if row == 'с современная отделка':
+        if row == 'современная отделка' or row == 'Современная отделка':
             return 3
 
     data = data.copy()
