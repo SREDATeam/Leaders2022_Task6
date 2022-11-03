@@ -27,9 +27,10 @@ SECRET_KEY = 'django-insecure-a_26g0gz_s-1gu=dgz(qcks63em*1u2!0)-ho-psh*a*0z$155
 DEBUG = True
 SREDA_DOMAIN = 'work'
 API_STORAGE = '/home/work/api/'
-ADS_USER = ''
-ADS_TOKEN = ''
-YANDEX_TOKEN = '67fcc2d7-58bb-4206-a881-8317d76b22b5'
+
+ADS_USER = 'metrix.market@gmail.com'
+ADS_TOKEN = 'de17eaf011d54970ba5c0981cb337149'
+YANDEX_TOKEN = '478245df-abcf-414a-8105-22a09c0b54b6'
 ALLOWED_HOSTS = ['134.0.118.112', '127.0.0.1']
 
 
