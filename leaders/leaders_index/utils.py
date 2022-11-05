@@ -8,17 +8,17 @@ import numpy as np
 from yandex_geocoder import Client
 from geopy.distance import geodesic
 import json
-from leaders.leaders.settings import DEBUG, SREDA_DOMAIN, API_STORAGE, \
+from leaders.settings import DEBUG, SREDA_DOMAIN, API_STORAGE, \
     ADS_USER, ADS_TOKEN, YANDEX_TOKEN
 
 DIR = 'coefs_dir'
-area_corr = pd.read_csv(f'{DIR}/area_corr.csv', index_col='index')
-balk_corr = pd.read_csv(f'{DIR}/balk_corr.csv', index_col='index')
-floor_corr = pd.read_csv(f'{DIR}/floor_coor.csv', index_col='index')
-kit_area_corr = pd.read_csv(f'{DIR}/kit_area_corr.csv', index_col='index')
-metro_corr = pd.read_csv(f'{DIR}/metro_corr.csv', index_col='index')
-rep_corr = pd.read_csv(f'{DIR}/rep_corr.csv', index_col='index')
-metro_stations = pd.read_csv('geo_data/metro_coords.csv')
+area_corr = pd.read_csv(f'leaders_index/{DIR}/area_corr.csv', index_col='index')
+balk_corr = pd.read_csv(f'leaders_index/{DIR}/balk_corr.csv', index_col='index')
+floor_corr = pd.read_csv(f'leaders_index/{DIR}/floor_coor.csv', index_col='index')
+kit_area_corr = pd.read_csv(f'leaders_index/{DIR}/kit_area_corr.csv', index_col='index')
+metro_corr = pd.read_csv(f'leaders_index/{DIR}/metro_corr.csv', index_col='index')
+rep_corr = pd.read_csv(f'leaders_index/{DIR}/rep_corr.csv', index_col='index')
+metro_stations = pd.read_csv('leaders_index/geo_data/metro_coords.csv')
 
 
 def get_ads(date1, city='Москва'):
@@ -31,7 +31,7 @@ def get_ads(date1, city='Москва'):
     return res
 
 
-def get_ads_data(mode='api'):
+def get_ads_data(mode='csv'):
     if mode == 'api':
         last_date = '2022-5-1'
         concated_df = pd.DataFrame()
@@ -42,9 +42,9 @@ def get_ads_data(mode='api'):
             time.sleep(5)
         data = concated_df.groupby(['idk'], as_index=False).last()
         data = data.drop_duplicates(['idk', 'updated'], 'last', ignore_index=True)
-    #         data.to_csv('ads_data.csv')
+        # data.to_csv('leaders_index/sreda_expert_data/ads_data.csv')
     else:
-        data = pd.read_csv('ads_data.csv')
+        data = pd.read_csv('leaders_index/sreda_expert_data/ads_data.csv').drop(columns=['Unnamed: 0'])
     return data
 
 
@@ -123,7 +123,6 @@ def return_floor_from_floors(row):
 
 
 def get_pool_segmentation_and_standart_objs(data):
-    data = prepare_raw_exl(data)
     data = prepare_to_rate_pool(data)
     rooms_pool_seg = data.rooms.unique()
     rooms_pool_seg_low_4 = [i for i in rooms_pool_seg if i < 4]
@@ -278,7 +277,7 @@ def find_nearest_objects(standart, data):
 
 def prepare_compare_data(get_filter_nearest):
     torg_corr = -4.5
-    # TODO metro seg and rep
+    # TODO seg and rep
     data_compare = get_filter_nearest.copy()
     data_compare['balk'] = 1
     data_compare['metro'] = data_compare.apply(lambda x: find_dist_from_nearest_metro(x, metro_stations), axis=1)
@@ -544,9 +543,12 @@ def get_analogs_pool_standart_objects(test_data):
     test_data = test_data.dropna()
     prepared_data = prepare_raw_exl(test_data)
     prepared_data.index = range(len(prepared_data))
-    prepared_data = prepare_raw_exl(test_data)
     standart_dict, pool = get_pool_segmentation_and_standart_objs(prepared_data)
     analogs = get_analogs(standart_dict)
+    for i in standart_dict:
+        standart_dict[i]['lat'] = float(standart_dict[i]['lat'])
+        standart_dict[i]['lng'] = float(standart_dict[i]['lng'])
+    standart_dict
     return analogs, pool, standart_dict
     # на данном шаге отправляем на фронт analogs и standart_dict
 
@@ -594,8 +596,8 @@ def get_fully_ranked_pool(ranked_objects_dict):
     for i in ranked_objects_dict:
         pool = rank_aparts_pool(i[0], i[1])
         answer = pd.concat([answer, pool])
-    answer['price'] = round(answer['price'])
-    answer['per_meter'] = round(answer['per_meter'])
+    answer['price'] = round(answer['price'].astype(float))
+    answer['per_meter'] = round(answer['per_meter'].astype(float))
     answer.index = range(len(answer))
     return answer
 
