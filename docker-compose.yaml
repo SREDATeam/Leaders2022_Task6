@@ -1,11 +1,7 @@
-version: '1'
+version: '3'
 
 services:
-  postgres:
-    build:
-      context: ./postgres
-    env_file:
-      - ./postgres/.env
-    volumes:
-      - ../data/db:/var/lib/postgresql/data
-    restart: always
+  api:
+    build: ./leaders
+    ports:
+      - "8000:8000"
