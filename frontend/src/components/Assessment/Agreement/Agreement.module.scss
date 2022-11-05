@@ -1,0 +1,33 @@
+.container {
+  flex: 1;
+  min-height: 100%;
+  width: 100%;
+
+  padding: 1em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background-color: #fff;
+
+  .agreement_row {
+    width: 100%;
+    overflow: auto;
+    display: flex;
+    gap: 2em;
+  }
+
+  .btns {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.agreement_form {
+  // width: 200px;
+  // min-width: fit-content;
+  height: fit-content;
+
+  margin: auto;
+}
