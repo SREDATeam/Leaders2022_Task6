@@ -599,6 +599,42 @@ def get_fully_ranked_pool(ranked_objects_dict):
     answer.index = range(len(answer))
     return answer
 
+
+def get_data_to_indexses(data, seg, rooms):
+    data_index = data.copy()
+    if seg == 'Новостройки':
+        data_index = data_index[data_index.is_new == 1]
+    elif seg == 'Вторичка':
+        data_index = data_index[data_index.is_new == 0]
+    if rooms == 'Весь рынок':
+        return data_index
+    elif rooms == 'Студия':
+        return data_index[data_index.rooms == 0]
+    elif rooms == '1К':
+        return data_index[data_index.rooms == 1]
+    elif rooms == '2К':
+        return data_index[data_index.rooms == 2]
+    elif rooms == '3К':
+        return data_index[data_index.rooms == 3]
+    elif rooms == '4К':
+        return data_index[data_index.rooms == '4+']
+
+
+def get_indexes(data):
+    data_12_m = data.groupby(['year', 'month']).aggregate({'price_m': 'mean'}).tail(13)
+    #     per_meter_gain = round(data_12_m.iloc[-2, -1] - data_12_m.iloc[-1, -1])
+    data_12_m_price_arr = np.array(data_12_m.price_m)
+    percent_arr = []
+    for i in range(1, len(data_12_m_price_arr)):
+        percent = round(100 * ((data_12_m_price_arr[i - 1] / data_12_m_price_arr[i]) - 1), 1)
+        percent_arr.append(percent)
+    return data_12_m_price_arr[:12], percent_arr
+
+
+def index_all_data(seg, rooms):
+    data = pd.read_csv('leaders_index/sreda_expert_data/Moscow2020-2021.csv')
+    return get_indexes(get_data_to_indexses(data, seg, rooms))
+
 # test_data = pd.read_excel('Пул_Новостройки_Тест.xlsx')
 # analogs, pool, standart_dict = get_analogs_pool_standart_objects(test_data)
 # ranked_objects_dict = rank_standart_objects(analogs, pool, standart_dict)
