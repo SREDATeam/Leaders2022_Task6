@@ -1,0 +1,63 @@
+.container {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+  padding: 2em;
+
+  background-color: #fff;
+
+  .calculation_row {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    gap: 2em;
+
+    .original_form {
+      flex-grow: 1;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .prognosis_btn {
+        width: 100%;
+      }
+    }
+  }
+
+
+  .btns {
+    margin: 3em 0;
+    display: flex;
+    justify-content: space-between;
+
+    .out_bnts {
+      display: flex;
+      gap: 1em;
+    }
+  }
+}
+
+.calculation_titles {
+
+  .header_of_titles {
+    color: $blue_dark;
+  }
+}
+
+.calculation_form {
+  flex-grow: 1;
+
+  .header_of_form {
+    text-align: center;
+  }
+
+  .control_btns {
+    margin: 0;
+
+    .assept_btn {
+      float: right;
+    }
+  }
+}

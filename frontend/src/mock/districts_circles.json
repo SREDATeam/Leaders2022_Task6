@@ -1,0 +1,2105 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "id": 0,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#52BF73",
+        "strokeColor": "#52BF73",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.44083,
+          36.8031
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 1,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#EF065B",
+        "strokeColor": "#EF065B",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.4416,
+          36.80319
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 2,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#4377DF",
+        "strokeColor": "#4377DF",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45162,
+          36.80357
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 3,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#AA1F6A",
+        "strokeColor": "#AA1F6A",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.4514,
+          36.81253
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 4,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#967B52",
+        "strokeColor": "#967B52",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45134,
+          36.82745
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 5,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#4A7464",
+        "strokeColor": "#4A7464",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45138,
+          36.83337
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 6,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#F06CDD",
+        "strokeColor": "#F06CDD",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45164,
+          36.8338
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 7,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#182FF4",
+        "strokeColor": "#182FF4",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45126,
+          36.83458
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 8,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#DDB14B",
+        "strokeColor": "#DDB14B",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45142,
+          36.83486
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 9,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#7A7C36",
+        "strokeColor": "#7A7C36",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45149,
+          36.83499
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 10,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#59FD35",
+        "strokeColor": "#59FD35",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45112,
+          36.8358
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 11,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#75A7A6",
+        "strokeColor": "#75A7A6",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45116,
+          36.83606
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 12,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#3E805C",
+        "strokeColor": "#3E805C",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45104,
+          36.84616
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 13,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#D56DDF",
+        "strokeColor": "#D56DDF",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45089,
+          36.86029
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 14,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#48AD24",
+        "strokeColor": "#48AD24",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45064,
+          36.86494
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 15,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#0C6140",
+        "strokeColor": "#0C6140",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.44927,
+          36.86084
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 16,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#585AB6",
+        "strokeColor": "#585AB6",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.44785,
+          36.85826
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 17,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#42AE6A",
+        "strokeColor": "#42AE6A",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.44766,
+          36.85829
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 18,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#2577EA",
+        "strokeColor": "#2577EA",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.44667,
+          36.86
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 19,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#2893C2",
+        "strokeColor": "#2893C2",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.4473,
+          36.86111
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 20,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#FD1661",
+        "strokeColor": "#FD1661",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.44671,
+          36.86228
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 21,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#4CA9E7",
+        "strokeColor": "#4CA9E7",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.4472,
+          36.86388
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 22,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#EFB8EB",
+        "strokeColor": "#EFB8EB",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.44894,
+          36.86944
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 23,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#C75597",
+        "strokeColor": "#C75597",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45022,
+          36.87246
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 24,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#209F2C",
+        "strokeColor": "#209F2C",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45138,
+          36.87498
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 25,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#CE6550",
+        "strokeColor": "#CE6550",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45314,
+          36.87733
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 26,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#73815D",
+        "strokeColor": "#73815D",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45482,
+          36.88049
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 27,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#14F381",
+        "strokeColor": "#14F381",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45577,
+          36.88227
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 28,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#46AAC6",
+        "strokeColor": "#46AAC6",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45515,
+          36.88332
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 29,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#7D6659",
+        "strokeColor": "#7D6659",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45548,
+          36.88378
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 30,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#4C0941",
+        "strokeColor": "#4C0941",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45515,
+          36.88467
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 31,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#783698",
+        "strokeColor": "#783698",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45488,
+          36.8856
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 32,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#A997F9",
+        "strokeColor": "#A997F9",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45525,
+          36.88633
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 33,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#86F8DF",
+        "strokeColor": "#86F8DF",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.45047,
+          36.89525
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 34,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#186D67",
+        "strokeColor": "#186D67",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.44601,
+          36.88759
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 35,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#B2147C",
+        "strokeColor": "#B2147C",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.44265,
+          36.88187
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 36,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#A2052E",
+        "strokeColor": "#A2052E",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.43745,
+          36.89124
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 37,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#DB98F7",
+        "strokeColor": "#DB98F7",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.43778,
+          36.89158
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 38,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#595753",
+        "strokeColor": "#595753",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.43688,
+          36.89341
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 39,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#DA559C",
+        "strokeColor": "#DA559C",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.43779,
+          36.8948
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 40,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#C7CFE9",
+        "strokeColor": "#C7CFE9",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.43899,
+          36.89634
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 41,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#DC97C0",
+        "strokeColor": "#DC97C0",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.43929,
+          36.89686
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 42,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#50442F",
+        "strokeColor": "#50442F",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.43875,
+          36.89682
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 43,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#4C1004",
+        "strokeColor": "#4C1004",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.43806,
+          36.89641
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 44,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#275081",
+        "strokeColor": "#275081",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.43696,
+          36.89592
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 45,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#B81CE8",
+        "strokeColor": "#B81CE8",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.42854,
+          36.89318
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 46,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#C069F5",
+        "strokeColor": "#C069F5",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.42814,
+          36.89304
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 47,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#FB1F42",
+        "strokeColor": "#FB1F42",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.42558,
+          36.89221
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 48,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#23A443",
+        "strokeColor": "#23A443",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.42512,
+          36.89207
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 49,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#C052AF",
+        "strokeColor": "#C052AF",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.42501,
+          36.89216
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 50,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#9991E9",
+        "strokeColor": "#9991E9",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.42506,
+          36.89292
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 51,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#5AE905",
+        "strokeColor": "#5AE905",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.42361,
+          36.89392
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 52,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#FDD55C",
+        "strokeColor": "#FDD55C",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.42293,
+          36.89386
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 53,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#5633AC",
+        "strokeColor": "#5633AC",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.42243,
+          36.89313
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 54,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#76BD7F",
+        "strokeColor": "#76BD7F",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.42111,
+          36.89169
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 55,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#578F5A",
+        "strokeColor": "#578F5A",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.4164,
+          36.89192
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 56,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#F4CE82",
+        "strokeColor": "#F4CE82",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.41061,
+          36.89207
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 57,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#11A569",
+        "strokeColor": "#11A569",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.41023,
+          36.89249
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 58,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#DC6486",
+        "strokeColor": "#DC6486",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.40784,
+          36.89534
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 59,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#D24A00",
+        "strokeColor": "#D24A00",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.40603,
+          36.89746
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 60,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#16E838",
+        "strokeColor": "#16E838",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.40578,
+          36.89729
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 61,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#EF5859",
+        "strokeColor": "#EF5859",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.40532,
+          36.89784
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 62,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#537149",
+        "strokeColor": "#537149",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.40223,
+          36.90144
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 63,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#AAFD0F",
+        "strokeColor": "#AAFD0F",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.40197,
+          36.9017
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 64,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#81C428",
+        "strokeColor": "#81C428",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.40189,
+          36.90166
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 65,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#4D91F6",
+        "strokeColor": "#4D91F6",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.40025,
+          36.90374
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 66,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#DBC5CA",
+        "strokeColor": "#DBC5CA",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.39939,
+          36.90421
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 67,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#F93277",
+        "strokeColor": "#F93277",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.39919,
+          36.90429
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 68,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#9B8DA2",
+        "strokeColor": "#9B8DA2",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.39894,
+          36.90438
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 69,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#F86199",
+        "strokeColor": "#F86199",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.3985,
+          36.9046
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 70,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#1193BA",
+        "strokeColor": "#1193BA",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.39782,
+          36.90494
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 71,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#0A9FA6",
+        "strokeColor": "#0A9FA6",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.39758,
+          36.905
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 72,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#361E1C",
+        "strokeColor": "#361E1C",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.39747,
+          36.90502
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 73,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#4E7DAF",
+        "strokeColor": "#4E7DAF",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.39739,
+          36.90513
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 74,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#BAD5F7",
+        "strokeColor": "#BAD5F7",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.39735,
+          36.90515
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 75,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#109932",
+        "strokeColor": "#109932",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.39735,
+          36.90528
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 76,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#0A2AA0",
+        "strokeColor": "#0A2AA0",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.39714,
+          36.90527
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 77,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#8304BC",
+        "strokeColor": "#8304BC",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.39664,
+          36.90567
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 78,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#BAB54A",
+        "strokeColor": "#BAB54A",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.39297,
+          36.90582
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 79,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#D65A15",
+        "strokeColor": "#D65A15",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.39215,
+          36.9057
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 80,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#33F8EE",
+        "strokeColor": "#33F8EE",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.39106,
+          36.90575
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 81,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#67C840",
+        "strokeColor": "#67C840",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.39086,
+          36.90576
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 82,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#65EA56",
+        "strokeColor": "#65EA56",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.39067,
+          36.90578
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 83,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#71A266",
+        "strokeColor": "#71A266",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.38961,
+          36.90587
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 84,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#49BE63",
+        "strokeColor": "#49BE63",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.38946,
+          36.90568
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 85,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#AEC358",
+        "strokeColor": "#AEC358",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.38928,
+          36.90599
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 86,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#4A0C5D",
+        "strokeColor": "#4A0C5D",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.3891,
+          36.90605
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 87,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#B2959E",
+        "strokeColor": "#B2959E",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.38893,
+          36.90609
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 88,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#D0F840",
+        "strokeColor": "#D0F840",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.38846,
+          36.90645
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 89,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#C4E3A5",
+        "strokeColor": "#C4E3A5",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.38772,
+          36.90702
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 90,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#288E3C",
+        "strokeColor": "#288E3C",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.38753,
+          36.90721
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 91,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#A67A8C",
+        "strokeColor": "#A67A8C",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.38667,
+          36.90804
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 92,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#D7B0D4",
+        "strokeColor": "#D7B0D4",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.3861,
+          36.90858
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 93,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#CAD76D",
+        "strokeColor": "#CAD76D",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.38586,
+          36.90862
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 94,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#A2B7A5",
+        "strokeColor": "#A2B7A5",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.38585,
+          36.90991
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 95,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#576C4F",
+        "strokeColor": "#576C4F",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.38585,
+          36.91236
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 96,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#1FE3A9",
+        "strokeColor": "#1FE3A9",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.38469,
+          36.91345
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 97,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#D9A7FB",
+        "strokeColor": "#D9A7FB",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.38494,
+          36.91453
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 98,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#EC199A",
+        "strokeColor": "#EC199A",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.38526,
+          36.91482
+        ],
+        "radius": 5
+      }
+    },
+    {
+      "id": 99,
+      "type": "Feature",
+      "properties": {
+        "districtName": "Киевский",
+        "regionName": "Троицкий"
+      },
+      "options": {
+        "fillColor": "#562132",
+        "strokeColor": "#562132",
+        "strokeWidth": 1
+      },
+      "geometry": {
+        "type": "Circle",
+        "coordinates": [
+          55.38584,
+          36.91541
+        ],
+        "radius": 5
+      }
+    }
+  ]
+}

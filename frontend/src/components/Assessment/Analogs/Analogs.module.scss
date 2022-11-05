@@ -1,0 +1,46 @@
+.container {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+  padding: 2em;
+
+  background-color: #fff;
+
+  .analogs_row {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-around;
+    gap: 2em;
+  }
+
+  .btns {
+    margin: 3em 0;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.analog_titles {
+
+  .header_of_titles {
+    color: $blue_dark;
+  }
+}
+
+.analog_form {
+  flex-grow: 1;
+
+  .header_of_form {
+    text-align: center;
+  }
+
+  .control_btns {
+    margin: 0;
+
+    .assept_btn {
+      float: right;
+    }
+  }
+}

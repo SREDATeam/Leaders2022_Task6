@@ -1,0 +1,58 @@
+.container {
+  width: 100%;
+  height: 100%;
+
+  padding: 2em;
+
+  display: flex;
+  gap: 2em;
+  justify-content: space-between;
+
+  background-color: #fff;
+
+  .forecast_form {
+    flex-basis: 400px;
+
+    .date_piker,
+    .input_num {
+      width: 100%;
+    }
+  }
+
+  .wrap {
+    flex-basis: auto;
+    flex-grow: 1;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+
+    .map {
+      flex: 1;
+      background-color: grey;
+
+      position: relative;
+
+      .index_wrap {
+        width: 400px;
+
+        position: absolute;
+        z-index: 2;
+        bottom: 1em;
+        right: 1em;
+
+        background-color: #fff;
+      }
+    }
+
+    .footnote {
+      font-size: 1.2rem;
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+}
