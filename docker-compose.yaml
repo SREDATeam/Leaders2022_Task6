@@ -5,3 +5,7 @@ services:
     build: ./leaders
     ports:
       - "8000:8000"
+  app:
+    build: './frontend'
+    ports:
+      - "80:80"

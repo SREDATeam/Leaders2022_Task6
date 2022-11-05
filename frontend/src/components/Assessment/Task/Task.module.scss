@@ -1,0 +1,28 @@
+.container {
+  height: 100%;
+
+  display: flex;
+
+  background-color: #fff;
+
+  .task_form {
+    width: 50%;
+    min-width: fit-content;
+    height: fit-content;
+
+    margin: auto;
+
+    .date_piker {
+      width: 100%;
+    }
+
+    .btns {
+      margin: 0;
+
+      .sub_btn {
+        margin-left: 1em;
+        float: right;
+      }
+    }
+  }
+}

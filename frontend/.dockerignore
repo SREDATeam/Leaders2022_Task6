@@ -1,0 +1,17 @@
+.vscode
+.git
+
+.editorconfig
+.gitignore
+.prettierrc
+
+.eslintrc.json
+
+node_modules
+dist
+
+package-lock.json
+CMD_Git_NPM_commands.txt
+
+
+

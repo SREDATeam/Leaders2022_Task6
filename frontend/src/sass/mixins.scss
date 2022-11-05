@@ -1,0 +1,25 @@
+@mixin gray-scroll {
+  &::-webkit-scrollbar {
+    width: $scrollbar_width;
+    background-color: inherit;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 5px;
+    &:hover {
+      background-color: rgba($color: #000000, $alpha: 0.1);
+    }
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+    background-color: rgba($color: #000000, $alpha: 0.2);
+    &:hover {
+      background-color: rgba($color: #000000, $alpha: 0.3);
+    }
+  }
+  &::-webkit-scrollbar-button {
+    width: $scrollbar_width;
+    height: $scrollbar_width;
+  }
+}

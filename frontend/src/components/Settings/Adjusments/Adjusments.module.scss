@@ -1,0 +1,866 @@
+.container {
+  width: 100%;
+  height: 100%;
+
+  padding: 2em;
+
+  display: flex;
+  flex-direction: column;
+
+  .btn_row {
+    margin: 2em 0;
+
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.floor_matrix {
+  display: grid;
+  grid-template-columns: 19% 19% repeat(3, 1fr);
+  grid-template-areas:
+    "name              name           analog_obgect     analog_obgect analog_obgect"
+    "name              name           first_floor_2     mid_floors_2  last_floor_2"
+    "estimation_obgect first_floor_1  f1_f2             first1_mid2   first1_last2"
+    "estimation_obgect mid_floors_1   mid1_first2       m1_m2         mid1_last2"
+    "estimation_obgect last_floor_1   last1_first2      last1_mid2    l1_l2"
+  ;
+
+  &>* {
+    background-color: $blue_brite;
+    border: 1px solid rgb(255, 255, 255);
+    text-align: center;
+  }
+
+  .name {
+    grid-area: name;
+
+    display: flex;
+
+    background-color: $blue_dark;
+
+    span {
+      margin: auto;
+      color: rgb(233, 233, 233);
+      background-color: transparent;
+      border: none;
+    }
+  }
+
+  .estimation_obgect {
+    grid-area: estimation_obgect;
+
+    display: flex;
+
+    background-color: $blue_dark;
+
+    span {
+      margin: auto;
+      color: rgb(233, 233, 233);
+      background-color: transparent;
+      border: none;
+    }
+  }
+
+  .analog_obgect {
+    grid-area: analog_obgect;
+
+    color: rgb(233, 233, 233);
+    background-color: $blue_dark;
+  }
+
+  .first_floor_1 {
+    grid-area: first_floor_1;
+    padding-left: 1em;
+    background-color: $blue_lite;
+    text-align: left;
+  }
+
+  .mid_floors_1 {
+    grid-area: mid_floors_1;
+    padding-left: 1em;
+    background-color: $blue_lite;
+    text-align: left;
+  }
+
+  .last_floor_1 {
+    grid-area: last_floor_1;
+    padding-left: 1em;
+    background-color: $blue_lite;
+    text-align: left;
+  }
+
+  .first_floor_2 {
+    grid-area: first_floor_2;
+
+    background-color: $blue_lite;
+  }
+
+  .mid_floors_2 {
+    grid-area: mid_floors_2;
+
+    background-color: $blue_lite;
+  }
+
+  .last_floor_2 {
+    grid-area: last_floor_2;
+
+    background-color: $blue_lite;
+  }
+
+  .f1_f2 {
+    grid-area: f1_f2;
+
+  }
+
+  .first1_mid2 {
+    grid-area: first1_mid2;
+
+  }
+
+  .first1_last2 {
+    grid-area: first1_last2;
+
+  }
+
+  .mid1_first2 {
+    grid-area: mid1_first2;
+
+  }
+
+  .m1_m2 {
+    grid-area: m1_m2;
+
+  }
+
+  .mid1_last2 {
+    grid-area: mid1_last2;
+
+  }
+
+  .last1_first2 {
+    grid-area: last1_first2;
+
+  }
+
+  .last1_mid2 {
+    grid-area: last1_mid2;
+
+  }
+
+  .l1_l2 {
+    grid-area: l1_l2;
+
+  }
+}
+
+.kitchen_area_matrix {
+  display: grid;
+  grid-template-columns: 19% 19% repeat(3, 1fr);
+  grid-template-areas:
+    "name              name analog_obgect analog_obgect  analog_obgect"
+    "name              name S_2           M_2            L_2"
+    "estimation_obgect S_1  S1_S2         S1_M2          S1_L2"
+    "estimation_obgect M_1  M1_S2         M1_M2          M1_L2"
+    "estimation_obgect L_1  L1_S2         L1_M2          L1_L2"
+  ;
+
+  margin-top: 2em;
+
+  &>* {
+    background-color: $blue_brite;
+    border: 1px solid rgb(255, 255, 255);
+    text-align: center;
+  }
+
+  .name {
+    grid-area: name;
+
+    display: flex;
+
+    background-color: $blue_dark;
+
+    span {
+      margin: auto;
+      color: rgb(233, 233, 233);
+      background-color: transparent;
+      border: none;
+    }
+  }
+
+  .estimation_obgect {
+    grid-area: estimation_obgect;
+
+    display: flex;
+
+    background-color: $blue_dark;
+
+    span {
+      margin: auto;
+      color: rgb(233, 233, 233);
+      background-color: transparent;
+      border: none;
+    }
+  }
+
+  .analog_obgect {
+    grid-area: analog_obgect;
+
+    color: rgb(233, 233, 233);
+    background-color: $blue_dark;
+  }
+
+  .S_1 {
+    grid-area: S_1;
+    padding-left: 1em;
+    background-color: $blue_lite;
+    text-align: left;
+  }
+
+  .M_1 {
+    grid-area: M_1;
+    padding-left: 1em;
+    background-color: $blue_lite;
+    text-align: left;
+  }
+
+  .L_1 {
+    grid-area: L_1;
+    padding-left: 1em;
+    background-color: $blue_lite;
+    text-align: left;
+  }
+
+  .S_2 {
+    grid-area: S_2;
+
+    background-color: $blue_lite;
+  }
+
+  .M_2 {
+    grid-area: M_2;
+
+    background-color: $blue_lite;
+  }
+
+  .L_2 {
+    grid-area: L_2;
+
+    background-color: $blue_lite;
+  }
+
+  .S1_S2 {
+    grid-area: S1_S2;
+
+  }
+
+  .S1_M2 {
+    grid-area: S1_M2;
+
+  }
+
+  .S1_L2 {
+    grid-area: S1_L2;
+
+  }
+
+  .M1_S2 {
+    grid-area: M1_S2;
+
+  }
+
+  .M1_M2 {
+    grid-area: M1_M2;
+
+  }
+
+  .M1_L2 {
+    grid-area: M1_L2;
+
+  }
+
+  .L1_S2 {
+    grid-area: L1_S2;
+
+  }
+
+  .L1_M2 {
+    grid-area: L1_M2;
+
+  }
+
+  .L1_L2 {
+    grid-area: L1_L2;
+
+  }
+}
+
+.main_area_matrix {
+  display: grid;
+  grid-template-columns: 19% 19% repeat(6, 1fr);
+  grid-template-areas:
+    "name              name  analog_obgect analog_obgect analog_obgect analog_obgect analog_obgect analog_obgect"
+    "name              name  XS_2          S_2           M_2           L_2           XL_2          XXL_2"
+    "estimation_obgect XS_1  XS1_XS2       XS1_S2        XS1_M2        XS1_L2        XS1_XL2       XS1_XXL2"
+    "estimation_obgect S_1   S1_XS2        S1_S2         S1_M2         S1_L2         S1_XL2        S1_XXL2"
+    "estimation_obgect M_1   M1_XS2        M1_S2         M1_M2         M1_L2         M1_XL2        M1_XXL2"
+    "estimation_obgect L_1   L1_XS2        L1_S2         L1_M2         L1_L2         L1_XL2        L1_XXL2"
+    "estimation_obgect XL_1  XL1_XS2       XL1_S2        XL1_M2        XL1_L2        XL1_XL2       XL1_XXL2"
+    "estimation_obgect XXL_1 XXL1_XS2      XXL1_S2       XXL1_M2       XXL1_L2       XXL1_XL2      XXL1_XXL2"
+  ;
+
+  margin-top: 2em;
+
+  &>* {
+    background-color: $blue_brite;
+    border: 1px solid rgb(255, 255, 255);
+    text-align: center;
+  }
+
+  .name {
+    grid-area: name;
+
+    display: flex;
+
+    background-color: $blue_dark;
+
+    span {
+      margin: auto;
+      color: rgb(233, 233, 233);
+      background-color: transparent;
+      border: none;
+    }
+  }
+
+  .estimation_obgect {
+    grid-area: estimation_obgect;
+
+    display: flex;
+
+    background-color: $blue_dark;
+
+    span {
+      margin: auto;
+      color: rgb(233, 233, 233);
+      background-color: transparent;
+      border: none;
+    }
+  }
+
+  .analog_obgect {
+    grid-area: analog_obgect;
+
+    color: rgb(233, 233, 233);
+    background-color: $blue_dark;
+  }
+
+  .XS_1 {
+    grid-area: XS_1;
+    padding-left: 1em;
+    background-color: $blue_lite;
+    text-align: left;
+  }
+
+  .S_1 {
+    grid-area: S_1;
+    padding-left: 1em;
+    background-color: $blue_lite;
+    text-align: left;
+  }
+
+  .M_1 {
+    grid-area: M_1;
+    padding-left: 1em;
+    background-color: $blue_lite;
+    text-align: left;
+  }
+
+  .L_1 {
+    grid-area: L_1;
+    padding-left: 1em;
+    background-color: $blue_lite;
+    text-align: left;
+  }
+
+  .XL_1 {
+    grid-area: XL_1;
+    padding-left: 1em;
+    background-color: $blue_lite;
+    text-align: left;
+  }
+
+  .XXL_1 {
+    grid-area: XXL_1;
+    padding-left: 1em;
+    background-color: $blue_lite;
+    text-align: left;
+  }
+
+  .XS_2 {
+    grid-area: XS_2;
+
+    background-color: $blue_lite;
+  }
+
+  .S_2 {
+    grid-area: S_2;
+
+    background-color: $blue_lite;
+  }
+
+  .M_2 {
+    grid-area: M_2;
+
+    background-color: $blue_lite;
+  }
+
+  .L_2 {
+    grid-area: L_2;
+
+    background-color: $blue_lite;
+  }
+
+  .XL_2 {
+    grid-area: XL_2;
+
+    background-color: $blue_lite;
+  }
+
+  .XXL_2 {
+    grid-area: XXL_2;
+
+    background-color: $blue_lite;
+  }
+
+  .S1_S2 {
+    grid-area: S1_S2;
+
+  }
+
+  .XS1_XS2 {
+    grid-area: XS1_XS2;
+
+  }
+
+  .M1_M2 {
+    grid-area: M1_M2;
+
+  }
+
+  .L1_L2 {
+    grid-area: L1_L2;
+
+  }
+
+  .XL1_XL2 {
+    grid-area: XL1_XL2;
+
+  }
+
+  .XXL1_XXL2 {
+    grid-area: XXL1_XXL2;
+
+  }
+
+
+  .XS1_S2 {
+    grid-area: XS1_S2;
+
+  }
+
+  .XS1_M2 {
+    grid-area: XS1_M2;
+
+  }
+
+  .XS1_L2 {
+    grid-area: XS1_L2;
+
+  }
+
+  .XS1_XL2 {
+    grid-area: XS1_XL2;
+
+  }
+
+  .XS1_XXL2 {
+    grid-area: XS1_XXL2;
+
+  }
+
+  .S1_XS2 {
+    grid-area: S1_XS2;
+
+  }
+
+  .S1_M2 {
+    grid-area: S1_M2;
+
+  }
+
+  .S1_L2 {
+    grid-area: S1_L2;
+
+  }
+
+  .S1_XL2 {
+    grid-area: S1_XL2;
+
+  }
+
+  .S1_XXL2 {
+    grid-area: S1_XXL2;
+
+  }
+
+  .M1_XS2 {
+    grid-area: M1_XS2;
+
+  }
+
+  .M1_S2 {
+    grid-area: M1_S2;
+
+  }
+
+  .M1_L2 {
+    grid-area: M1_L2;
+
+  }
+
+  .M1_XL2 {
+    grid-area: M1_XL2;
+
+  }
+
+  .M1_XXL2 {
+    grid-area: M1_XXL2;
+
+  }
+
+  .L1_XS2 {
+    grid-area: L1_XS2;
+
+  }
+
+  .L1_S2 {
+    grid-area: L1_S2;
+
+  }
+
+  .L1_M2 {
+    grid-area: L1_M2;
+
+  }
+
+  .L1_XL2 {
+    grid-area: L1_XL2;
+
+  }
+
+  .L1_XXL2 {
+    grid-area: L1_XXL2;
+
+  }
+
+  .XL1_XS2 {
+    grid-area: XL1_XS2;
+
+  }
+
+  .XL1_S2 {
+    grid-area: XL1_S2;
+
+  }
+
+  .XL1_M2 {
+    grid-area: XL1_M2;
+
+  }
+
+  .XL1_L2 {
+    grid-area: XL1_L2;
+
+  }
+
+  .XL1_XXL2 {
+    grid-area: XL1_XXL2;
+
+  }
+
+  .XXL1_XS2 {
+    grid-area: XXL1_XS2;
+
+  }
+
+  .XXL1_S2 {
+    grid-area: XXL1_S2;
+
+  }
+
+  .XXL1_M2 {
+    grid-area: XXL1_M2;
+
+  }
+
+  .XXL1_L2 {
+    grid-area: XXL1_L2;
+
+  }
+
+  .XXL1_XL2 {
+    grid-area: XXL1_XL2;
+
+  }
+}
+
+.balcony_matrix {
+  display: grid;
+  grid-template-columns: 19% 19% repeat(2, 1fr);
+  grid-template-areas:
+    "name              name analog_obgect analog_obgect"
+    "name              name N_2           Y_2          "
+    "estimation_obgect N_1  N1_N2         N1_Y2        "
+    "estimation_obgect Y_1  Y1_N2         Y1_Y2        "
+  ;
+
+  margin-top: 2em;
+
+  &>* {
+    background-color: $blue_brite;
+    border: 1px solid rgb(255, 255, 255);
+    text-align: center;
+  }
+
+  .name {
+    grid-area: name;
+
+    display: flex;
+
+    background-color: $blue_dark;
+
+    span {
+      margin: auto;
+      color: rgb(233, 233, 233);
+      background-color: transparent;
+      border: none;
+    }
+  }
+
+  .estimation_obgect {
+    grid-area: estimation_obgect;
+
+    display: flex;
+
+    background-color: $blue_dark;
+
+    span {
+      margin: auto;
+      color: rgb(233, 233, 233);
+      background-color: transparent;
+      border: none;
+    }
+  }
+
+  .analog_obgect {
+    grid-area: analog_obgect;
+
+    color: rgb(233, 233, 233);
+    background-color: $blue_dark;
+  }
+
+  .N_1 {
+    grid-area: N_1;
+    padding-left: 1em;
+    background-color: $blue_lite;
+    text-align: left;
+  }
+
+  .Y_1 {
+    grid-area: Y_1;
+    padding-left: 1em;
+    background-color: $blue_lite;
+    text-align: left;
+  }
+
+  .N_2 {
+    grid-area: N_2;
+
+    background-color: $blue_lite;
+  }
+
+  .Y_2 {
+    grid-area: Y_2;
+
+    background-color: $blue_lite;
+  }
+
+  .N1_N2 {
+    grid-area: N1_N2;
+
+  }
+
+  .Y1_Y2 {
+    grid-area: Y1_Y2;
+
+  }
+
+  .N1_Y2 {
+    grid-area: N1_Y2;
+
+  }
+
+  .Y1_N2 {
+    grid-area: Y1_N2;
+
+  }
+}
+
+.condition_matrix {
+  display: grid;
+  grid-template-columns: 19% 19% repeat(3, 1fr);
+  grid-template-areas:
+    "name              name analog_obgect analog_obgect  analog_obgect"
+    "name              name N_2           E_2            Y_2"
+    "estimation_obgect N_1  N1_N2         N1_E2          N1_Y2"
+    "estimation_obgect E_1  E1_N2         E1_E2          E1_Y2"
+    "estimation_obgect Y_1  Y1_N2         Y1_E2          Y1_Y2"
+  ;
+
+  margin-top: 2em;
+
+  &>* {
+    background-color: $blue_brite;
+    border: 1px solid rgb(255, 255, 255);
+    text-align: center;
+  }
+
+  .name {
+    grid-area: name;
+
+    display: flex;
+
+    background-color: $blue_dark;
+
+    span {
+      margin: auto;
+      color: rgb(233, 233, 233);
+      background-color: transparent;
+      border: none;
+    }
+  }
+
+  .estimation_obgect {
+    grid-area: estimation_obgect;
+
+    display: flex;
+
+    background-color: $blue_dark;
+
+    span {
+      margin: auto;
+      color: rgb(233, 233, 233);
+      background-color: transparent;
+      border: none;
+    }
+  }
+
+  .analog_obgect {
+    grid-area: analog_obgect;
+
+    color: rgb(233, 233, 233);
+    background-color: $blue_dark;
+  }
+
+  .N_1 {
+    grid-area: N_1;
+    padding-left: 1em;
+    background-color: $blue_lite;
+    text-align: left;
+  }
+
+  .E_1 {
+    grid-area: E_1;
+    padding-left: 1em;
+    background-color: $blue_lite;
+    text-align: left;
+  }
+
+  .Y_1 {
+    grid-area: Y_1;
+    padding-left: 1em;
+    background-color: $blue_lite;
+    text-align: left;
+  }
+
+  .N_2 {
+    grid-area: N_2;
+
+    background-color: $blue_lite;
+  }
+
+  .E_2 {
+    grid-area: E_2;
+
+    background-color: $blue_lite;
+  }
+
+  .Y_2 {
+    grid-area: Y_2;
+
+    background-color: $blue_lite;
+  }
+
+  .N1_N2 {
+    grid-area: N1_N2;
+
+  }
+
+  .E1_E2 {
+    grid-area: E1_E2;
+
+  }
+
+  .Y1_Y2 {
+    grid-area: Y1_Y2;
+
+  }
+
+  .N1_E2 {
+    grid-area: N1_E2;
+
+  }
+
+  .N1_Y2 {
+    grid-area: N1_Y2;
+
+  }
+
+  .E1_N2 {
+    grid-area: E1_N2;
+
+  }
+
+  .E1_Y2 {
+    grid-area: E1_Y2;
+
+  }
+
+  .Y1_N2 {
+    grid-area: Y1_N2;
+
+  }
+
+  .Y1_E2 {
+    grid-area: Y1_E2;
+
+  }
+}
+
+.persent_input,
+.num_input {
+  width: 100%;
+  padding: 0;
+  color: rgb(44, 138, 0);
+  font-size: 1em;
+}
