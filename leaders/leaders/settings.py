@@ -30,7 +30,7 @@ API_STORAGE = '/home/work/api/'
 
 ADS_USER = 'metrix.market@gmail.com'
 ADS_TOKEN = 'de17eaf011d54970ba5c0981cb337149'
-YANDEX_TOKEN = '478245df-abcf-414a-8105-22a09c0b54b6'
+YANDEX_TOKEN = '67fcc2d7-58bb-4206-a881-8317d76b22b5'
 ALLOWED_HOSTS = ['134.0.118.112', '127.0.0.1']
 
 
@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'leaders_index'
+    'leaders_index',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +54,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'leaders.urls'
 
