@@ -6,8 +6,7 @@ from leaders_index.api.models import Flat, Analog
 
 
 def get_exel(request):
-    body = json.loads(request.body)
-    file_id = str(body.get("id"))
+    file_id = request.GET.get("id")
     if not file_id or not file_id.isnumeric():
         return HttpResponseBadRequest(content=json.dumps({"message": "no or invalid id"}))
 
