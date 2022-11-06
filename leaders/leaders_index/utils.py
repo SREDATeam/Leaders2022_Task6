@@ -14,7 +14,7 @@ from leaders.settings import DEBUG, SREDA_DOMAIN, API_STORAGE, \
 DIR = 'coefs_dir'
 area_corr = pd.read_csv(f'leaders_index/{DIR}/area_corr.csv', index_col='index')
 balk_corr = pd.read_csv(f'leaders_index/{DIR}/balk_corr.csv', index_col='index')
-floor_corr = pd.read_csv(f'leaders_index/{DIR}/floor_coor.csv', index_col='index')
+floor_corr = pd.read_csv(f'leaders_index/{DIR}/floor_corr.csv', index_col='index')
 kit_area_corr = pd.read_csv(f'leaders_index/{DIR}/kit_area_corr.csv', index_col='index')
 metro_corr = pd.read_csv(f'leaders_index/{DIR}/metro_corr.csv', index_col='index')
 rep_corr = pd.read_csv(f'leaders_index/{DIR}/rep_corr.csv', index_col='index')

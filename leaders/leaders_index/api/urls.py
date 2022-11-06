@@ -13,7 +13,7 @@ urlpatterns = [
     path('auth', register.auth),
     path('input/excel', excel_input.exel_input),
     path('calculate', calculation.analyse),
-    path('predict', predict.make_predict)
+    path('predict', predict.make_predict),
     path('get_excel',get_excel.get_exel),
     path('update_coeff', insert_koeff.update_coeff),
 ]
