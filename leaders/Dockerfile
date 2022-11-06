@@ -3,9 +3,9 @@ FROM python:3.10
 WORKDIR /app
 
 
-
+pip install wheel setuptools pip --upgrade
 COPY requirements.txt requirements.txt
-RUN  pip install pip==21.3.1 \
+RUN  pip install pip==21.3.1\
      && pip install -r requirements.txt
 
 COPY . .
