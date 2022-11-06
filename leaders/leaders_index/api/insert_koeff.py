@@ -15,8 +15,7 @@ def update_coeff(request):
     metro_corr = request.FILES.get("metro_corr")
     rep_corr = request.FILES.get("rep_corr")
 
-    # todo
-    path = ""
+    path = "leaders_index/coefs_dir"
 
     if area_corr:
         with open(os.path.join(path, "area_corr.csv")) as f:
