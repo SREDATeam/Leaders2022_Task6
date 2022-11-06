@@ -30,7 +30,7 @@ API_STORAGE = '/home/work/api/'
 
 ADS_USER = 'metrix.market@gmail.com'
 ADS_TOKEN = 'de17eaf011d54970ba5c0981cb337149'
-YANDEX_TOKEN = '67fcc2d7-58bb-4206-a881-8317d76b22b5'
+YANDEX_TOKEN = '6cc309b2-1f63-4d59-9212-7c3740651774'
 ALLOWED_HOSTS = ['134.0.118.112', '127.0.0.1']
 
 
