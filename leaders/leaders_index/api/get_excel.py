@@ -10,7 +10,7 @@ def get_exel(request):
     if not file_id or not file_id.isnumeric():
         return HttpResponseBadRequest(content=json.dumps({"message": "no or invalid id"}))
 
-    with open(f'/app/deploy/Leaders2022_Task6/leaders_index/rank_log_dir/res_{file_id}.xlsx', 'rb') as f:
+    with open(f'/app/leaders_index/rank_log_dir/res_{file_id}.xlsx', 'rb') as f:
         response = HttpResponse(FileResponse(f))
 
     return response

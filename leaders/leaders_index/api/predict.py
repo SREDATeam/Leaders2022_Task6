@@ -10,7 +10,7 @@ def make_predict(request):
     body = json.loads(request.body)
     etalon = body.get("etalon")
     # print(etalon)
-    pogodite_eto_realno_Moscow = pd.read_csv('/app/deploy/Leaders2022_Task6/leaders_index/sreda_expert_data/Moscow2020-2021.csv').drop(
+    pogodite_eto_realno_Moscow = pd.read_csv('/app/leaders_index/sreda_expert_data/Moscow2020-2021.csv').drop(
         columns=['Unnamed: 0'])
     pogodite_eto_realno_Moscow['month'] = pd.DatetimeIndex(pogodite_eto_realno_Moscow.date).month
     pogodite_eto_realno_Moscow['year'] = pd.DatetimeIndex(pogodite_eto_realno_Moscow.date).year
