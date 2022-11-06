@@ -6,7 +6,7 @@ WORKDIR /app
 pip install wheel setuptools pip --upgrade
 COPY requirements.txt requirements.txt
 RUN  pip install pip==21.3.1\
-     pip install tensorflow\
+     && pip install tensorflow\
      && pip install -r requirements.txt
 
 COPY . .
