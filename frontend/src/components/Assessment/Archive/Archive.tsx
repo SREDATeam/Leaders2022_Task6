@@ -142,7 +142,15 @@ export const Archive = () => {
   return (
     <div className={classes.container}>
       <Table
-        pagination={{ position: ["bottomCenter"] }}
+        // scroll={{ y: "100%" }}
+        sticky
+        pagination={{
+          defaultPageSize: 10,
+          showSizeChanger: true,
+          pageSizeOptions: [5, 10, 15, 20, 50, 100],
+          position: ["bottomCenter"],
+        }}
+        className={classes.archive_table}
         dataSource={mock}
         columns={columns}
       />

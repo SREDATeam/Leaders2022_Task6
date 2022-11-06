@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Button } from "antd";
+import { Button, Typography } from "antd";
 
 import classes from "./Objects.module.scss";
-import { UploadOutlined } from "@ant-design/icons";
 import clsx from "clsx";
+import { loadExcel } from "api/floors";
+import { SyncOutlined } from "@ant-design/icons";
+import { Indexes } from "components/Indexes/Indexes";
 
 const mock = [
   {
@@ -52,21 +54,33 @@ const mock = [
   },
 ];
 
-export const Objects = ({ data, setData, setDataState }) => {
+export const Objects = ({ floorsProps, setFloorsProps }) => {
   const navigate = useNavigate();
-  const [mokeState, setMokeState] = useState(!!data);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fakeLoad = (callback, data, haveData) => {
+  const loadFloors = (callback, haveData, file) => {
     if (!haveData) {
       setIsLoading(true);
-      setTimeout(() => {
-        callback(data);
-        setData(data);
-        setDataState(true);
-        setMokeState(true);
-        setIsLoading(false);
-      }, 2000);
+      loadExcel(file)
+        .then((response) => {
+          const etalons = response?.data.etalon;
+          const analogs = response?.data.analogs;
+          const etalonsList = Object.keys(etalons).map((key) => {
+            const bundle = etalons[key][0];
+            const newBundle = { ...bundle };
+            newBundle.analogs = analogs[key];
+            return newBundle;
+          });
+          console.log(etalonsList);
+          callback(etalonsList);
+          setFloorsProps.data(etalonsList);
+          setFloorsProps.state(true);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.error(err);
+          setIsLoading(false);
+        });
     } else {
       console.error("Данные уже загруженны");
     }
@@ -75,13 +89,13 @@ export const Objects = ({ data, setData, setDataState }) => {
   let myMap = null;
 
   function init() {
-    let haveData = mokeState;
+    let haveData = floorsProps.state;
 
     myMap = new ymaps.Map(
       "map",
       {
-        center: [55.752004, 37.617734],
-        zoom: 11,
+        center: [55.672004, 37.477734],
+        zoom: 10,
         controls: ["fullscreenControl"],
       },
       {
@@ -111,83 +125,61 @@ export const Objects = ({ data, setData, setDataState }) => {
       },
     });
 
-    searchControl.events.add("resultselect", function (event) {
-      const index = event.get("index");
-      searchControl.getResult(index).then(function (res) {
-        const address =
-          res.properties.get("metaDataProperty").GeocoderMetaData.Address
-            .Components;
-        const addressLine =
-          res.properties.get("metaDataProperty").GeocoderMetaData.Address
-            .formatted;
-        const hasHouse = address.find((comp) => {
-          return comp.kind === "house";
-        });
-      });
-    });
-
     const fillMap = (list) => {
       list.forEach((element) => {
-        const myGeocoder = ymaps.geocode(element.reference.address);
-        myGeocoder.then(function (res) {
-          const coords = res.geoObjects.get(0).geometry.getCoordinates();
-          const referenceCollection = new ymaps.GeoObjectCollection();
+        const coords = [element.lat, element.lng];
+        const referenceCollection = new ymaps.GeoObjectCollection();
+        referenceCollection.add(
+          new ymaps.Circle(
+            [coords, 1000],
+            {},
+            {
+              fillOpacity: 0.7,
+              strokeOpacity: 0.7,
+              strokeWidth: 1,
+            },
+          ),
+        );
+        referenceCollection.add(
+          new ymaps.Circle(
+            [coords, 8],
+            {},
+            {
+              fillColor: "#0000FF",
+              strokeColor: "#0000FF",
+              strokeWidth: 2,
+            },
+          ),
+        );
+
+        element.analogs.forEach((analog) => {
+          const coords = [analog.lat, analog.lng];
 
           referenceCollection.add(
             new ymaps.Circle(
-              [coords, 1000],
+              [coords, 12],
               {},
               {
-                // fillColor: "#FFFFFF",
-                fillOpacity: 0.7,
-                // strokeColor: "#000000",
-                strokeOpacity: 0.7,
-                strokeWidth: 1,
+                fillColor: "#FF0000",
+                strokeColor: "#FF0000",
+                strokeWidth: 4,
               },
             ),
           );
-          referenceCollection.add(
-            new ymaps.Circle(
-              [coords, 8],
-              {},
-              {
-                fillColor: "#0000FF",
-                strokeColor: "#0000FF",
-                strokeWidth: 2,
-              },
-            ),
-          );
-
-          element.analogues.forEach((analogue) => {
-            const analogGeocoder = ymaps.geocode(analogue.address);
-            analogGeocoder.then(function (res) {
-              const coords = res.geoObjects.get(0).geometry.getCoordinates();
-
-              referenceCollection.add(
-                new ymaps.Circle(
-                  [coords, 8],
-                  {},
-                  {
-                    fillColor: "#FFFF00",
-                    strokeColor: "#FFFF00",
-                    strokeWidth: 2,
-                  },
-                ),
-              );
-            });
-          });
-          myMap.geoObjects.add(referenceCollection);
         });
+        myMap.geoObjects.add(referenceCollection);
       });
     };
 
-    haveData && fillMap(data);
-    const targetElement = document.getElementById("load_btn");
-    const events = ["click", "dblclick"];
+    haveData && fillMap(floorsProps.data);
+    const targetElement = document.getElementById("file_loader");
     const divListeners = ymaps.domEvent.manager
       .group(targetElement)
-      .add(events, function (event) {
-        fakeLoad(fillMap, mock, haveData);
+      .add(["change"], function (event) {
+        const fileData = new FormData();
+        const file = document.getElementById("file_loader")?.files[0];
+        fileData.append("data", file);
+        loadFloors(fillMap, haveData, fileData);
         haveData = true;
       });
 
@@ -205,20 +197,34 @@ export const Objects = ({ data, setData, setDataState }) => {
   return (
     <>
       <div id="map" className={classes.map}>
+        <div className={classes.indexes}>{/* <Indexes /> */}</div>
         <div className={classes.load_window}>
-          <Button
-            id="load_btn"
-            icon={<UploadOutlined />}
-            loading={isLoading}
-            type="primary"
+          <div
+            className={clsx(classes.load_label, isLoading && classes.active)}
           >
-            Загрузить пул объектов
-          </Button>
-          <div className={clsx(classes.next, mokeState && classes.active)}>
+            <Typography.Text className={classes.text}>
+              Идет загрузка
+            </Typography.Text>
+            <SyncOutlined spin className={classes.icon} />
+          </div>
+          <label className={classes.file_loader}>
+            <Typography.Text className={classes.text}>
+              Загрузить пул объектов
+            </Typography.Text>
+            <input
+              id="file_loader"
+              type="file"
+              accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            />
+          </label>
+          <div
+            className={clsx(classes.next, floorsProps.state && classes.active)}
+          >
             <Button
               type="primary"
+              style={{ visibility: floorsProps.state ? "visible" : "hidden" }}
               onClick={() => {
-                if (mokeState) navigate("/assessment/bilding");
+                if (floorsProps.state) navigate("/assessment/bilding");
               }}
             >
               Далее

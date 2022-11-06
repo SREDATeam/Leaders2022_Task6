@@ -9,47 +9,68 @@ import {
 import clsx from "clsx";
 import classes from "./StepsLayout.module.scss";
 
-export const StepsLayout = ({ dataState }) => {
+export const StepsLayout = ({ dataStates }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const stepClasses = ({ isActive }: { isActive: boolean }): string => {
-    return clsx(classes.step_btn, isActive && classes.active);
+    return clsx(classes.stepnav_btn, isActive && classes.active);
+  };
+
+  const BlockingNavLink = ({
+    children,
+    className,
+    to,
+    allowed = true,
+  }: {
+    children?: React.ReactNode;
+    className?: string;
+    to: string;
+    allowed?: boolean;
+  }) => {
+    const lockation = useLocation().pathname.split("/");
+    const isMe = lockation[lockation.length - 1] === to;
+    return (
+      <div
+        className={clsx(
+          classes.stepnav_btn,
+          className,
+          allowed && classes.allowed,
+          isMe && classes.active,
+        )}
+        onClick={() => {
+          if (allowed) navigate(to);
+        }}
+      >
+        {children}
+      </div>
+    );
   };
 
   return (
     <div className={classes.steps_layout}>
       <div className={classes.steps}>
-        <NavLink to={"archive"} className={stepClasses}>
-          Архив
-        </NavLink>
-        <NavLink to={"argeement"} className={stepClasses}>
+        <BlockingNavLink to="archive">Архив</BlockingNavLink>
+        <BlockingNavLink to="argeement" allowed={dataStates.calculation}>
           Согласование
-        </NavLink>
-        <NavLink to={"forecast"} className={stepClasses}>
+        </BlockingNavLink>
+        <BlockingNavLink to="forecast" allowed={dataStates.forecast}>
           Прогноз
-        </NavLink>
-        <NavLink to={"calculation"} className={stepClasses}>
+        </BlockingNavLink>
+        <BlockingNavLink to="calculation" allowed={dataStates.calculation}>
           Расчет
-        </NavLink>
-        <NavLink to={"analogs"} className={stepClasses}>
+        </BlockingNavLink>
+        <BlockingNavLink to="analogs" allowed={dataStates.floors}>
           Аналоги
-        </NavLink>
-        <div
-          className={classes.step_btn}
-          onClick={() => {
-            if (dataState) navigate("bilding");
-          }}
-        >
+        </BlockingNavLink>
+        <BlockingNavLink to="bilding" allowed={dataStates.floors}>
           Объект
-        </div>
-        <NavLink to={"objects"} className={stepClasses}>
-          Задание
-        </NavLink>
+        </BlockingNavLink>
+        <BlockingNavLink to="objects">Задание</BlockingNavLink>
       </div>
       <div className={classes.wrap}>
         {location.pathname === "/assessment" ? (
-          <Navigate to="objects" replace={true} />
+          <Navigate to="objects" replace />
         ) : (
           <Outlet />
         )}

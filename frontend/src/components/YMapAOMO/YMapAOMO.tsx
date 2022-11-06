@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Papa from "papaparse";
 
 import districts from "../../mock/mo_modified.json";
 import districtsHeat from "../../mock/districts_heat.json";
@@ -6,6 +7,7 @@ import districtsPoints from "../../mock/districts_circles.json";
 import regions from "../../mock/ao_modified.json";
 
 import classes from "./YMapAOMO.module.scss";
+import { Input } from "antd";
 
 const regionsMainFilter = districts.features.reduce((reducer, feature) => {
   if (!reducer[feature.properties.regionName]) {
@@ -162,6 +164,34 @@ function districtsListInit(districts, regionsManager, districtsManager) {
   return { districtsList, districtsListRemove };
 }
 
+function districtsPointsFileMaker(fileData) {
+  const file = {
+    type: "FeatureCollection",
+    features: [],
+  };
+
+  for (let i = 0; i < 1000; i++) {
+    let newCircle = {
+      id: file.features.length,
+      type: "Feature",
+      options: {
+        fillColor: "#000000",
+        strokeColor: "#000000",
+        strokeWidth: 3,
+      },
+      geometry: {
+        type: "Circle",
+        coordinates: [+fileData[i].lat, +fileData[i].lng],
+        radius: 7,
+      },
+    };
+
+    file.features.push(newCircle);
+  }
+
+  return file;
+}
+
 let createHeatmap = null;
 
 ymaps.modules.require(["Heatmap"], function (Heatmap) {
@@ -272,7 +302,11 @@ export const YMapAOMO: React.FC = () => {
 
     const regionsManager = new ymaps.ObjectManager();
     const districtsManager = new ymaps.ObjectManager();
-    const indexesManager = new ymaps.ObjectManager();
+    const indexesManager = new ymaps.ObjectManager({
+      // clusterize: true,
+      // gridSize: 32,
+      // clusterDisableClickZoom: true,
+    });
 
     const regionsList = new ymaps.control.ListBox({
       data: {
@@ -345,8 +379,21 @@ export const YMapAOMO: React.FC = () => {
     });
 
     togleIndexMonitor.add("selected", function (selected) {
+      console.log(indexesManager.objects.getAll().length);
+
       if (!indexesManager.objects.getAll().length) {
-        indexesManager.add(districtsPoints);
+        const file = document.getElementById("csvfile");
+
+        if (file.files.length) {
+          Papa.parse(file.files[0], {
+            header: true,
+            skipEmptyLines: true,
+            complete: function (results) {
+              console.log("parsed");
+              indexesManager.add(districtsPointsFileMaker(results.data));
+            },
+          });
+        }
       }
       indexesManager.setFilter(() => selected);
     });
@@ -375,7 +422,9 @@ export const YMapAOMO: React.FC = () => {
 
   return (
     <div className={classes.container}>
-      <div id="map" className={classes.map} />
+      <div id="map" className={classes.map}>
+        {/* <Input type="file" name="file" id="csvfile" accept=".csv" /> */}
+      </div>
     </div>
   );
 };

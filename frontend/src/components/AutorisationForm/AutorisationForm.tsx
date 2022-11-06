@@ -12,7 +12,7 @@ export const AutorisationForm: React.FC<AutorisationFormProps> = ({
   onFinish,
 }) => {
   const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+    console.log("Failed");
   };
 
   return (
@@ -24,8 +24,11 @@ export const AutorisationForm: React.FC<AutorisationFormProps> = ({
       autoComplete="off"
     >
       <Form.Item
-        name="email"
-        rules={[{ required: true, message: "Пожалуйста, введите Email!" }]}
+        name="login"
+        rules={[
+          { required: true, message: "Введите email" },
+          { type: "email", message: "Не кореткный email" },
+        ]}
       >
         <Input
           prefix={<MailOutlined className={classes.site_form_item_icon} />}
@@ -34,23 +37,18 @@ export const AutorisationForm: React.FC<AutorisationFormProps> = ({
       </Form.Item>
 
       <Form.Item
-        rules={[{ required: true, message: "Пожалуйста, введите Пароль!" }]}
+        name="password"
+        rules={[{ required: true, message: "Введите пароль" }]}
       >
-        <Input
+        <Input.Password
           prefix={<LockOutlined className={classes.site_form_item_icon} />}
-          type="password"
           placeholder="Пароль"
         />
-        <Link className={classes.pass_recover_link} to="/password-recover">
-          Забыли пароль?
-        </Link>
       </Form.Item>
 
-      <Form.Item>
-        <Button type="primary" htmlType="submit" className={classes.sub_btn}>
-          Вход
-        </Button>
-      </Form.Item>
+      <Button type="primary" htmlType="submit" className={classes.sub_btn}>
+        Вход
+      </Button>
     </Form>
   );
 };

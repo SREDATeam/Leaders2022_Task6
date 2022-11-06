@@ -7,6 +7,22 @@
 
   background-color: #fff;
 
+  .select_row {
+    margin-bottom: 2em;
+
+    .select_wrap {
+      width: fit-content;
+      margin: auto;
+      display: flex;
+
+      border-bottom: 2px solid $blue_brite;
+
+      .referense_select {
+        margin-left: 2em;
+      }
+    }
+  }
+
   .analogs_row {
     width: 100%;
 
@@ -23,6 +39,7 @@
 }
 
 .analog_titles {
+  min-width: 200px;
 
   .header_of_titles {
     color: $blue_dark;
@@ -31,6 +48,7 @@
 
 .analog_form {
   flex-grow: 1;
+  flex-basis: 200px;
 
   .header_of_form {
     text-align: center;
@@ -38,9 +56,5 @@
 
   .control_btns {
     margin: 0;
-
-    .assept_btn {
-      float: right;
-    }
   }
 }

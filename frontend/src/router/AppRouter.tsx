@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
+import { AuthProvider } from "./AuthProvider";
+import { Suspense } from "react";
 import { routesInLayOuts } from "./router";
+import { Spin } from "antd";
 
 const routeNodes: React.ReactElement[] = routesInLayOuts.map((layout) => {
   return (
@@ -14,8 +16,18 @@ const routeNodes: React.ReactElement[] = routesInLayOuts.map((layout) => {
 
 export const AppRouter: React.FC = () => {
   return (
-    <BrowserRouter>
-      <Routes>{routeNodes}</Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Suspense
+          fallback={
+            <div style={{ display: "flex", height: "100%" }}>
+              <Spin size="large" style={{ margin: "auto" }} />
+            </div>
+          }
+        >
+          <Routes>{routeNodes}</Routes>
+        </Suspense>
+      </BrowserRouter>
+    </AuthProvider>
   );
 };

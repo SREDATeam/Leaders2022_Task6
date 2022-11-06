@@ -1,16 +1,27 @@
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { AutorisationForm } from "components";
 import { Typography } from "antd";
+import { AuthContext } from "../../router/AuthProvider";
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 import classes from "./Autorisation.module.scss";
 import { Link } from "react-router-dom";
 
-export const Autorisation = () => {
+const Autorisation = () => {
+  const { onLogin } = useContext(AuthContext);
+  const [errorMessege, setErrorMessege] = useState(false);
   const navigate = useNavigate();
 
-  function onSubmitSuccess() {
-    navigate("/market");
+  function onSubmitSuccess(value) {
+    setErrorMessege(false);
+    onLogin(value.login, value.password).then((status) => {
+      if (status === 200) {
+        navigate("/market");
+      } else {
+        setErrorMessege(true);
+      }
+    });
   }
 
   return (
@@ -20,6 +31,9 @@ export const Autorisation = () => {
           Авторизация
         </Title>
         <AutorisationForm onFinish={onSubmitSuccess} />
+        <Text type="danger" className={classes.err_text}>
+          {errorMessege ? "Неправильный Email или Пароль" : " "}
+        </Text>
       </div>
       <Link className={classes.registiration_link} to="/registration">
         Регистрация
@@ -27,3 +41,5 @@ export const Autorisation = () => {
     </div>
   );
 };
+
+export default Autorisation;

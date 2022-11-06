@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Switch,
@@ -15,8 +16,11 @@ import numberInWords from "utils/numInWords";
 import classes from "./Forecast.module.scss";
 import { Indexes } from "components/Indexes/Indexes";
 
-export const Forecast = () => {
+export const Forecast = ({ forecastProps }) => {
+  const navigate = useNavigate();
+
   let myMap = null;
+
   function init() {
     myMap = new ymaps.Map(
       "map",
@@ -32,78 +36,104 @@ export const Forecast = () => {
   }
 
   useEffect(() => {
-    ymaps.ready(init);
+    if (!forecastProps.state) {
+      navigate("/assessment/objects", { replace: true });
+    } else {
+      ymaps.ready(init);
+    }
 
     return () => {
-      myMap.destroy();
+      myMap?.destroy();
     };
   }, []);
 
-  return (
-    <div className={classes.container}>
+  const ForecastForm = ({ flatsData }) => {
+    return (
       <Form
         className={classes.forecast_form}
         name="forecast_form"
-        // fields={fields}
         labelAlign="left"
         labelCol={{ span: 12 }}
         wrapperCol={{ span: 12 }}
-        onFinish={() => {
-          // navigate("bilding");
-        }}
       >
         <Form.Item name="date" label="Дата оценки">
-          <DatePicker className={classes.date_piker} format={"DD/MM/YYYY"} />
+          <Typography.Text>
+            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+          </Typography.Text>
         </Form.Item>
 
         <Form.Item name="subject" label="Субъект РФ">
-          <Input />
+          <Typography.Text>
+            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+          </Typography.Text>
         </Form.Item>
 
         <Form.Item name="AO" label="Административный округ">
-          <Input />
+          <Typography.Text>
+            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+          </Typography.Text>
         </Form.Item>
 
         <Form.Item name="street" label="Улица">
-          <Input />
+          <Typography.Text>
+            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+          </Typography.Text>
         </Form.Item>
 
         <Form.Item name="num" label="Hoмер дома">
-          <Input />
+          <Typography.Text>
+            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+          </Typography.Text>
         </Form.Item>
 
         <Form.Item name="floor" label="Этаж">
-          <InputNumber className={classes.input_num} />
+          <Typography.Text>
+            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+          </Typography.Text>
         </Form.Item>
 
         <Form.Item name="rooms" label="Количество комнат">
-          <InputNumber className={classes.input_num} />
+          <Typography.Text>
+            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+          </Typography.Text>
         </Form.Item>
 
         <Form.Item name="total_area" label="Площадь общая">
-          <InputNumber className={classes.input_num} />
+          <Typography.Text>
+            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+          </Typography.Text>
         </Form.Item>
 
         <Form.Item name="living_area" label="Площадь жилая">
-          <InputNumber className={classes.input_num} />
+          <Typography.Text>
+            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+          </Typography.Text>
         </Form.Item>
 
         <Form.Item name="kitchen_area" label="Площадь кухни">
-          <InputNumber className={classes.input_num} />
+          <Typography.Text>
+            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+          </Typography.Text>
         </Form.Item>
 
         <Form.Item name="balcony" label="Лоджия/Балкон" valuePropName="checked">
-          <Switch />
+          <Typography.Text>
+            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+          </Typography.Text>
         </Form.Item>
 
         <Form.Item name="condition" label="Сострояние">
-          <Select>
-            <Select.Option value="none">Нет</Select.Option>
-            <Select.Option value="economic">Эконом</Select.Option>
-            <Select.Option value="improved">Улучшенная</Select.Option>
-          </Select>
+          <Typography.Text>
+            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+          </Typography.Text>
         </Form.Item>
       </Form>
+    );
+  };
+
+  return (
+    <div className={classes.container}>
+      <ForecastForm flatsData={forecastProps.data} />
       <div className={classes.wrap}>
         <Typography.Title className={classes.title} level={5}>
           Прогнозная стоймость объекта оценки по состоянию на:{" "}
