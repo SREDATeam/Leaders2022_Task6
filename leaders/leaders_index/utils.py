@@ -83,7 +83,7 @@ def get_data_from_res(res, cord_delta=1):
 
 def obj_in_circle_check(standart, row):
     #     print(standart, row)
-    n_points, d = 20, 5000
+    n_points, d = 20, 1000
     p = shapely.geometry.Point(standart)
     angles = np.linspace(0, 360, n_points)
     polygon = shapely.geometry.Polygon(geog.propagate(p, angles, d))
@@ -293,7 +293,7 @@ def prepare_compare_data(get_filter_nearest):
 
 def get_compare_data(standart, ads_data):
     filtered_data = get_filtered_by_zone_df([standart.lng, standart.lat], ads_data, obj_in_circle_check)
-    get_filter_nearest = find_nearest_objects(standart.to_dict(), filtered_data).head(4)
+    get_filter_nearest = find_nearest_objects(standart.to_dict(), filtered_data).head(10)
     compare_data = prepare_compare_data(get_filter_nearest)
     return compare_data
 
