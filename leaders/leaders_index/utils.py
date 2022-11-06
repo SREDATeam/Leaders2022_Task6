@@ -83,7 +83,7 @@ def get_data_from_res(res, cord_delta=1):
 
 def obj_in_circle_check(standart, row):
     #     print(standart, row)
-    n_points, d = 20, 1000
+    n_points, d = 20, 1500
     p = shapely.geometry.Point(standart)
     angles = np.linspace(0, 360, n_points)
     polygon = shapely.geometry.Polygon(geog.propagate(p, angles, d))
