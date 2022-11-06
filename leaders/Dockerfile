@@ -3,7 +3,7 @@ FROM python:3.10
 WORKDIR /app
 
 
-pip install wheel setuptools pip --upgrade
+RUN pip install wheel setuptools pip --upgrade
 COPY requirements.txt requirements.txt
 RUN  pip install pip==21.3.1\
      && pip install tensorflow\
