@@ -7,8 +7,6 @@ from leaders_index.utils import get_analogs_pool_standart_objects
 
 
 def exel_input(request):
-    print("=" * 100)
-
     file = request.FILES.get("data")
     if not file:
         return HttpResponseBadRequest(content=json.dumps({"message": "no file"}))

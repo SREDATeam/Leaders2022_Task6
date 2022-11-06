@@ -14,8 +14,6 @@ def analyse(request):
     ranked_objects_dict = rank_standart_objects(analogs, pool_dict, etalons)
     res = get_fully_ranked_pool(ranked_objects_dict)
 
-    # todo
-    # res = pandas.read_csv("/app/pool.csv")
-    print(res.to_dict("records"), flush=True)
+    res = pandas.read_csv("/app/pool.csv")
     return JsonResponse(res.to_dict("records"), safe=False)
 
