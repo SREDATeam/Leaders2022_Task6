@@ -11,6 +11,5 @@ def analyse(request):
 
     # todo
     res = pandas.read_csv("/app/pool.csv")
-    print(res.to_dict("records"), flush=True)
     return JsonResponse(res.to_dict("records"), safe=False)
 
