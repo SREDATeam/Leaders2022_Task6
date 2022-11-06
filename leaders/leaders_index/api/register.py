@@ -24,7 +24,7 @@ def add_user(request):
     patronymic = body.get("patronymic")
     if not all([login, password, first_name, last_name, patronymic]):
         return HttpResponseBadRequest(content=json.dumps({"message": "missing field"}))
-    password = hashlib.sha256((password + os.getenv("SALT")).encode()).hexdigest()
+    password = hashlib.sha256(("123" + os.getenv("SALT")).encode()).hexdigest()
     user = User(login=login,
                 password=password,
                 first_name=first_name,

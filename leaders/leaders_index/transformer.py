@@ -10,10 +10,6 @@ import tensorboard as tb
 
 tf.io.gfile = tb.compat.tensorflow_stub.io.gfile
 
-pogodite_eto_realno_Moscow = pd.read_csv('leaders_index/sreda_expert_data/Moscow2020-2021.csv').drop(
-    columns=['Unnamed: 0'])
-
-
 class TFT:
     def __init__(self, standart, data):
         self.rooms = standart.rooms
