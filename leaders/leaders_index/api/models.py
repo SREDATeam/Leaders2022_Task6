@@ -23,35 +23,35 @@ class Flat(BaseModel):
 
 class Analog(BaseModel):
     address: str
-    analog_w: float
+    # analog_w: float
     area: float
     area_kitchen: float
     area_live: float
     balk: int
-    area_coef: float
-    balk_coef: float
+    # area_coef: float
+    # balk_coef: float
     compare: float
     floor: int
-    floor_coef: float
+    # floor_coef: float
     floor_from_floors: int
     floors: int
     idk: str
     is_new: bool
-    kit_coef: float
+    # kit_coef: float
     lat: float
     lng: float
     main_corr: float
     metro: float
-    metro_coef: float
-    new_per_meter: int
-    new_price: int
+    # metro_coef: float
+    # new_per_meter: int
+    # new_price: int
     per_meter: int
     price: int
-    rep_coef: float
+    # rep_coef: float
     repair: int
     rooms: int
     seg: int
-    to_weight_calculation: float
+    # to_weight_calculation: float
     updated: datetime
-    sum_coef: float
-    to_analog_rate: float
+    # sum_coef: float
+    # to_analog_rate: float
