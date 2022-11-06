@@ -13,9 +13,10 @@
     display: flex;
     flex-direction: row-reverse;
 
+    user-select: none;
     background-color: #fff;
 
-    .step_btn {
+    .stepnav_btn {
       padding: 0.4em 0.6em;
 
       flex: auto;
@@ -27,36 +28,39 @@
       transition: all 0.4s;
       background: linear-gradient(to right, $blue_dark_gradient, $blue_dark 80%);
 
+      &.allowed {
+        cursor: pointer;
+        background: linear-gradient(to right, $blue_dark_gradient, rgb(16, 160, 160) 80%);
+
+        &::after,
+        &::before {
+          background-color: rgb(16, 160, 160);
+        }
+
+        &:hover {
+          background: linear-gradient(to right, $blue_dark_gradient, rgb(49, 187, 187) 80%);
+
+          &::after,
+          &::before {
+            background-color: rgb(49, 187, 187);
+          }
+        }
+      }
+
       &.active {
-        color: $blue_brite;
+        background: linear-gradient(to right, $blue_dark_gradient, rgb(0, 128, 92) 80%);
+
+        &::after,
+        &::before {
+          background-color: rgb(0, 128, 92);
+        }
       }
 
       &:first-child {
 
-        &.active {
-          border-left: none;
-        }
-
         &::after,
         &::before {
           display: none;
-        }
-      }
-
-      &:last-child {
-
-        &.active {
-          border-right: none;
-          background-color: #fafafa;
-        }
-      }
-
-      &:hover {
-        background: linear-gradient(to right, $blue_dark_gradient, teal 80%);
-
-        &::after,
-        &::before {
-          background-color: teal;
         }
       }
 

@@ -1,3 +1,6 @@
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
 import {
   Button,
   Switch,
@@ -10,7 +13,13 @@ import {
 
 import classes from "./Agreement.module.scss";
 
-const AgreementForm = ({ index }: { index: string }) => {
+const AgreementForm = ({
+  index,
+  flatsData,
+}: {
+  index: string;
+  flatsData: any;
+}) => {
   return (
     <Form
       className={classes.agreement_form}
@@ -24,62 +33,95 @@ const AgreementForm = ({ index }: { index: string }) => {
       </Form.Item>
 
       <Form.Item name="floor" label="Этаж">
-        <InputNumber />
+        <Typography.Text>
+          {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+        </Typography.Text>
       </Form.Item>
 
       <Form.Item name="rooms" label="Количество комнат">
-        <InputNumber />
+        <Typography.Text>
+          {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+        </Typography.Text>
       </Form.Item>
 
       <Form.Item name="total_area" label="Площадь общая">
-        <InputNumber />
+        <Typography.Text>
+          {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+        </Typography.Text>
       </Form.Item>
 
       <Form.Item name="living_area" label="Площадь жилая">
-        <InputNumber />
+        <Typography.Text>
+          {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+        </Typography.Text>
       </Form.Item>
 
       <Form.Item name="kitchen_area" label="Площадь кухни">
-        <InputNumber />
+        <Typography.Text>
+          {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+        </Typography.Text>
       </Form.Item>
 
       <Form.Item name="balcony" label="Лоджия/Балкон" valuePropName="checked">
-        <Switch />
+        <Typography.Text>
+          {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+        </Typography.Text>
       </Form.Item>
 
       <Form.Item name="condition" label="Сострояние">
-        <Select>
-          <Select.Option value="none">Нет</Select.Option>
-          <Select.Option value="economic">Эконом</Select.Option>
-          <Select.Option value="improved">Улучшенная</Select.Option>
-        </Select>
+        <Typography.Text>
+          {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+        </Typography.Text>
       </Form.Item>
 
       <Typography.Text>Рыночная стоимость</Typography.Text>
       <Form.Item name="market_prise" wrapperCol={{ span: 24 }}>
-        <Input />
+        <Typography.Text>
+          {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+        </Typography.Text>
       </Form.Item>
 
       <Typography.Text>Рыночная стоимость за кв.м.</Typography.Text>
       <Form.Item name="market_metr_prise" wrapperCol={{ span: 24 }}>
-        <Input />
+        <Typography.Text>
+          {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
+        </Typography.Text>
       </Form.Item>
     </Form>
   );
 };
 
-export const Agreement = () => {
+export const Agreement = ({ calculationProps }) => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!calculationProps.state) {
+      navigate("/assessment/objects", { replace: true });
+    }
+  }, []);
   return (
     <div className={classes.container}>
       <div className={classes.agreement_row}>
-        <AgreementForm index="1" />
-        <AgreementForm index="2" />
-        <AgreementForm index="3" />
-        <AgreementForm index="4" />
+        <AgreementForm index="1" flatsData />
+        <AgreementForm index="2" flatsData />
+        <AgreementForm index="3" flatsData />
+        <AgreementForm index="4" flatsData />
       </div>
       <div className={classes.btns}>
-        <Button>Вернуться</Button>
-        <Button type="primary">Продолжить</Button>
+        <Button
+          onClick={() => {
+            navigate("/assessment/calculation");
+          }}
+        >
+          Вернуться
+        </Button>
+        <Button
+          type="primary"
+          onClick={() => {
+            navigate("/assessment/archive");
+          }}
+        >
+          Продолжить
+        </Button>
       </div>
     </div>
   );

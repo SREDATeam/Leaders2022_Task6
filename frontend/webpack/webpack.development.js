@@ -23,7 +23,7 @@ if (process.env.SERV) {
 module.exports = {
   devServer: {
     historyApiFallback: true,
-    host: "localhost",
+    host: "127.0.0.1",
     hot: true,
     port: 8_281,
   },

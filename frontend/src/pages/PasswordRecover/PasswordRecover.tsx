@@ -6,7 +6,7 @@ const { Title } = Typography;
 import classes from "./PasswordRecover.module.scss";
 import { Link } from "react-router-dom";
 
-export const PasswordRecover = () => {
+const PasswordRecover = () => {
   const navigate = useNavigate();
 
   function onSubmitSuccess() {
@@ -30,3 +30,5 @@ export const PasswordRecover = () => {
     </div>
   );
 };
+
+export default PasswordRecover;

@@ -1,17 +1,10 @@
-import { useNavigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
-import { useEffect } from "react";
 import { Adjusments, Layout, User } from "components/Settings";
 
 import classes from "./Settings.module.scss";
 
-export const Settings = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    // navigate("/");
-  }, []);
-
+const Settings = () => {
   return (
     <div className={classes.settings}>
       <Routes>
@@ -23,3 +16,5 @@ export const Settings = () => {
     </div>
   );
 };
+
+export default Settings;

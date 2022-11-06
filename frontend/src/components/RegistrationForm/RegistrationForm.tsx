@@ -31,8 +31,11 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
       </Form.Item>
 
       <Form.Item
-        name="name"
-        rules={[{ required: true, message: "Пожалуйста введите имя!" }]}
+        name="first_name"
+        rules={[
+          { required: true, message: "Введите имя" },
+          { type: "string", min: 2, message: "Минимум два символа" },
+        ]}
       >
         <Input
           prefix={<UserOutlined className={classes.site_form_item_icon} />}
@@ -41,8 +44,11 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
       </Form.Item>
 
       <Form.Item
-        name="secondname"
-        rules={[{ required: true, message: "Пожалуйста введите фамилию!" }]}
+        name="last_name"
+        rules={[
+          { required: true, message: "Введите фамилию" },
+          { type: "string", min: 2, message: "Минимум два символа" },
+        ]}
       >
         <Input
           prefix={<UserOutlined className={classes.site_form_item_icon} />}
@@ -50,13 +56,10 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
         />
       </Form.Item>
 
-      <Form.Item
-        name="thirdname"
-        rules={[{ required: true, message: "Пожалуйста введите Отчесво!" }]}
-      >
+      <Form.Item name="patronymic">
         <Input
           prefix={<UserOutlined className={classes.site_form_item_icon} />}
-          placeholder="Отчесво"
+          placeholder="Отчество"
         />
       </Form.Item>
 
@@ -67,8 +70,11 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
       </Form.Item>
 
       <Form.Item
-        name="email"
-        rules={[{ required: true, message: "Пожалуйста введите Email!" }]}
+        name="login"
+        rules={[
+          { required: true, message: "Введите email" },
+          { type: "email", message: "Не кореткный email" },
+        ]}
       >
         <Input
           prefix={<MailOutlined className={classes.site_form_item_icon} />}
@@ -78,36 +84,43 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
 
       <Form.Item
         name="password"
-        rules={[{ required: true, message: "Пожалуйста введите Пароль!" }]}
+        rules={[
+          { required: true, message: "Пожалуйста введите Пароль!" },
+          { type: "string", min: 6, message: "Минимум шесть символов" },
+        ]}
       >
-        <Input
+        <Input.Password
           prefix={<LockOutlined className={classes.site_form_item_icon} />}
-          type="password"
           placeholder="Пароль"
         />
       </Form.Item>
 
       <Form.Item
-        name="werify password"
+        name="confitm_password"
         rules={[
           {
             required: true,
-            message: "Пожалуйста введите подтверждение Пароля!",
+            message: "Поддвердите пароль",
           },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue("password") === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error("Пароли не совпадают"));
+            },
+          }),
         ]}
       >
-        <Input
+        <Input.Password
           prefix={<LockOutlined className={classes.site_form_item_icon} />}
-          type="password"
           placeholder="Подтвердите пароль"
         />
       </Form.Item>
 
-      <Form.Item>
-        <Button type="primary" htmlType="submit" className={classes.sub_btn}>
-          Зарегистрироваться
-        </Button>
-      </Form.Item>
+      <Button type="primary" htmlType="submit" className={classes.sub_btn}>
+        Зарегистрироваться
+      </Button>
     </Form>
   );
 };

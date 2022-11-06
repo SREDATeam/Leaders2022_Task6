@@ -1,14 +1,11 @@
 .container {
   width: 100%;
   height: 100%;
+  overflow: auto;
 
   background-color: #fff;
 
-  .list {
-    height: 100%;
+  .archive_table {
+    padding-bottom: 32px;
   }
-}
-
-.date_piker {
-  // left: 50%;
 }

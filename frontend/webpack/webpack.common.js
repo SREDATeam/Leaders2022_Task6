@@ -59,6 +59,7 @@ module.exports = {
       components: `${PATHS.src}/components`,
       utils: `${PATHS.src}/utils`,
       antd: `${PATHS.antd}`,
+      api: `${PATHS.src}/api`,
     },
     extensions: [".tsx", ".ts", ".jsx", ".js"],
   },

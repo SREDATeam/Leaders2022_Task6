@@ -1,11 +1,22 @@
+import { useState } from "react";
 import { Button, Form, Input, Typography } from "antd";
 import classes from "./User.module.scss";
 
+const values = [
+  { name: "Фамилия", value: "Админов" },
+  { name: "Имя", value: "Админ" },
+  { name: "Отчество", value: "Админович" },
+  { name: "Email", value: "admin@mail.com" },
+];
+
 export const User = () => {
+  const [disabledInputs, setDisabledInputs] = useState(true);
+
   return (
     <div className={classes.container}>
       <Form
         className={classes.user_change_form}
+        fields={values}
         name="task_form"
         labelAlign="left"
         labelCol={{ span: 10 }}
@@ -16,36 +27,54 @@ export const User = () => {
             Изменение данных пользователя
           </Typography.Title>
         </Form.Item>
-        <Form.Item name="subject" label="Фамилия">
-          <Input />
+        <Form.Item name="Фамилия" label="Фамилия">
+          <Input disabled={disabledInputs} />
         </Form.Item>
 
-        <Form.Item name="AO" label="Имя">
-          <Input />
+        <Form.Item name="Имя" label="Имя">
+          <Input disabled={disabledInputs} />
         </Form.Item>
 
-        <Form.Item name="street" label="Отчество">
-          <Input />
+        <Form.Item name="Отчество" label="Отчество">
+          <Input disabled={disabledInputs} />
         </Form.Item>
 
-        <Form.Item name="num" label="Email">
-          <Input />
+        <Form.Item name="Email" label="Email">
+          <Input disabled={disabledInputs} />
         </Form.Item>
 
-        <Form.Item name="part" label="Текущий пароль">
-          <Input type="password" />
+        <Form.Item name="password_old" label="Текущий пароль">
+          <Input type="password" disabled={disabledInputs} />
         </Form.Item>
 
-        <Form.Item name="year" label="Новый пароль">
-          <Input type="password" />
+        <Form.Item name="password_new" label="Новый пароль">
+          <Input type="password" disabled={disabledInputs} />
         </Form.Item>
 
-        <Form.Item name="material" label="Подтверждение пароля">
-          <Input type="password" />
+        <Form.Item name="password_new_check" label="Подтверждение пароля">
+          <Input type="password" disabled={disabledInputs} />
         </Form.Item>
 
         <Form.Item className={classes.btns} wrapperCol={{ span: 24 }}>
-          <Button type="default">Изменить</Button>
+          {disabledInputs ? (
+            <Button
+              type="default"
+              onClick={() => {
+                setDisabledInputs(false);
+              }}
+            >
+              Изменить
+            </Button>
+          ) : (
+            <Button
+              type="default"
+              onClick={() => {
+                setDisabledInputs(true);
+              }}
+            >
+              Отменить
+            </Button>
+          )}
 
           <Button
             type="primary"

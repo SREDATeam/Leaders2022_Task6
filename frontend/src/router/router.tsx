@@ -1,13 +1,16 @@
+import { ProtectedRoute } from "components";
+import { AuthRoute } from "./AuthContextRoutes";
 import { BaseLayOut, SideMenuLayOut } from "../layouts";
-import {
-  Market,
-  Registration,
-  Autorisation,
-  PasswordRecover,
-  Assessment,
-  Settings,
-  Home,
-} from "../pages";
+import { lazy } from "react";
+
+const Market = lazy(() => import("../pages/Market/Market"));
+const Registration = lazy(() => import("../pages/Registration/Registration"));
+const Autorisation = lazy(() => import("../pages/Autorisation/Autorisation"));
+const PasswordRecover = lazy(
+  () => import("../pages/PasswordRecover/PasswordRecover"),
+);
+const Assessment = lazy(() => import("../pages/Assessment/Assessment"));
+const Settings = lazy(() => import("../pages/Settings/Settings"));
 
 interface PageRoute {
   element: React.ReactElement;
@@ -29,19 +32,27 @@ export const routesInLayOuts: LayOutRoute[] = [
     routes: [
       {
         key: "autorisation",
-        element: <Autorisation />,
+        element: (
+          <AuthRoute>
+            <Autorisation />
+          </AuthRoute>
+        ),
         path: "/",
       },
       {
         key: "registration",
-        element: <Registration />,
+        element: (
+          <AuthRoute>
+            <Registration />
+          </AuthRoute>
+        ),
         path: "/registration",
       },
-      {
-        key: "password-recover",
-        element: <PasswordRecover />,
-        path: "/password-recover",
-      },
+      // {
+      //   key: "password-recover",
+      //   element: <PasswordRecover />,
+      //   path: "/password-recover",
+      // },
     ],
   },
   {
@@ -50,17 +61,30 @@ export const routesInLayOuts: LayOutRoute[] = [
     routes: [
       {
         key: "market",
-        element: <Market />,
+        element: (
+          <ProtectedRoute>
+            <Market />
+          </ProtectedRoute>
+        ),
         path: "/market",
       },
       {
         key: "assessment",
-        element: <Assessment />,
+        element: (
+          <ProtectedRoute>
+            {" "}
+            <Assessment />
+          </ProtectedRoute>
+        ),
         path: "/assessment/*",
       },
       {
         key: "settings",
-        element: <Settings />,
+        element: (
+          <ProtectedRoute>
+            <Settings />
+          </ProtectedRoute>
+        ),
         path: "/settings/*",
       },
     ],
