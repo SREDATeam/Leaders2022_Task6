@@ -5,7 +5,7 @@ WORKDIR /app
 
 
 COPY requirements.txt requirements.txt
-RUN  pip install wheel setuptools pip --upgrade \
+RUN  pip install pip==21.3.1 \
      && pip install -r requirements.txt
 
 COPY . .
