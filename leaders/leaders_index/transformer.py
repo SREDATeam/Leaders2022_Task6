@@ -29,7 +29,7 @@ class TFT:
 
     def find_nearest_objects(self, data):
         standart = self.standart
-        data = data[data['rooms'] == standart['rooms']]
+        data = data[(data['rooms']) == standart['rooms']]
         dataframe = pd.DataFrame()
         dataframe['idk'] = data['idk']
         dataframe['compare'] = 10 * (abs(standart['area'] - data['area'].astype(float))) + \
@@ -70,7 +70,7 @@ class TFT:
                                             , patience=10, verbose=False, mode="min")
 
         trainer = pl.Trainer(
-            max_epochs=20,
+            max_epochs=15,
             gpus=0,
             enable_model_summary=True,
             gradient_clip_val=0.1,
