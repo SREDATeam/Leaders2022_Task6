@@ -12,13 +12,13 @@ from leaders.settings import DEBUG, SREDA_DOMAIN, API_STORAGE, \
     ADS_USER, ADS_TOKEN, YANDEX_TOKEN
 
 DIR = 'coefs_dir'
-area_corr = pd.read_csv(f'leaders_index/{DIR}/area_corr.csv', index_col='index')
-balk_corr = pd.read_csv(f'leaders_index/{DIR}/balk_corr.csv', index_col='index')
-floor_corr = pd.read_csv(f'leaders_index/{DIR}/floor_corr.csv', index_col='index')
-kit_area_corr = pd.read_csv(f'leaders_index/{DIR}/kit_area_corr.csv', index_col='index')
-metro_corr = pd.read_csv(f'leaders_index/{DIR}/metro_corr.csv', index_col='index')
-rep_corr = pd.read_csv(f'leaders_index/{DIR}/rep_corr.csv', index_col='index')
-metro_stations = pd.read_csv('leaders_index/geo_data/metro_coords.csv')
+area_corr = pd.read_csv(f'/app/leaders_index/{DIR}/area_corr.csv', index_col='index')
+balk_corr = pd.read_csv(f'/app/leaders_index/{DIR}/balk_corr.csv', index_col='index')
+floor_corr = pd.read_csv(f'/app/leaders_index/{DIR}/floor_corr.csv', index_col='index')
+kit_area_corr = pd.read_csv(f'/app/leaders_index/{DIR}/kit_area_corr.csv', index_col='index')
+metro_corr = pd.read_csv(f'/app/leaders_index/{DIR}/metro_corr.csv', index_col='index')
+rep_corr = pd.read_csv(f'/app/leaders_index/{DIR}/rep_corr.csv', index_col='index')
+metro_stations = pd.read_csv('/app/leaders_index/geo_data/metro_coords.csv')
 
 
 def get_ads(date1, city='Москва'):
@@ -44,7 +44,7 @@ def get_ads_data(mode='csv'):
         data = data.drop_duplicates(['idk', 'updated'], 'last', ignore_index=True)
         # data.to_csv('leaders_index/sreda_expert_data/ads_data.csv')
     else:
-        data = pd.read_csv('leaders_index/sreda_expert_data/ads_data.csv').drop(columns=['Unnamed: 0'])
+        data = pd.read_csv('/app/leaders_index/sreda_expert_data/ads_data.csv').drop(columns=['Unnamed: 0'])
     return data
 
 
@@ -635,7 +635,7 @@ def get_indexes(data):
 
 
 def index_all_data(seg, rooms):
-    data = pd.read_csv('leaders_index/sreda_expert_data/Moscow2020-2021.csv')
+    data = pd.read_csv('/app/leaders_index/sreda_expert_data/Moscow2020-2021.csv')
     return get_indexes(get_data_to_indexses(data, seg, rooms))
 
 # test_data = pd.read_excel('Пул_Новостройки_Тест.xlsx')

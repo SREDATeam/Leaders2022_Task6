@@ -18,7 +18,7 @@ def exel_input(request):
     pool_answer = pd.DataFrame()
     for i in pool:
         pool_answer = pd.concat([pool_answer, pool[i]])
-    pool_answer.to_csv('leaders_index/rank_session/pool.csv')
+    pool_answer.to_csv('/app/leaders_index/rank_session/pool.csv')
 
     # todo
     # etalon = {"0": [{"address": "Москва, НАО (Новомосковский), Сосенское поселение, проспект Магеллана, 2", "rooms": 0, "seg": 0, "floors": 16.0, "mat": 3, "floor": 9.0, "area": 25.34, "area_kitchen": 7.1, "balk": 1, "metro": 15.0, "repair": 2, "lat": 55.591559, "lng": 37.44647, "floor_in_house": 7.0, "floor_from_floors": 2, "main_corr": -4.5}], "1": [{"address": "Москва, НАО (Новомосковский), Сосенское поселение, бул. Веласкеса, 2", "rooms": 1, "seg": 2, "floors": 13.0, "mat": 3, "floor": 5.0, "area": 35.3, "area_kitchen": 6.4, "balk": 1, "metro": 15.0, "repair": 2, "lat": 55.591538, "lng": 37.455714, "floor_in_house": 8.0, "floor_from_floors": 2, "main_corr": -4.5}], "2": [{"address": "Москва, НАО (Новомосковский), Сосенское поселение, бул. Веласкеса, 2", "rooms": 2, "seg": 0, "floors": 13.0, "mat": 3, "floor": 9.0, "area": 39.76, "area_kitchen": 6.2, "balk": 1, "metro": 15.0, "repair": 1, "lat": 55.591538, "lng": 37.455714, "floor_in_house": 4.0, "floor_from_floors": 2, "main_corr": -4.5}], "3": [{"address": "Москва, НАО (Новомосковский), Сосенское поселение, проспект Магеллана, 3", "rooms": 3, "seg": 2, "floors": 15.0, "mat": 1, "floor": 10.0, "area": 82.3, "area_kitchen": 16.2, "balk": 1, "metro": 15.0, "repair": 1, "lat": 55.590287, "lng": 37.445734, "floor_in_house": 5.0, "floor_from_floors": 2, "main_corr": -4.5}]}
