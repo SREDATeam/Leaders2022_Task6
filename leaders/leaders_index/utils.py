@@ -9,7 +9,10 @@ from yandex_geocoder import Client
 from geopy.distance import geodesic
 import json
 from leaders.settings import DEBUG, SREDA_DOMAIN, API_STORAGE, \
-    ADS_USER, ADS_TOKEN, YANDEX_TOKEN
+    ADS_USER, ADS_TOKEN
+
+
+YANDEX_TOKEN = 'd45640fd-f1ea-4f0c-87de-29dd559c9543'
 
 DIR = 'coefs_dir'
 area_corr = pd.read_csv(f'leaders_index/{DIR}/area_corr.csv', index_col='index')
@@ -212,7 +215,15 @@ def prepare_raw_exl(data):
     address_list = data['address'].tolist()
     lng_list, lat_list = [], []
     for i in address_list:
-        lng, lat = client.coordinates(i)
+        try:
+            lng, lat = client.coordinates(i)
+        except:
+            try:
+                client = Client('478245df-abcf-414a-8105-22a09c0b54b6')
+                lng, lat = client.coordinates(i)
+            except:
+                client = Client('67fcc2d7-58bb-4206-a881-8317d76b22b5')
+                lng, lat = client.coordinates(i)
         lng_list.append(lng)
         lat_list.append(lat)
     data['lat'] = lat_list
