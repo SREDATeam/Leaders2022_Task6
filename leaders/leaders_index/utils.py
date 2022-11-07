@@ -47,7 +47,7 @@ def get_ads_data(mode='csv'):
         data = data.drop_duplicates(['idk', 'updated'], 'last', ignore_index=True)
         # data.to_csv('leaders_index/sreda_expert_data/ads_data.csv')
     else:
-        data = pd.read_csv('/app/leaders_index/sreda_expert_data/ads_data.csv').drop(columns=['Unnamed: 0'])
+        data = pd.read_csv('/app/leaders_index/sreda_expert_data/ads_data.csv')#.drop(columns=['Unnamed: 0'])
     return data
 
 
