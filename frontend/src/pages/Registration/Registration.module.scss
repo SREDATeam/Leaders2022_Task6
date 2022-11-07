@@ -29,6 +29,13 @@
       color: $blue;
       background-color: white;
     }
+
+    .err_text {
+      display: block;
+      height: 24px;
+
+      text-align: center;
+    }
   }
 
   .autorisation_link {

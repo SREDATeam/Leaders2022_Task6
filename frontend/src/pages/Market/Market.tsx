@@ -1,5 +1,7 @@
 import { YMapAOMO } from "components";
 
-export const Market = () => {
+const Market = () => {
   return <YMapAOMO />;
 };
+
+export default Market;

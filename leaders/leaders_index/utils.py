@@ -9,7 +9,10 @@ from yandex_geocoder import Client
 from geopy.distance import geodesic
 import json
 from leaders.settings import DEBUG, SREDA_DOMAIN, API_STORAGE, \
-    ADS_USER, ADS_TOKEN, YANDEX_TOKEN
+    ADS_USER, ADS_TOKEN
+
+
+YANDEX_TOKEN = 'd45640fd-f1ea-4f0c-87de-29dd559c9543'
 
 DIR = 'coefs_dir'
 area_corr = pd.read_csv(f'/app/leaders_index/{DIR}/area_corr.csv', index_col='index')
@@ -84,7 +87,7 @@ def get_data_from_res(res, cord_delta=1):
 def obj_in_circle_check(standart, row):
     #     print(standart, row)
 
-    n_points, d = 20, 2000
+    n_points, d = 20, 1000
     p = shapely.geometry.Point(standart)
     angles = np.linspace(0, 360, n_points)
     polygon = shapely.geometry.Polygon(geog.propagate(p, angles, d))
@@ -126,8 +129,8 @@ def return_floor_from_floors(row):
 def get_pool_segmentation_and_standart_objs(data):
     data = prepare_to_rate_pool(data)
     rooms_pool_seg = data.rooms.unique()
-    rooms_pool_seg_low_4 = [i for i in rooms_pool_seg if i < 4]
-    rooms_pool_seg_gt_4 = [i for i in rooms_pool_seg if i >= 4]
+    rooms_pool_seg_low_4 = [i for i in rooms_pool_seg if int(i) < 4]
+    rooms_pool_seg_gt_4 = [i for i in rooms_pool_seg if int(i) >= 4]
     pool_dict_lw_4 = dict()
     for i in rooms_pool_seg_low_4:
         pool_dict_lw_4[i] = data[data['rooms'] == i]
@@ -200,7 +203,7 @@ def prepare_raw_exl(data):
         return 0
 
     data = data.copy()
-    data['Количество комнат'] = data['Количество комнат'].apply(lambda x: 0 if x == 'студия' else x)
+    data['Количество комнат'] = data['Количество комнат'].apply(lambda x: 0 if x == 'студия' or x == 'Студия' else x)
     data['Сегмент (Новостройка, современное жилье, старый жилой фонд)'] = data[
         'Сегмент (Новостройка, современное жилье, старый жилой фонд)'].apply(lambda x: rename_seg(x))
     data['Материал стен (Кипич, панель, монолит)'] = data['Материал стен (Кипич, панель, монолит)'].apply(
@@ -212,7 +215,15 @@ def prepare_raw_exl(data):
     address_list = data['address'].tolist()
     lng_list, lat_list = [], []
     for i in address_list:
-        lng, lat = client.coordinates(i)
+        try:
+            lng, lat = client.coordinates(i)
+        except:
+            try:
+                client = Client('478245df-abcf-414a-8105-22a09c0b54b6')
+                lng, lat = client.coordinates(i)
+            except:
+                client = Client('67fcc2d7-58bb-4206-a881-8317d76b22b5')
+                lng, lat = client.coordinates(i)
         lng_list.append(lng)
         lat_list.append(lat)
     data['lat'] = lat_list

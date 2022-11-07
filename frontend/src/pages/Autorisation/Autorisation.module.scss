@@ -10,7 +10,7 @@
   .autorisation_form {
     padding: 24px;
     padding-bottom: 0;
-    max-width: 500px;
+    min-width: 350px;
 
     position: relative;
 
@@ -29,7 +29,15 @@
       color: $blue;
       background-color: white;
     }
+
+    .err_text {
+      display: block;
+      height: 24px;
+
+      text-align: center;
+    }
   }
+
 
   .registiration_link {
     margin-top: 10px;

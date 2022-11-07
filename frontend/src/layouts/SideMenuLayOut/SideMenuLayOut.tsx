@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { AuthContext } from "../../router/AuthProvider";
+
 import { Outlet } from "react-router";
 import { NavLink } from "react-router-dom";
 import { Popover, Typography } from "antd";
@@ -15,6 +18,7 @@ import clsx from "clsx";
 const { Title } = Typography;
 
 export const SideMenuLayOut: React.FC = () => {
+  const { onLogout } = useContext(AuthContext);
   const linkClasses = ({ isActive }: { isActive: boolean }): string => {
     return clsx(classes.link, isActive && classes.active);
   };
@@ -45,7 +49,7 @@ export const SideMenuLayOut: React.FC = () => {
         </Popover>
 
         <Popover placement="right" content={"Выйти"}>
-          <NavLink to="/" className={linkClasses}>
+          <NavLink to="/" className={linkClasses} onClick={onLogout}>
             <LogoutOutlined className={classes.icon_out} />
           </NavLink>
         </Popover>

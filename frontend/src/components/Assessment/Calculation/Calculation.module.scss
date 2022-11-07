@@ -7,6 +7,22 @@
 
   background-color: #fff;
 
+  .select_row {
+    margin-bottom: 2em;
+
+    .select_wrap {
+      width: fit-content;
+      margin: auto;
+      display: flex;
+
+      border-bottom: 2px solid $blue_brite;
+
+      .referense_select {
+        margin-left: 2em;
+      }
+    }
+  }
+
   .calculation_row {
     width: 100%;
     display: flex;
