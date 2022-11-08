@@ -47,7 +47,8 @@ def get_ads_data(mode='csv'):
         data = data.drop_duplicates(['idk', 'updated'], 'last', ignore_index=True)
         # data.to_csv('leaders_index/sreda_expert_data/ads_data.csv')
     else:
-        data = pd.read_csv('leaders_index/sreda_expert_data/ads_data.csv').drop(columns=['Unnamed: 0'])
+        data = pd.read_csv('leaders_index/sreda_expert_data/ads_data.csv')
+        # print(data)
     return data
 
 
@@ -87,7 +88,7 @@ def get_data_from_res(res, cord_delta=1):
 def obj_in_circle_check(standart, row):
     #     print(standart, row)
 
-    n_points, d = 20, 1000
+    n_points, d = 15, 2000
     p = shapely.geometry.Point(standart)
     angles = np.linspace(0, 360, n_points)
     polygon = shapely.geometry.Polygon(geog.propagate(p, angles, d))
@@ -297,7 +298,7 @@ def prepare_compare_data(get_filter_nearest):
     data_compare['seg'] = 1
     data_compare['per_meter'] = round(data_compare['price'].astype(float) / data_compare['area'].astype(float))
     data_compare['main_corr'] = torg_corr
-    data_compare = data_compare.drop(columns=['description', 'images', 'owner', 'is_rent'])
+    data_compare = data_compare.drop(columns=['images', 'is_rent'])
     data_compare['floor_from_floors'] = data_compare.apply(lambda x: return_floor_from_floors([x.floor, x.floors]),
                                                            axis=1)
     return data_compare
@@ -571,7 +572,7 @@ def rank_standart_objects(analogs, pool, standart_dict):
     for i in standart_dict:
         ranked_object = rank_standart_object(analogs[i], standart_dict[i])
         ranked_objects.append([ranked_object, pool[i]])
-    return ranked_objects
+    return ranked_objects, analogs
 
 
 # ranked_objects_dict

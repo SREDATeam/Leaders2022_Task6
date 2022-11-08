@@ -16,7 +16,8 @@ def analyse(request):
     analogs = {i: pandas.DataFrame(body.get("analogs")[i]) for i in body.get("analogs")}
     pool = pandas.read_csv('leaders_index/rank_session/pool.csv')
     pool_dict = {str(i): pool[pool['rooms'] == i] for i in pool.rooms.unique()}
-    ranked_objects_dict = rank_standart_objects(analogs, pool_dict, etalons)
+    ranked_objects_dict, analogs = rank_standart_objects(analogs, pool_dict, etalons)
+    print(etalons)
     res = get_fully_ranked_pool(ranked_objects_dict)
     dir = os.listdir(save_path)
     if len(dir) == 0:
@@ -28,4 +29,4 @@ def analyse(request):
             break
         num = int([list(map(lambda x: x.replace(".xlsx", ""), i.split('_'))) for i in f][-1][1])
         res.to_excel(f'{save_path}/res_{num + 1}.xlsx')
-    return JsonResponse(res.to_dict("records"), safe=False)
+    return JsonResponse(json.dumps({"pool": res.to_dict("records"), "analogs": [analogs[i].to_dict("records") for i in analogs]}), safe=False)
