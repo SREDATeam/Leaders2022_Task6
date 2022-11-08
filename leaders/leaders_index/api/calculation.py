@@ -29,4 +29,4 @@ def analyse(request):
             break
         num = int([list(map(lambda x: x.replace(".xlsx", ""), i.split('_'))) for i in f][-1][1])
         res.to_excel(f'{save_path}/res_{num + 1}.xlsx')
-    return JsonResponse(json.dumps({"pool": res.to_dict("records"), "analogs": [analogs[i].to_dict("records") for i in analogs]}), safe=False)
+    return JsonResponse({"pool": res.to_dict("records"), "analogs": [analogs[i].to_dict("records") for i in analogs]}, safe=False)
