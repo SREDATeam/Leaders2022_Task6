@@ -6,7 +6,7 @@ from leaders_index.utils import *
 import os
 from os import walk
 
-save_path = "leaders_index/rank_log_dir"
+save_path = "/app/leaders_index/rank_log_dir"
 
 
 def analyse(request):
@@ -14,7 +14,7 @@ def analyse(request):
     body = json.loads(request.body)
     etalons = {i: pandas.DataFrame(body.get("etalon")[i]).loc[0] for i in body.get("etalon")}
     analogs = {i: pandas.DataFrame(body.get("analogs")[i]) for i in body.get("analogs")}
-    pool = pandas.read_csv('leaders_index/rank_session/pool.csv')
+    pool = pandas.read_csv('/app/leaders_index/rank_session/pool.csv')
     pool_dict = {str(i): pool[pool['rooms'] == i] for i in pool.rooms.unique()}
     ranked_objects_dict, analogs = rank_standart_objects(analogs, pool_dict, etalons)
     print(etalons)
