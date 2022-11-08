@@ -85,10 +85,9 @@ def get_data_from_res(res, cord_delta=1):
     return df, last_date
 
 
-def obj_in_circle_check(standart, row):
-    #     print(standart, row)
-
-    n_points, d = 15, 2000
+def obj_in_circle_check(standart, row, d=1000):
+#     print(standart, row)
+    n_points = 10
     p = shapely.geometry.Point(standart)
     angles = np.linspace(0, 360, n_points)
     polygon = shapely.geometry.Polygon(geog.propagate(p, angles, d))
@@ -118,9 +117,20 @@ def get_filtered_by_zone_df(standart, df, filter_nuction):
         return df.query('lat > @lat_min & lat < @lat_max & lng > @lng_min & lng < @lng_max')
     df = df.copy()
     df = pre_filter(standart, df)
-    df['in_polygon'] = df.apply(lambda x: filter_nuction(standart, row=[x.lng, x.lat]), axis=1)
+    df['in_polygon'] = df.apply(lambda x: filter_nuction(standart, row=[x.lng, x.lat], d=1000), axis=1)
     ans_df = df[df.in_polygon]
     ans_df.index = range(ans_df.shape[0])
+    ans_df['in radius'] = 1000
+    if len(ans_df) < 4:
+        df['in_polygon'] = df.apply(lambda x: filter_nuction(standart, row=[x.lng, x.lat], d=2000), axis=1)
+        ans_df = df[df.in_polygon]
+        ans_df.index = range(ans_df.shape[0])
+        ans_df['in radius'] = 1500
+        if len(ans_df) < 4:
+            df['in_polygon'] = df.apply(lambda x: filter_nuction(standart, row=[x.lng, x.lat], d=3000), axis=1)
+            ans_df = df[df.in_polygon]
+            ans_df.index = range(ans_df.shape[0])
+            ans_df['in radius'] = 2500
     return ans_df.drop(columns=['in_polygon'])
 
 
