@@ -22,6 +22,7 @@ kit_area_corr = pd.read_csv(f'/app/leaders_index/{DIR}/kit_area_corr.csv', index
 metro_corr = pd.read_csv(f'/app/leaders_index/{DIR}/metro_corr.csv', index_col='index')
 rep_corr = pd.read_csv(f'/app/leaders_index/{DIR}/rep_corr.csv', index_col='index')
 metro_stations = pd.read_csv('/app/leaders_index/geo_data/metro_coords.csv')
+ads_data_parsed = pd.read_csv('/app/leaders_index/sreda_expert_data/ads_data.csv')
 
 
 def get_ads(date1, city='Москва'):
@@ -111,6 +112,12 @@ def obj_in_mo_check(mo_standart, row):
 
 
 def get_filtered_by_zone_df(standart, df, filter_nuction):
+    def pre_filter(standart, df):
+        ##lng lat
+        lng_min, lng_max, lat_min, lat_max = float(standart[0]) - 0.05, float(standart[0]) + 0.05, float(standart[1]) - 0.05, float(standart[1]) + 0.05
+        return df.query('lat > @lat_min & lat < @lat_max & lng > @lng_min & lng < @lng_max')
+    df = df.copy()
+    df = pre_filter(standart, df)
     df['in_polygon'] = df.apply(lambda x: filter_nuction(standart, row=[x.lng, x.lat]), axis=1)
     ans_df = df[df.in_polygon]
     ans_df.index = range(ans_df.shape[0])
@@ -545,7 +552,8 @@ def get_geo_dist_for_obj(obj, metro_station):
 
 def get_analogs(standart_dict):
     analogs_dict = dict()
-    ads_data = get_ads_data('csv')
+    # ads_data = get_ads_data('csv')
+    ads_data = ads_data_parsed.copy()
     for i in standart_dict:
         analogs_dict[i] = get_compare_data(standart_dict[i], ads_data)
     return analogs_dict
