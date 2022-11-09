@@ -314,7 +314,7 @@ def prepare_compare_data(get_filter_nearest):
     data_compare['seg'] = 1
     data_compare['per_meter'] = round(data_compare['price'].astype(float) / data_compare['area'].astype(float))
     data_compare['main_corr'] = torg_corr
-    data_compare = data_compare.drop(columns=['images', 'is_rent'])
+    data_compare = data_compare.drop(columns=['is_rent'])
     data_compare['floor_from_floors'] = data_compare.apply(lambda x: return_floor_from_floors([x.floor, x.floors]),
                                                            axis=1)
     return data_compare
