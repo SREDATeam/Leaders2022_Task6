@@ -586,10 +586,12 @@ def get_analogs_pool_standart_objects(test_data):
 # получаем аналоги и оцениваем эталонные квартиру
 def rank_standart_objects(analogs, pool, standart_dict):
     ranked_objects = []
+    ranked_etalons = []
     for i in standart_dict:
         ranked_object = rank_standart_object(analogs[i], standart_dict[i])
         ranked_objects.append([ranked_object, pool[i]])
-    return ranked_objects, analogs
+        ranked_etalons.append(ranked_object)
+    return ranked_objects, analogs, ranked_etalons
 
 
 # ranked_objects_dict
