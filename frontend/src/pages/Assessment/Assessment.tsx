@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Agreement,
   Analogs,
@@ -13,16 +13,30 @@ import { Route, Routes } from "react-router-dom";
 import classes from "./Assessment.module.scss";
 
 const Assessment = () => {
-  const [floorsDataList, setFloorsDataList] = useState();
+  const [floorsDataList, setFloorsDataList] = useState(
+    JSON.parse(sessionStorage.getItem("floorsDataList")!),
+  );
   const [floorsDataListState, setFloorsDataListState] = useState(
     Boolean(floorsDataList),
   );
-  const [calculationDataList, setCalculationDataList] = useState();
+  const [calculationDataList, setCalculationDataList] = useState(
+    JSON.parse(sessionStorage.getItem("calculationDataList")!),
+  );
   const [calculationDataListState, setCalculationDataListState] = useState(
     Boolean(calculationDataList),
   );
-  const [forecastDataList, setForecastDataList] = useState();
+
+  const [forecastDataList, setForecastDataList] = useState(
+    JSON.parse(sessionStorage.getItem("forecastDataList")!),
+  );
   const [forecastDataListState, setForecastDataListState] = useState(
+    Boolean(forecastDataList),
+  );
+
+  const [poolDataList, setPoolDataList] = useState(
+    JSON.parse(sessionStorage.getItem("poolDataList")!),
+  );
+  const [poolDataListState, setPoolDataListState] = useState(
     Boolean(forecastDataList),
   );
 
@@ -53,6 +67,18 @@ const Assessment = () => {
                   data: setFloorsDataList,
                   state: setFloorsDataListState,
                 }}
+                setCalculationProps={{
+                  data: setCalculationDataList,
+                  state: setCalculationDataListState,
+                }}
+                setForecastProps={{
+                  data: setForecastDataList,
+                  state: setForecastDataListState,
+                }}
+                setPoolProps={{
+                  data: setPoolDataList,
+                  state: setPoolDataListState,
+                }}
               />
             }
           />
@@ -75,10 +101,12 @@ const Assessment = () => {
                   data: floorsDataList,
                   state: floorsDataListState,
                 }}
+                setFloors={setFloorsDataList}
                 setCalculation={{
                   data: setCalculationDataList,
                   state: setCalculationDataListState,
                 }}
+                setPool={setPoolDataList}
               />
             }
           />
@@ -116,6 +144,7 @@ const Assessment = () => {
                   data: calculationDataList,
                   state: calculationDataListState,
                 }}
+                poolProps={{ data: poolDataList, state: poolDataListState }}
               />
             }
           />

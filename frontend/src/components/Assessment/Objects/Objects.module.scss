@@ -62,7 +62,23 @@
       }
     }
 
+    .file_delete {
+      display: none;
+
+      &.active {
+        display: flex;
+        gap: 0.5em;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+
     .file_loader {
+      display: none;
+
+      &.active {
+        display: block;
+      }
 
       .text {
         height: 32px;

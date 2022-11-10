@@ -50,6 +50,7 @@ export const Forecast = ({ forecastProps }) => {
   const ForecastForm = ({ flatsData }) => {
     return (
       <Form
+        colon={false}
         className={classes.forecast_form}
         name="forecast_form"
         labelAlign="left"
@@ -122,7 +123,7 @@ export const Forecast = ({ forecastProps }) => {
           </Typography.Text>
         </Form.Item>
 
-        <Form.Item name="condition" label="Сострояние">
+        <Form.Item name="condition" label="Состояние">
           <Typography.Text>
             {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
           </Typography.Text>
@@ -136,13 +137,13 @@ export const Forecast = ({ forecastProps }) => {
       <ForecastForm flatsData={forecastProps.data} />
       <div className={classes.wrap}>
         <Typography.Title className={classes.title} level={5}>
-          Прогнозная стоймость объекта оценки по состоянию на:{" "}
+          Прогнозная стоимость объекта оценки по состоянию на:{" "}
           {moment().format("DD MM YYYY")}
           {"* "}
           <p>65 000 000 ({numberInWords(65_000_000)}) рублей</p>
         </Typography.Title>
         <Typography.Text className={classes.title}>
-          Прогнозная стоймость 1 м.кв.{" "}
+          Прогнозная стоимость 1 м.кв.{" "}
           <p>650 000 ({numberInWords(650_000)}) рублей</p>
         </Typography.Text>
         <div id="map" className={classes.map}>

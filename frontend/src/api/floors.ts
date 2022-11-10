@@ -14,3 +14,27 @@ export const loadExcel = (file) => {
   };
   return axios(options);
 };
+
+export const calcLoad = (data) => {
+  const options = {
+    method: "POST",
+    url: baseUrl + "/api/calculate",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data,
+  };
+  return axios(options);
+};
+
+export const predict = (data) => {
+  const options = {
+    method: "POST",
+    url: baseUrl + "/api/predict",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data,
+  };
+  return axios(options);
+};

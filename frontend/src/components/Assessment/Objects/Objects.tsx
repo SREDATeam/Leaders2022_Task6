@@ -9,52 +9,13 @@ import { loadExcel } from "api/floors";
 import { SyncOutlined } from "@ant-design/icons";
 import { Indexes } from "components/Indexes/Indexes";
 
-const mock = [
-  {
-    reference: {
-      address: "Россия, Москва, улица Ивана Бабушкина, 2",
-      floor: 2,
-      rooms: 2,
-      total_area: 80,
-      living_area: 66,
-      kitchen_area: 14,
-      balcony: "Балкон",
-      condition: "Улучшеный",
-    },
-    analogues: [
-      {
-        address: "Россия, Москва, улица Вавилова, 56",
-        floor: 4,
-      },
-      {
-        address: "Россия, Москва, улица Дмитрия Ульянова, 4к2",
-        floor: 1,
-      },
-      {
-        address: "Россия, Москва, улица Дмитрия Ульянова, 17к1",
-        floor: 9,
-      },
-      {
-        address: "Россия, Москва, Профсоюзная улица, 12",
-        floor: 7,
-      },
-      {
-        address: "Россия, Москва, Нахимовский проспект, 65",
-        floor: 4,
-      },
-      {
-        address: "Россия, Москва, проспект 60-летия Октября, 14",
-        floor: 7,
-      },
-      {
-        address: "Россия, Москва, улица Кржижановского, 3",
-        floor: 3,
-      },
-    ],
-  },
-];
-
-export const Objects = ({ floorsProps, setFloorsProps }) => {
+export const Objects = ({
+  floorsProps,
+  setFloorsProps,
+  setCalculationProps,
+  setForecastProps,
+  setPoolProps,
+}) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -71,9 +32,9 @@ export const Objects = ({ floorsProps, setFloorsProps }) => {
             newBundle.analogs = analogs[key];
             return newBundle;
           });
-          console.log(etalonsList);
           callback(etalonsList);
           setFloorsProps.data(etalonsList);
+          sessionStorage.setItem("floorsDataList", JSON.stringify(etalonsList));
           setFloorsProps.state(true);
           setIsLoading(false);
         })
@@ -84,6 +45,21 @@ export const Objects = ({ floorsProps, setFloorsProps }) => {
     } else {
       console.error("Данные уже загруженны");
     }
+  };
+
+  const del_file = () => {
+    setFloorsProps.data(null);
+    setFloorsProps.state(false);
+    setCalculationProps.data(null);
+    setCalculationProps.state(false);
+    setForecastProps.data(null);
+    setForecastProps.state(false);
+    setPoolProps.data(null);
+    setPoolProps.state(false);
+    sessionStorage.setItem("floorsDataList", JSON.stringify(null));
+    sessionStorage.setItem("calculationDataList", JSON.stringify(null));
+    sessionStorage.setItem("forecastDataList", JSON.stringify(null));
+    sessionStorage.setItem("poolDataList", JSON.stringify(null));
   };
 
   let myMap = null;
@@ -125,32 +101,11 @@ export const Objects = ({ floorsProps, setFloorsProps }) => {
       },
     });
 
+    const referenceCollection = new ymaps.GeoObjectCollection();
+
     const fillMap = (list) => {
       list.forEach((element) => {
         const coords = [element.lat, element.lng];
-        const referenceCollection = new ymaps.GeoObjectCollection();
-        referenceCollection.add(
-          new ymaps.Circle(
-            [coords, 1000],
-            {},
-            {
-              fillOpacity: 0.7,
-              strokeOpacity: 0.7,
-              strokeWidth: 1,
-            },
-          ),
-        );
-        referenceCollection.add(
-          new ymaps.Circle(
-            [coords, 8],
-            {},
-            {
-              fillColor: "#0000FF",
-              strokeColor: "#0000FF",
-              strokeWidth: 2,
-            },
-          ),
-        );
 
         element.analogs.forEach((analog) => {
           const coords = [analog.lat, analog.lng];
@@ -167,22 +122,58 @@ export const Objects = ({ floorsProps, setFloorsProps }) => {
             ),
           );
         });
-        myMap.geoObjects.add(referenceCollection);
+
+        referenceCollection.add(
+          new ymaps.Circle(
+            [coords, 1000],
+            {},
+            {
+              fillOpacity: 0.4,
+              strokeOpacity: 0.7,
+              strokeWidth: 1,
+            },
+          ),
+        );
+        referenceCollection.add(
+          new ymaps.Circle(
+            [coords, 8],
+            {},
+            {
+              fillColor: "#0000FF",
+              strokeColor: "#0000FF",
+              strokeWidth: 2,
+            },
+          ),
+        );
       });
     };
-
     haveData && fillMap(floorsProps.data);
-    const targetElement = document.getElementById("file_loader");
-    const divListeners = ymaps.domEvent.manager
-      .group(targetElement)
+    const fileInput = document.getElementById(
+      "file_loader",
+    ) as HTMLInputElement;
+    const fileDelete = document.getElementById(
+      "file_delete",
+    ) as HTMLInputElement;
+    const fileData = new FormData();
+    const inputLisener = ymaps.domEvent.manager
+      .group(fileInput)
       .add(["change"], function (event) {
-        const fileData = new FormData();
-        const file = document.getElementById("file_loader")?.files[0];
+        const file = fileInput?.files[0];
         fileData.append("data", file);
         loadFloors(fillMap, haveData, fileData);
         haveData = true;
       });
+    const delLisener = ymaps.domEvent.manager
+      .group(fileDelete)
+      .add(["click"], function (event) {
+        fileData.delete("data");
+        fileInput.value = "";
+        referenceCollection.removeAll();
+        del_file();
+        haveData = false;
+      });
 
+    myMap.geoObjects.add(referenceCollection);
     myMap.controls.add(searchControl).add(zoomControl).add(typeControl);
   }
 
@@ -207,7 +198,23 @@ export const Objects = ({ floorsProps, setFloorsProps }) => {
             </Typography.Text>
             <SyncOutlined spin className={classes.icon} />
           </div>
-          <label className={classes.file_loader}>
+          <div
+            className={clsx(
+              classes.file_delete,
+              floorsProps.state && classes.active,
+            )}
+          >
+            <Typography.Text>Данные загруженны</Typography.Text>
+            <Button id="file_delete" size="small">
+              Удалить
+            </Button>
+          </div>
+          <label
+            className={clsx(
+              classes.file_loader,
+              !floorsProps.state && classes.active,
+            )}
+          >
             <Typography.Text className={classes.text}>
               Загрузить пул объектов
             </Typography.Text>
@@ -217,6 +224,7 @@ export const Objects = ({ floorsProps, setFloorsProps }) => {
               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             />
           </label>
+
           <div
             className={clsx(classes.next, floorsProps.state && classes.active)}
           >
