@@ -23,18 +23,29 @@
     }
   }
 
-  .analogs_row {
-    width: 100%;
-
+  .analogs_wrap {
     display: flex;
-    justify-content: space-around;
-    gap: 2em;
+
+    .analogs_row {
+      padding: 0 0 0 5em;
+      @include gray-scroll;
+      width: 100%;
+      overflow: auto;
+
+      display: flex;
+      justify-content: space-around;
+
+    }
   }
 
   .btns {
     margin: 3em 0;
     display: flex;
     justify-content: space-between;
+
+    .attantion {
+      font-size: 12px;
+    }
   }
 }
 
@@ -48,7 +59,15 @@
 
 .analog_form {
   flex-grow: 1;
-  flex-basis: 200px;
+  flex-basis: 150px;
+  flex-shrink: 0;
+  padding: 0 1em;
+
+  border-left: 1px solid rgba(26, 26, 202, 0.444);
+
+  &:first-child {
+    border-left: none;
+  }
 
   .header_of_form {
     text-align: center;
@@ -56,5 +75,9 @@
 
   .control_btns {
     margin: 0;
+
+    .control_btn {
+      width: 100%;
+    }
   }
 }

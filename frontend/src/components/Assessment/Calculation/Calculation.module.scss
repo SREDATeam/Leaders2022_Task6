@@ -25,26 +25,47 @@
 
   .calculation_row {
     width: 100%;
+
     display: flex;
     justify-content: space-around;
-    gap: 2em;
+    gap: 1em;
 
-    .original_form {
-      flex-grow: 1;
+    .all_titles {
+      min-width: 200px;
+      width: fit-content;
+    }
 
+    .forms_wrap {
+      width: 100%;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
 
-      .prognosis_btn {
+      .original_form {
+        flex-grow: 1;
+        flex-basis: 200px;
+        flex-shrink: 0;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .analogs_form {
         width: 100%;
+        @include gray-scroll;
+        overflow: auto;
+
+        display: flex;
+
+        .prognosis_btn {
+          width: 100%;
+        }
       }
     }
   }
 
 
   .btns {
-    margin: 3em 0;
+    margin: 1em 0;
     display: flex;
     justify-content: space-between;
 
@@ -64,6 +85,15 @@
 
 .calculation_form {
   flex-grow: 1;
+  flex-basis: 200px;
+  flex-shrink: 0;
+  padding: 0 1em;
+
+  border-left: 1px solid rgba(26, 26, 202, 0.444);
+
+  &:first-child {
+    border-left: none;
+  }
 
   .header_of_form {
     text-align: center;
