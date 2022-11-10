@@ -24,7 +24,6 @@ const Registration = () => {
     setErrorMessege(false);
     registerUser(formData)
       .then((response) => {
-        console.log(response);
         navigate("/");
       })
       .catch((err) => {

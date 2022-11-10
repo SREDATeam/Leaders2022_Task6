@@ -1,6 +1,14 @@
-import { Button, Form, Typography } from "antd";
+import { Button, Form, Popover, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+
+import {
+  wallInetify,
+  segInetify,
+  remInetify,
+  roomsInetify,
+  balcInetify,
+} from "../../../utils/indentify";
 
 import classes from "./Bilding.module.scss";
 
@@ -9,75 +17,10 @@ interface FieldData {
   value: any;
 }
 
-function segInetify(val) {
-  switch (val) {
-    case 0:
-      return "Новостройка";
-    case 1:
-      return "Современное жилье";
-    case 2:
-      return "Старый жилой фонд";
-    default:
-      return "Нет данных";
-  }
-}
-
-function wallInetify(val) {
-  switch (val) {
-    case 1:
-      return "Кирпич";
-    case 2:
-      return "Панель";
-    case 3:
-      return "Монолит";
-    default:
-      return "Нет данных";
-  }
-}
-
-function remInetify(val) {
-  switch (val) {
-    case 1:
-      return "Без отделки";
-    case 2:
-      return "Муниципальный ремонт";
-    case 3:
-      return "Современная отделка";
-    default:
-      return "Нет данных";
-  }
-}
-function balcInetify(val) {
-  switch (val) {
-    case 1:
-      return "Есть балкон/лоджия";
-    case 0:
-      return "Нет балкона/лоджии";
-    default:
-      return "Нет данных";
-  }
-}
-
-function roomsInetify(val) {
-  switch (val) {
-    case 0:
-      return "Cтудия";
-    case 1:
-      return "Однушка";
-    case 2:
-      return "Двушка";
-    case 3:
-      return "Трешка";
-    case 4:
-      return "Многокомнатная";
-    default:
-      return "Нет данных";
-  }
-}
-
 const BildingForm = ({ index, data }: { index: string; data: any }) => {
   return (
     <Form
+      colon={false}
       className={classes.bilding_form}
       name="bilding_form"
       labelAlign="left"
@@ -85,7 +28,15 @@ const BildingForm = ({ index, data }: { index: string; data: any }) => {
       wrapperCol={{ span: 10, offset: 4 }}
     >
       <Form.Item wrapperCol={{ span: 24 }}>
-        <Typography.Title level={5}>Объект номер: {index}</Typography.Title>
+        <Typography.Title level={5}>Эталон № {index + 1}</Typography.Title>
+      </Form.Item>
+
+      <Form.Item name="address" label="Адрес">
+        <Popover content={data?.address || "Нет данных"} trigger="click">
+          <Button size="small" type="link">
+            Смотреть
+          </Button>
+        </Popover>
       </Form.Item>
 
       <Form.Item name="floor" label="Этаж">
@@ -138,9 +89,10 @@ export const Bilding = ({ floorsProps }) => {
   return (
     <div className={classes.container}>
       <div className={classes.bildings_row}>
-        {floorsProps.data.map((data, index) => {
-          return <BildingForm index={index} data={data} key={index} />;
-        })}
+        {floorsProps.data &&
+          floorsProps.data.map((data, index) => {
+            return <BildingForm index={index} data={data} key={index} />;
+          })}
       </div>
       <div className={classes.btns}>
         <Button

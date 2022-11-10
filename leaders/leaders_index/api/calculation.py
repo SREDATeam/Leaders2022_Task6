@@ -30,4 +30,4 @@ def analyse(request):
         num = max(list(map(int, [i[1] for i in [list(map(lambda x: x.replace(".xlsx", ""), i.split('_'))) for i in f]])))
         res.to_excel(f'{save_path}/res_{num + 1}.xlsx')
     ranked_etalons = [i.to_dict() for i in ranked_etalons]
-    return JsonResponse({"pool": res.to_dict("records"), "analogs": [analogs[i].to_dict("records") for i in analogs], "ranked_etalons":ranked_etalons}, safe=False)
+    return JsonResponse({"pool": res.to_dict("records"), "analogs": [analogs[i].to_dict("records") for i in analogs], "ranked_etalons": ranked_etalons}, safe=False)
