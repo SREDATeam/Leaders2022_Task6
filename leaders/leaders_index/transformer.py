@@ -29,12 +29,14 @@ class TFT:
 
     def find_nearest_objects(self, data):
         standart = self.standart
-        data = data[(data['rooms']) == standart['rooms']]
+        data['rooms'] = data['rooms']
+        standart['rooms'] = str(standart['rooms'])
+        data = data[data['rooms'] == standart['rooms']]
         dataframe = pd.DataFrame()
         dataframe['idk'] = data['idk']
         dataframe['compare'] = 10 * (abs(standart['area'] - data['area'].astype(float))) + \
                                5 * (abs(abs(standart['floors'] - standart['floor']) - abs(
-            data['floors'] - data['floor']).astype(float))) + 0.000005 * (abs(standart['price'] - data['price']))
+            data['floors'] - data['floor']).astype(float))) + 0.000025 * (abs(standart['price'] - data['price']))
         data_to_pred = dataframe.sort_values('compare').merge(data, how='inner', on='idk').head(300).groupby(
             ['year', 'month']).aggregate({'price': 'mean'})
         return data_to_pred
