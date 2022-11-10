@@ -11,7 +11,6 @@ import json
 from leaders.settings import DEBUG, SREDA_DOMAIN, API_STORAGE, \
     ADS_USER, ADS_TOKEN
 
-
 YANDEX_TOKEN = 'd45640fd-f1ea-4f0c-87de-29dd559c9543'
 
 DIR = 'coefs_dir'
@@ -48,7 +47,7 @@ def get_ads_data(mode='csv'):
         data = data.drop_duplicates(['idk', 'updated'], 'last', ignore_index=True)
         # data.to_csv('leaders_index/sreda_expert_data/ads_data.csv')
     else:
-        data = pd.read_csv('/app/leaders_index/sreda_expert_data/ads_data.csv')#.drop(columns=['Unnamed: 0'])
+        data = pd.read_csv('/app/leaders_index/sreda_expert_data/ads_data.csv')  # .drop(columns=['Unnamed: 0'])
     return data
 
 
@@ -86,7 +85,7 @@ def get_data_from_res(res, cord_delta=1):
 
 
 def obj_in_circle_check(standart, row, d=1000):
-#     print(standart, row)
+    #     print(standart, row)
     n_points = 10
     p = shapely.geometry.Point(standart)
     angles = np.linspace(0, 360, n_points)
@@ -113,24 +112,31 @@ def obj_in_mo_check(mo_standart, row):
 def get_filtered_by_zone_df(standart, df, filter_nuction):
     def pre_filter(standart, df):
         ##lng lat
-        lng_min, lng_max, lat_min, lat_max = float(standart[0]) - 0.05, float(standart[0]) + 0.05, float(standart[1]) - 0.05, float(standart[1]) + 0.05
+        lng_min, lng_max, lat_min, lat_max = float(standart[0]) - 0.05, float(standart[0]) + 0.05, float(
+            standart[1]) - 0.05, float(standart[1]) + 0.05
         return df.query('lat > @lat_min & lat < @lat_max & lng > @lng_min & lng < @lng_max')
+
     df = df.copy()
     df = pre_filter(standart, df)
     df['in_polygon'] = df.apply(lambda x: filter_nuction(standart, row=[x.lng, x.lat], d=1000), axis=1)
     ans_df = df[df.in_polygon]
     ans_df.index = range(ans_df.shape[0])
     ans_df['in radius'] = 1000
-    if len(ans_df) < 4:
-        df['in_polygon'] = df.apply(lambda x: filter_nuction(standart, row=[x.lng, x.lat], d=2000), axis=1)
+    if len(ans_df) < 5:
+        df['in_polygon'] = df.apply(lambda x: filter_nuction(standart, row=[x.lng, x.lat], d=1500), axis=1)
         ans_df = df[df.in_polygon]
         ans_df.index = range(ans_df.shape[0])
         ans_df['in radius'] = 1500
-        if len(ans_df) < 4:
-            df['in_polygon'] = df.apply(lambda x: filter_nuction(standart, row=[x.lng, x.lat], d=3000), axis=1)
+        if len(ans_df) < 5:
+            df['in_polygon'] = df.apply(lambda x: filter_nuction(standart, row=[x.lng, x.lat], d=2500), axis=1)
             ans_df = df[df.in_polygon]
             ans_df.index = range(ans_df.shape[0])
             ans_df['in radius'] = 2500
+            if len(ans_df) < 5:
+                df['in_polygon'] = df.apply(lambda x: filter_nuction(standart, row=[x.lng, x.lat], d=4000), axis=1)
+                ans_df = df[df.in_polygon]
+                ans_df.index = range(ans_df.shape[0])
+                ans_df['in radius'] = 4000
     return ans_df.drop(columns=['in_polygon'])
 
 
@@ -578,7 +584,6 @@ def get_analogs_pool_standart_objects(test_data):
     for i in standart_dict:
         standart_dict[i]['lat'] = float(standart_dict[i]['lat'])
         standart_dict[i]['lng'] = float(standart_dict[i]['lng'])
-    standart_dict
     return analogs, pool, standart_dict
     # на данном шаге отправляем на фронт analogs и standart_dict
 
@@ -589,8 +594,15 @@ def rank_standart_objects(analogs, pool, standart_dict):
     ranked_etalons = []
     for i in standart_dict:
         ranked_object = rank_standart_object(analogs[i], standart_dict[i])
-        ranked_objects.append([ranked_object, pool[i]])
-        ranked_etalons.append(ranked_object)
+        if i in pool:
+            ranked_objects.append([ranked_object, pool[i]])
+            ranked_etalons.append(ranked_object)
+        else:
+            ranked_objects.append(
+                [ranked_object, pd.DataFrame(columns=['Unnamed: 0', 'address', 'rooms', 'seg', 'floors', 'mat', 'floor',
+                                                      'area', 'area_kitchen', 'balk', 'metro', 'repair', 'lat', 'lng',
+                                                      'floor_in_house', 'floor_from_floors', 'main_corr'])])
+            ranked_etalons.append(ranked_object)
     return ranked_objects, analogs, ranked_etalons
 
 
