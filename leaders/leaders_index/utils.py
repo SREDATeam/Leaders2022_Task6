@@ -268,9 +268,9 @@ def rank_standart_object(data_compare, data_to_rank):
     data_compare['area_coef'] = data_compare.apply(
         lambda x: get_area_coef(data_to_rank, x, area_corr), axis=1)
     data_compare['metro_coef'] = data_compare.apply(
-        lambda x: get_metro_coef(data_to_rank, x, area_corr), axis=1)
+        lambda x: get_metro_coef(data_to_rank, x, metro_corr), axis=1)
     data_compare['rep_coef'] = data_compare.apply(
-        lambda x: get_rep_coef(data_to_rank, x, area_corr), axis=1)
+        lambda x: get_rep_coef(data_to_rank, x, rep_corr), axis=1)
     data_compare['new_per_meter'] = data_compare['per_meter'] + (
             (data_compare['main_corr'] / 100) * data_compare['per_meter'])
     data_compare['new_per_meter'] = data_compare['new_per_meter'] + (
@@ -285,6 +285,7 @@ def rank_standart_object(data_compare, data_to_rank):
             (data_compare['metro_coef'] / 100) * data_compare['new_per_meter'])
     data_compare['new_per_meter'] = round(data_compare['new_per_meter'])
     data_compare['new_price'] = (data_compare['area'] * data_compare['new_per_meter'])
+    data_compare['new_price'] = (data_compare['new_price'] - data_compare['rep_coef'])
     data_compare['sum_coef'] = abs(data_compare['balk_coef']) + abs(
         data_compare['kit_coef']) + abs(data_compare['floor_coef']) + abs(
         data_compare['area_coef']) + abs(data_compare['metro_coef'])
