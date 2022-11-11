@@ -11,7 +11,7 @@ import json
 from leaders.settings import DEBUG, SREDA_DOMAIN, API_STORAGE, \
     ADS_USER, ADS_TOKEN
 
-YANDEX_TOKEN = 'f37839a5-6719-421f-a862-28fb907fcdc7'
+YANDEX_TOKEN = '35f14153-6384-4937-a805-6670037aa1a7'
 
 DIR = 'coefs_dir'
 area_corr = pd.read_csv(f'/app/leaders_index/{DIR}/area_corr.csv', index_col='index')
@@ -112,8 +112,8 @@ def obj_in_mo_check(mo_standart, row):
 def get_filtered_by_zone_df(standart, df, filter_nuction):
     def pre_filter(standart, df):
         ##lng lat
-        lng_min, lng_max, lat_min, lat_max = float(standart[0]) - 0.05, float(standart[0]) + 0.05, float(
-            standart[1]) - 0.05, float(standart[1]) + 0.05
+        lng_min, lng_max, lat_min, lat_max = float(standart[0]) - 0.04, float(standart[0]) + 0.04, float(
+            standart[1]) - 0.04, float(standart[1]) + 0.04
         return df.query('lat > @lat_min & lat < @lat_max & lng > @lng_min & lng < @lng_max')
 
     df = df.copy()
