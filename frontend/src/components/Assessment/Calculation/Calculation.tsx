@@ -18,21 +18,37 @@ import { predict } from "api/floors";
 
 const corrValues = (cost: number) => {
   let newCost = cost;
-  return (persent: number) => {
-    const delta = secureRound((newCost / 100) * persent, 0);
-    return (
-      <div>
-        <Typography.Text
-          style={{
-            color: persent > 0 ? "green" : persent == 0 ? "black" : "red",
-          }}
-        >
-          {persent}% | {delta}
-          {`\u20bd`}
-        </Typography.Text>
-        <div>{rubParser((newCost += delta))}</div>
-      </div>
-    );
+  return (delta: number, isInt?: boolean) => {
+    if (isInt) {
+      return (
+        <div>
+          <Typography.Text
+            style={{
+              color: delta > 0 ? "green" : delta == 0 ? "black" : "red",
+            }}
+          >
+            {delta}
+            {`\u20bd`}
+          </Typography.Text>
+          <div>{rubParser((newCost += delta))}</div>
+        </div>
+      );
+    } else {
+      const persent = secureRound((newCost / 100) * delta, 0);
+      return (
+        <div>
+          <Typography.Text
+            style={{
+              color: persent > 0 ? "green" : persent == 0 ? "black" : "red",
+            }}
+          >
+            {persent}% | {delta}
+            {`\u20bd`}
+          </Typography.Text>
+          <div>{rubParser((newCost += delta))}</div>
+        </div>
+      );
+    }
   };
 };
 
@@ -334,7 +350,7 @@ const CorrectingForm = ({ index, data }: { index: number; data: any }) => {
       </Form.Item>
 
       <Form.Item name="rep_coef">
-        <Typography.Text>{corrVal(data?.rep_coef)}</Typography.Text>
+        <Typography.Text>{corrVal(data?.rep_coef, true)}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="sum_coef">
@@ -344,7 +360,7 @@ const CorrectingForm = ({ index, data }: { index: number; data: any }) => {
       <Form.Item name="analog_w">
         <Typography.Text>{secureRound(data?.analog_w, -2)}</Typography.Text>
       </Form.Item>
-      <Form.Item>
+      {/* <Form.Item>
         <div className={classes.spaser} />
       </Form.Item>
       <Form.Item name="new_per_meter">
@@ -356,7 +372,7 @@ const CorrectingForm = ({ index, data }: { index: number; data: any }) => {
         <Typography.Text>
           {rubParser(secureRound(data?.new_price, 0))}
         </Typography.Text>
-      </Form.Item>
+      </Form.Item> */}
     </Form>
   );
 };
