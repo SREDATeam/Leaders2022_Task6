@@ -205,6 +205,8 @@ def prepare_raw_exl(data):
             return 2
         if row == 'старый жилой фонд' or row == 'Старый жилой фонд':
             return 3
+        else:
+            return 2
         return 0
 
     def rename_walls(row):
@@ -304,10 +306,11 @@ def find_nearest_objects(standart, data):
     data = data[data['rooms'] == standart['rooms']]
     dataframe = pd.DataFrame()
     dataframe['idk'] = data['idk']
+    data['seg'] = data.is_new.apply(lambda x: 1 if x == 1 else 2)
     dataframe['compare'] = 3 * (abs(standart['area_kitchen'] - data['area_kitchen'].astype(float))) + \
                            5 * (abs(standart['area'] - data['area'].astype(float))) + \
                            0.7 * (abs(abs(standart['floors'] - standart['floor']) - abs(
-        data['floors'] - data['floor']).astype(float)))
+        data['floors'] - data['floor']).astype(float))) + 5*(abs(standart['seg'] - data['seg'].astype(float)))
     return dataframe.sort_values('compare').merge(data, how='inner', on='idk')
 
 
@@ -318,7 +321,6 @@ def prepare_compare_data(get_filter_nearest):
     data_compare['balk'] = 1
     data_compare['metro'] = data_compare.apply(lambda x: find_dist_from_nearest_metro(x, metro_stations), axis=1)
     data_compare['repair'] = 1
-    data_compare['seg'] = 1
     data_compare['per_meter'] = round(data_compare['price'].astype(float) / data_compare['area'].astype(float))
     data_compare['main_corr'] = torg_corr
     data_compare = data_compare.drop(columns=['is_rent'])
