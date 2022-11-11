@@ -212,7 +212,7 @@ export const Objects = ({
           <label
             className={clsx(
               classes.file_loader,
-              !floorsProps.state && classes.active,
+              !floorsProps.state && !isLoading && classes.active,
             )}
           >
             <Typography.Text className={classes.text}>

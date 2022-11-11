@@ -324,7 +324,6 @@ def find_nearest_objects(standart, data):
     data = data[data['rooms'] == standart['rooms']]
     dataframe = pd.DataFrame()
     dataframe['idk'] = data['idk']
-    print(data.columns)
     data['seg'] = data.is_new.apply(lambda x: 1 if x == 1 else 2)
     data['seg'] = data.apply(lambda x: get_house_segment(x['address'], x['seg']), axis=1)
     dataframe['compare'] = 3 * (abs(standart['area_kitchen'] - data['area_kitchen'].astype(float))) + \

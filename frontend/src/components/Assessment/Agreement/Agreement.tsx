@@ -29,11 +29,7 @@ const AgreementForm = ({ index, data }: { index: number; data: any }) => {
       </Form.Item>
 
       <Form.Item name="address" label="Адрес">
-        <Popover content={data?.address || "Нет данных"} trigger="click">
-          <Button size="small" type="link">
-            Смотреть
-          </Button>
-        </Popover>
+        <Typography.Text>{data?.address || "Нет данных"}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="floor" label="Этаж">

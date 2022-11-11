@@ -73,7 +73,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
         name="login"
         rules={[
           { required: true, message: "Введите email" },
-          { type: "email", message: "Не кореткный email" },
+          { type: "email", message: "Не корректный email" },
         ]}
       >
         <Input

@@ -1,16 +1,16 @@
-FROM node:16.17.0 as build
+FROM node:16.17.0
 
 WORKDIR /frontend
 
 COPY package.json .
 
+RUN npm install pm2 -g
 RUN npm install --legacy-peer-deps
 
 COPY . .
 
 RUN npm run build
 
-FROM nginx
+EXPOSE 80
 
-COPY --from=build /frontend/dist /usr/share/nginx/html
-
+CMD ["pm2-runtime", "start", "./server.js"]

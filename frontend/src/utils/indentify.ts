@@ -52,11 +52,11 @@ export function roomsInetify(val) {
     case 0:
       return "Cтудия";
     case 1:
-      return "Однушка";
+      return "1-комнатная";
     case 2:
-      return "Двушка";
+      return "2-комнатная";
     case 3:
-      return "Трешка";
+      return "3-комнатная";
     case 4:
       return "Многокомнатная";
     default:

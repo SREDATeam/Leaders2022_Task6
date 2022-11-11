@@ -18,21 +18,37 @@ import { predict } from "api/floors";
 
 const corrValues = (cost: number) => {
   let newCost = cost;
-  return (persent: number) => {
-    const delta = secureRound((newCost / 100) * persent, 0);
-    return (
-      <div>
-        <Typography.Text
-          style={{
-            color: persent > 0 ? "green" : persent == 0 ? "black" : "red",
-          }}
-        >
-          {persent}% | {delta}
-          {`\u20bd`}
-        </Typography.Text>
-        <div>{rubParser((newCost += delta))}</div>
-      </div>
-    );
+  return (delta: number, isInt?: boolean) => {
+    if (isInt) {
+      return (
+        <div>
+          <Typography.Text
+            style={{
+              color: delta > 0 ? "green" : delta == 0 ? "black" : "red",
+            }}
+          >
+            {delta}
+            {`\u20bd`}
+          </Typography.Text>
+          <div>{rubParser((newCost += delta))}</div>
+        </div>
+      );
+    } else {
+      const value = secureRound((newCost / 100) * delta, 0);
+      return (
+        <div>
+          <Typography.Text
+            style={{
+              color: delta > 0 ? "green" : delta == 0 ? "black" : "red",
+            }}
+          >
+            {delta}% | {value}
+            {`\u20bd`}
+          </Typography.Text>
+          <div>{rubParser((newCost += value))}</div>
+        </div>
+      );
+    }
   };
 };
 
@@ -50,7 +66,7 @@ const CalculationFormTitles = () => {
       </Form.Item>
 
       <Form.Item>
-        <Typography.Text>Адрес</Typography.Text>
+        <div style={{ height: "6em" }}>Адрес</div>
       </Form.Item>
 
       <Form.Item>
@@ -151,7 +167,7 @@ const CalculationFormTitles = () => {
   );
 };
 
-const OriginalForm = ({ flatsData }: { flatsData: any }) => {
+const OriginalForm = ({ data }: { data: any }) => {
   return (
     <Form
       className={classes.calculation_form}
@@ -166,15 +182,11 @@ const OriginalForm = ({ flatsData }: { flatsData: any }) => {
       </Form.Item>
 
       <Form.Item name="address">
-        <Popover content={flatsData?.address || "Нет данных"} trigger="click">
-          <Button size="small" type="link">
-            Смотреть
-          </Button>
-        </Popover>
+        <div style={{ height: "6em" }}>{data?.address || "Нет данных"}</div>
       </Form.Item>
 
       <Form.Item name="metro">
-        <Typography.Text>{flatsData?.metro || "Нет данных"}</Typography.Text>
+        <Typography.Text>{data?.metro || "Нет данных"}</Typography.Text>
       </Form.Item>
 
       <Form.Item>
@@ -182,16 +194,16 @@ const OriginalForm = ({ flatsData }: { flatsData: any }) => {
       </Form.Item>
 
       <Form.Item name="seg">
-        <Typography.Text>{segInetify(flatsData?.seg)}</Typography.Text>
+        <Typography.Text>{segInetify(data?.seg)}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="mat">
-        <Typography.Text>{wallInetify(flatsData?.mat)}</Typography.Text>
+        <Typography.Text>{wallInetify(data?.mat)}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="floors">
         <Typography.Text>
-          {flatsData?.floors ? flatsData.floors : "Нет данных"}
+          {data?.floors ? data.floors : "Нет данных"}
         </Typography.Text>
       </Form.Item>
 
@@ -201,43 +213,35 @@ const OriginalForm = ({ flatsData }: { flatsData: any }) => {
 
       <Form.Item name="floor">
         <Typography.Text>
-          {flatsData?.floor ? flatsData.floor : "Нет данных"}
+          {data?.floor ? data.floor : "Нет данных"}
         </Typography.Text>
       </Form.Item>
 
       <Form.Item name="rooms">
-        <Typography.Text>{roomsInetify(flatsData?.rooms)}</Typography.Text>
+        <Typography.Text>{roomsInetify(data?.rooms)}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="area">
-        <Typography.Text>
-          {flatsData?.area ?? "Нет данных"} м.кв.
-        </Typography.Text>
+        <Typography.Text>{data?.area ?? "Нет данных"} м.кв.</Typography.Text>
       </Form.Item>
 
       <Form.Item name="kitchen_area">
         <Typography.Text>
-          {flatsData?.area_kitchen ?? "Нет данных"} м.кв.
+          {data?.area_kitchen ?? "Нет данных"} м.кв.
         </Typography.Text>
       </Form.Item>
 
       <Form.Item name="balk">
-        <Typography.Text>{balcInetify(flatsData?.balk)}</Typography.Text>
+        <Typography.Text>{balcInetify(data?.balk)}</Typography.Text>
       </Form.Item>
 
-      <Form.Item name="repair">{remInetify(flatsData?.repair)}</Form.Item>
+      <Form.Item name="repair">{remInetify(data?.repair)}</Form.Item>
     </Form>
   );
 };
 
-const CorrectingForm = ({
-  index,
-  flatsData,
-}: {
-  index: number;
-  flatsData: any;
-}) => {
-  const corrVal = corrValues(flatsData?.per_meter);
+const CorrectingForm = ({ index, data }: { index: number; data: any }) => {
+  const corrVal = corrValues(data?.per_meter);
   return (
     <Form
       className={classes.calculation_form}
@@ -252,15 +256,11 @@ const CorrectingForm = ({
       </Form.Item>
 
       <Form.Item name="address">
-        <Popover content={flatsData?.address || "Нет данных"} trigger="click">
-          <Button size="small" type="link">
-            Смотреть
-          </Button>
-        </Popover>
+        <div style={{ height: "6em" }}>{data?.address || "Нет данных"}</div>
       </Form.Item>
 
       <Form.Item name="metro">
-        <Typography.Text>{flatsData?.metro || "Нет данных"}</Typography.Text>
+        <Typography.Text>{data?.metro || "Нет данных"}</Typography.Text>
       </Form.Item>
 
       <Form.Item>
@@ -268,15 +268,15 @@ const CorrectingForm = ({
       </Form.Item>
 
       <Form.Item name="seg">
-        <Typography.Text>{segInetify(flatsData?.seg)}</Typography.Text>
+        <Typography.Text>{segInetify(data?.seg)}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="mat">
-        <Typography.Text>{wallInetify(flatsData?.mat)}</Typography.Text>
+        <Typography.Text>{wallInetify(data?.mat)}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="floors">
-        <Typography.Text>{flatsData?.floors || "Нет данных"}</Typography.Text>
+        <Typography.Text>{data?.floors || "Нет данных"}</Typography.Text>
       </Form.Item>
 
       <Form.Item>
@@ -284,42 +284,40 @@ const CorrectingForm = ({
       </Form.Item>
 
       <Form.Item name="floor">
-        <Typography.Text>{flatsData?.floor || "Нет данных"}</Typography.Text>
+        <Typography.Text>{data?.floor || "Нет данных"}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="rooms">
-        <Typography.Text>{roomsInetify(flatsData?.rooms)}</Typography.Text>
+        <Typography.Text>{roomsInetify(data?.rooms)}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="area">
-        <Typography.Text>
-          {flatsData?.area || "Нет данных"} м.кв.
-        </Typography.Text>
+        <Typography.Text>{data?.area || "Нет данных"} м.кв.</Typography.Text>
       </Form.Item>
 
       <Form.Item name="kitchen_area">
         <Typography.Text>
-          {flatsData?.area_kitchen || "Нет данных"} м.кв.
+          {data?.area_kitchen || "Нет данных"} м.кв.
         </Typography.Text>
       </Form.Item>
 
       <Form.Item name="balk">
-        <Typography.Text>{balcInetify(flatsData?.balk)}</Typography.Text>
+        <Typography.Text>{balcInetify(data?.balk)}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="repair">
-        <Typography.Text>{remInetify(flatsData?.repair)}</Typography.Text>
+        <Typography.Text>{remInetify(data?.repair)}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="price">
         <Typography.Text>
-          {rubParser(secureRound(flatsData?.price, 0))}
+          {rubParser(secureRound(data?.price, 0))}
         </Typography.Text>
       </Form.Item>
 
       <Form.Item name="per_meter">
         <Typography.Text>
-          {rubParser(secureRound(flatsData?.per_meter, 0))}
+          {rubParser(secureRound(data?.per_meter, 0))}
         </Typography.Text>
       </Form.Item>
 
@@ -327,70 +325,71 @@ const CorrectingForm = ({
         <div className={classes.spaser} />
       </Form.Item>
 
-      <Form.Item name="main_corr">{corrVal(flatsData?.main_corr)}</Form.Item>
+      <Form.Item name="main_corr">{corrVal(data?.main_corr)}</Form.Item>
 
       <Form.Item name="area_coef">
-        <Typography.Text>{corrVal(flatsData?.area_coef)}</Typography.Text>
+        <Typography.Text>{corrVal(data?.area_coef)}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="metro_coef">
-        <Typography.Text>{corrVal(flatsData?.metro_coef)}</Typography.Text>
+        <Typography.Text>{corrVal(data?.metro_coef)}</Typography.Text>
         <div style={{ height: "1.4em" }}></div>
       </Form.Item>
 
       <Form.Item name="floor_coef">
-        <Typography.Text>{corrVal(flatsData?.floor_coef)}</Typography.Text>
+        <Typography.Text>{corrVal(data?.floor_coef)}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="kit_coef">
-        <Typography.Text>{corrVal(flatsData?.kit_coef)}</Typography.Text>
+        <Typography.Text>{corrVal(data?.kit_coef)}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="balk_coef">
-        <Typography.Text>{corrVal(flatsData?.balk_coef)}</Typography.Text>
+        <Typography.Text>{corrVal(data?.balk_coef)}</Typography.Text>
         <div style={{ height: "1.4em" }}></div>
       </Form.Item>
 
       <Form.Item name="rep_coef">
-        <Typography.Text>{corrVal(flatsData?.rep_coef)}</Typography.Text>
+        <Typography.Text>{corrVal(data?.rep_coef, true)}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="sum_coef">
-        <Typography.Text>
-          {flatsData?.sum_coef ?? "Нет данных"}%
-        </Typography.Text>
+        <Typography.Text>{data?.sum_coef ?? "Нет данных"}%</Typography.Text>
       </Form.Item>
 
       <Form.Item name="analog_w">
-        <Typography.Text>
-          {secureRound(flatsData?.analog_w, -2)}
-        </Typography.Text>
+        <Typography.Text>{secureRound(data?.analog_w, -2)}</Typography.Text>
       </Form.Item>
-      <Form.Item>
+      {/* <Form.Item>
         <div className={classes.spaser} />
       </Form.Item>
       <Form.Item name="new_per_meter">
         <Typography.Text>
-          {rubParser(secureRound(flatsData?.new_per_meter, 0))}
+          {rubParser(secureRound(data?.new_per_meter, 0))}
         </Typography.Text>
       </Form.Item>
       <Form.Item name="new_price">
         <Typography.Text>
-          {rubParser(secureRound(flatsData?.new_price, 0))}
+          {rubParser(secureRound(data?.new_price, 0))}
         </Typography.Text>
-      </Form.Item>
+      </Form.Item> */}
     </Form>
   );
 };
 
-export const Calculation = ({ calculationProps, setForecast }) => {
+export const Calculation = ({
+  calculationProps,
+  setForecast,
+  forecastProps,
+}) => {
+  const [roomsNum, setRoomsNum] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     if (!calculationProps.state) {
       navigate("/assessment/objects", { replace: true });
     }
   }, []);
-  const [roomsNum, setRoomsNum] = useState(0);
 
   return (
     <div className={classes.container}>
@@ -435,7 +434,7 @@ export const Calculation = ({ calculationProps, setForecast }) => {
         </div>
         <div className={classes.forms_wrap}>
           <div className={classes.original_form}>
-            <OriginalForm flatsData={calculationProps.data[roomsNum]} />
+            <OriginalForm data={calculationProps.data[roomsNum]} />
             <Form
               name="finished_prises"
               wrapperCol={{ span: 24 }}
@@ -460,10 +459,33 @@ export const Calculation = ({ calculationProps, setForecast }) => {
               </Form.Item>
               <Form.Item>
                 <Button
+                  loading={isLoading}
+                  disabled={isLoading}
                   className={classes.prognosis_btn}
                   onClick={() => {
-                    setForecast.state(true);
-                    navigate("/assessment/forecast");
+                    const { analogs, ...etalon } =
+                      calculationProps.data[roomsNum];
+                    setIsLoading(true);
+                    predict({ etalon })
+                      .then((response: number[]) => {
+                        const forecast = {
+                          ...calculationProps.data[roomsNum],
+                          forecast: response.data[2],
+                        };
+                        setForecast.data(forecast);
+                        sessionStorage.setItem(
+                          "forecastDataList",
+                          JSON.stringify(forecast),
+                        );
+                        setForecast.state(true);
+                        navigate("/assessment/forecast");
+                      })
+                      .catch((err) => {
+                        console.error(err);
+                      })
+                      .finally(() => {
+                        setIsLoading(false);
+                      });
                   }}
                 >
                   Рассчитать прогноз
@@ -477,7 +499,7 @@ export const Calculation = ({ calculationProps, setForecast }) => {
                 return index < 5 ? (
                   <CorrectingForm
                     index={index}
-                    flatsData={calculationProps.data[roomsNum].analogs[index]}
+                    data={calculationProps.data[roomsNum].analogs[index]}
                     key={index}
                   />
                 ) : null;
@@ -504,19 +526,7 @@ export const Calculation = ({ calculationProps, setForecast }) => {
           <Button
             type="primary"
             onClick={() => {
-              const { analogs, ...etalon } = calculationProps.data[roomsNum];
-              predict(etalon)
-                .then((response) => {
-                  console.log(response);
-                  // sessionStorage.setItem(
-                  //   "forecastDataList",
-                  //   JSON.stringify(null),
-                  // );
-                })
-                .catch((err) => {
-                  console.error(err);
-                });
-              // navigate("/assessment/argeement");
+              navigate("/assessment/argeement");
             }}
           >
             Продолжить
