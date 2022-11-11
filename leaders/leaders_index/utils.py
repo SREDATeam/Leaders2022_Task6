@@ -310,7 +310,7 @@ def find_nearest_objects(standart, data):
     dataframe['compare'] = 3 * (abs(standart['area_kitchen'] - data['area_kitchen'].astype(float))) + \
                            5 * (abs(standart['area'] - data['area'].astype(float))) + \
                            0.7 * (abs(abs(standart['floors'] - standart['floor']) - abs(
-        data['floors'] - data['floor']).astype(float))) + 5*(abs(standart['seg'] - data['seg'].astype(float)))
+        data['floors'] - data['floor']).astype(float))) + 10*(abs(standart['seg'] - data['seg'].astype(float)))
     return dataframe.sort_values('compare').merge(data, how='inner', on='idk')
 
 
