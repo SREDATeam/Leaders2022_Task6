@@ -11,7 +11,7 @@ import json
 from leaders.settings import DEBUG, SREDA_DOMAIN, API_STORAGE, \
     ADS_USER, ADS_TOKEN
 
-YANDEX_TOKEN = 'd45640fd-f1ea-4f0c-87de-29dd559c9543'
+YANDEX_TOKEN = 'f37839a5-6719-421f-a862-28fb907fcdc7'
 
 DIR = 'coefs_dir'
 area_corr = pd.read_csv(f'/app/leaders_index/{DIR}/area_corr.csv', index_col='index')
