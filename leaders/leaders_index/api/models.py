@@ -55,3 +55,5 @@ class Analog(BaseModel):
     updated: datetime
     # sum_coef: float
     # to_analog_rate: float
+    images: str
+    in_radius: int

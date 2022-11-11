@@ -121,22 +121,22 @@ def get_filtered_by_zone_df(standart, df, filter_nuction):
     df['in_polygon'] = df.apply(lambda x: filter_nuction(standart, row=[x.lng, x.lat], d=1000), axis=1)
     ans_df = df[df.in_polygon]
     ans_df.index = range(ans_df.shape[0])
-    ans_df['in radius'] = 1000
+    ans_df['in_radius'] = 1000
     if len(ans_df) < 5:
         df['in_polygon'] = df.apply(lambda x: filter_nuction(standart, row=[x.lng, x.lat], d=1500), axis=1)
         ans_df = df[df.in_polygon]
         ans_df.index = range(ans_df.shape[0])
-        ans_df['in radius'] = 1500
+        ans_df['in_radius'] = 1500
         if len(ans_df) < 5:
             df['in_polygon'] = df.apply(lambda x: filter_nuction(standart, row=[x.lng, x.lat], d=2500), axis=1)
             ans_df = df[df.in_polygon]
             ans_df.index = range(ans_df.shape[0])
-            ans_df['in radius'] = 2500
+            ans_df['in_radius'] = 2500
             if len(ans_df) < 5:
                 df['in_polygon'] = df.apply(lambda x: filter_nuction(standart, row=[x.lng, x.lat], d=4000), axis=1)
                 ans_df = df[df.in_polygon]
                 ans_df.index = range(ans_df.shape[0])
-                ans_df['in radius'] = 4000
+                ans_df['in_radius'] = 4000
     return ans_df.drop(columns=['in_polygon'])
 
 
