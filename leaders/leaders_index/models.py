@@ -11,3 +11,9 @@ class User(models.Model):
 
     class Meta:
         db_table = "user"
+
+
+class Solution(models.Model):
+    solution_path = models.CharField(max_length=255, default="")
+    address = models.CharField(max_length=255, default="")
+    date = models.DateTimeField(auto_now=True)
