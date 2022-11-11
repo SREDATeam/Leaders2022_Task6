@@ -24,19 +24,15 @@ const BildingForm = ({ index, data }: { index: string; data: any }) => {
       className={classes.bilding_form}
       name="bilding_form"
       labelAlign="left"
-      labelCol={{ span: 10 }}
-      wrapperCol={{ span: 10, offset: 4 }}
+      labelCol={{ span: 8 }}
+      wrapperCol={{ span: 14, offset: 2 }}
     >
       <Form.Item wrapperCol={{ span: 24 }}>
         <Typography.Title level={5}>Эталон № {index + 1}</Typography.Title>
       </Form.Item>
 
       <Form.Item name="address" label="Адрес">
-        <Popover content={data?.address || "Нет данных"} trigger="click">
-          <Button size="small" type="link">
-            Смотреть
-          </Button>
-        </Popover>
+        <Typography.Text>{data?.address || "Нет данных"}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="floor" label="Этаж">

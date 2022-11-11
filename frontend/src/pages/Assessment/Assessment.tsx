@@ -118,6 +118,10 @@ const Assessment = () => {
                   data: calculationDataList,
                   state: calculationDataListState,
                 }}
+                forecastProps={{
+                  data: forecastDataList,
+                  state: forecastDataListState,
+                }}
                 setForecast={{
                   data: setForecastDataList,
                   state: setForecastDataListState,

@@ -11,11 +11,6 @@ import classes from "./Analogs.module.scss";
 import { calcLoad } from "api/floors";
 
 const AnalogFormTitles = () => {
-  const [addressHeight, setAdderssHeight] = useState();
-  useEffect(() => {
-    setAdderssHeight(window.address0?.offsetHeight);
-  }, []);
-
   return (
     <Form
       className={classes.analog_titles}
@@ -23,14 +18,14 @@ const AnalogFormTitles = () => {
       labelAlign="left"
       wrapperCol={{ span: 24 }}
     >
-      <Form.Item style={{ height: addressHeight }}>
+      <Form.Item>
         <Typography.Title className={classes.header_of_titles} level={5}>
           Местоположение
         </Typography.Title>
       </Form.Item>
 
       <Form.Item>
-        <Typography.Text>Адрес</Typography.Text>
+        <div style={{ height: "6em" }}>Адрес</div>
       </Form.Item>
 
       <Form.Item>
@@ -91,25 +86,23 @@ const AnalogFormTitles = () => {
 const AnalogForm = ({
   index,
   position,
-  flatsData,
+  data,
   reload,
   setRepair,
 }: {
   index: number;
   position: number;
-  flatsData: any;
+  data: any;
   reload: (num: number, position: number) => void;
   setRepair: (num: number, repair: number) => void;
 }) => {
-  const link = ` https://www.cian.ru/sale/flat/${
-    flatsData?.idk.split("ci-")[1]
-  }/`;
+  const link = ` https://www.cian.ru/sale/flat/${data?.idk.split("ci-")[1]}/`;
 
   return (
     <Form
       className={classes.analog_form}
       name="analog_form"
-      fields={[{ name: "repair", value: flatsData?.repair }]}
+      fields={[{ name: "repair", value: data?.repair }]}
       labelAlign="left"
       wrapperCol={{ span: 24 }}
     >
@@ -120,16 +113,12 @@ const AnalogForm = ({
       </Form.Item>
 
       <Form.Item name="address">
-        <Popover content={flatsData?.address || "Нет данных"} trigger="click">
-          <Button size="small" type="link">
-            Смотреть
-          </Button>
-        </Popover>
+        <div style={{ height: "6em" }}>{data?.address || "Нет данных"}</div>
       </Form.Item>
 
       <Form.Item name="metro">
         <Typography.Text>
-          {flatsData?.metro ? flatsData.metro + " мин" : "Нет данных"}
+          {data?.metro ? data.metro + " мин" : "Нет данных"}
         </Typography.Text>
       </Form.Item>
 
@@ -138,12 +127,12 @@ const AnalogForm = ({
       </Form.Item>
 
       <Form.Item name="seg">
-        <Typography.Text>{segInetify(flatsData?.seg)}</Typography.Text>
+        <Typography.Text>{segInetify(data?.seg)}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="floors">
         <Typography.Text>
-          {flatsData?.floors ? flatsData.floors : "Нет данных"}
+          {data?.floors ? data.floors : "Нет данных"}
         </Typography.Text>
       </Form.Item>
 
@@ -153,30 +142,28 @@ const AnalogForm = ({
 
       <Form.Item name="floor">
         <Typography.Text>
-          {flatsData?.floor ? flatsData.floor : "Нет данных"}
+          {data?.floor ? data.floor : "Нет данных"}
         </Typography.Text>
       </Form.Item>
 
       <Form.Item name="rooms">
-        <Typography.Text>{roomsInetify(flatsData?.rooms)}</Typography.Text>
+        <Typography.Text>{roomsInetify(data?.rooms)}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="area">
         <Typography.Text>
-          {flatsData?.area ? flatsData.area + " м.кв" : "Нет данных"}
+          {data?.area ? data.area + " м.кв" : "Нет данных"}
         </Typography.Text>
       </Form.Item>
 
       <Form.Item name="area_kitchen">
         <Typography.Text>
-          {flatsData?.area_kitchen
-            ? flatsData.area_kitchen + " м.кв"
-            : "Нет данных"}
+          {data?.area_kitchen ? data.area_kitchen + " м.кв" : "Нет данных"}
         </Typography.Text>
       </Form.Item>
 
       <Form.Item name="balk">
-        <Typography.Text>{balcInetify(flatsData?.balk)}</Typography.Text>
+        <Typography.Text>{balcInetify(data?.balk)}</Typography.Text>
       </Form.Item>
 
       <Form.Item name="repair">
@@ -193,19 +180,21 @@ const AnalogForm = ({
 
       <Form.Item name="new_price">
         <Typography.Text>
-          {flatsData?.price ? flatsData.price + " руб." : "Нет данных"}
+          {data?.price ? data.price + " руб." : "Нет данных"}
         </Typography.Text>
       </Form.Item>
 
       <Form.Item name="new_per_meter">
         <Typography.Text>
-          {flatsData?.per_meter ? flatsData.per_meter + " руб." : "Нет данных"}
+          {data?.per_meter ? data.per_meter + " руб." : "Нет данных"}
         </Typography.Text>
       </Form.Item>
 
       <Form.Item name="link">
-        {flatsData?.idk ? (
-          <Typography.Link href={link}>На Циан</Typography.Link>
+        {data?.idk ? (
+          <Typography.Link href={link} target="_blank">
+            На Циан
+          </Typography.Link>
         ) : (
           <Typography.Text>Нет данных</Typography.Text>
         )}
@@ -238,6 +227,8 @@ export const Analogs = ({
   setPool: any;
 }) => {
   const navigate = useNavigate();
+  const [roomsNum, setRoomsNum] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [choosenAnalogs, setChoosenAnalogs] = useState(
     floorsProps.state &&
@@ -250,8 +241,6 @@ export const Analogs = ({
         return { chosen, queue };
       }),
   );
-
-  const [roomsNum, setRoomsNum] = useState(0);
 
   useEffect(() => {
     if (!floorsProps.state) {
@@ -313,7 +302,7 @@ export const Analogs = ({
                 <AnalogForm
                   index={chosenNum}
                   position={index}
-                  flatsData={floorsProps.data[roomsNum].analogs[chosenNum]}
+                  data={floorsProps.data[roomsNum].analogs[chosenNum]}
                   key={chosenNum}
                   setRepair={chageRepair}
                   reload={chageChosenAnalogs}
@@ -331,53 +320,52 @@ export const Analogs = ({
         >
           Вернуться
         </Button>
-        <div className={classes.attantion}>
-          *Будут отосланны аналоги к каждому эталону{" "}
-          <Button
-            type="primary"
-            onClick={() => {
-              const sendEetalons = {};
-              const sendAnalogs = {};
-              floorsProps?.data.forEach((referense, etalonIndex) => {
-                const { analogs, ...newEtalon } = referense;
-                sendEetalons[etalonIndex] = [newEtalon];
-                sendAnalogs[etalonIndex] = [];
-                analogs.forEach((analog, index) => {
-                  if (choosenAnalogs[etalonIndex].chosen.includes(index))
-                    sendAnalogs[etalonIndex].push(analog);
-                });
+        <Button
+          type="primary"
+          loading={isLoading}
+          disabled={isLoading}
+          onClick={() => {
+            const sendEetalons = {};
+            const sendAnalogs = {};
+            floorsProps?.data.forEach((referense, etalonIndex) => {
+              const { analogs, ...newEtalon } = referense;
+              sendEetalons[etalonIndex] = [newEtalon];
+              sendAnalogs[etalonIndex] = [];
+              analogs.forEach((analog, index) => {
+                if (choosenAnalogs[etalonIndex].chosen.includes(index))
+                  sendAnalogs[etalonIndex].push(analog);
               });
-              calcLoad({ etalon: sendEetalons, analogs: sendAnalogs })
-                .then((response) => {
-                  console.log(response.data);
-                  const calcedData = response.data.ranked_etalons.map(
-                    (etalon, index) => {
-                      const newEtalon = { ...etalon };
-                      newEtalon.analogs = response.data.analogs[index];
-                      return newEtalon;
-                    },
-                  );
-                  setCalculation.data(calcedData);
-                  sessionStorage.setItem(
-                    "calculationDataList",
-                    JSON.stringify(calcedData),
-                  );
-                  setPool(response.data.pool);
-                  sessionStorage.setItem(
-                    "poolDataList",
-                    JSON.stringify(response.data.pool),
-                  );
-                  setCalculation.state(true);
-                  navigate("/assessment/calculation");
-                })
-                .catch((err) => {
-                  console.error(err);
-                });
-            }}
-          >
-            Продолжить
-          </Button>
-        </div>
+            });
+            calcLoad({ etalon: sendEetalons, analogs: sendAnalogs })
+              .then((response) => {
+                console.log(response.data);
+                const calcedData = response.data.ranked_etalons.map(
+                  (etalon, index) => {
+                    const newEtalon = { ...etalon };
+                    newEtalon.analogs = response.data.analogs[index];
+                    return newEtalon;
+                  },
+                );
+                setCalculation.data(calcedData);
+                sessionStorage.setItem(
+                  "calculationDataList",
+                  JSON.stringify(calcedData),
+                );
+                setPool(response.data.pool);
+                sessionStorage.setItem(
+                  "poolDataList",
+                  JSON.stringify(response.data.pool),
+                );
+                setCalculation.state(true);
+                navigate("/assessment/calculation");
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          }}
+        >
+          Продолжить
+        </Button>
       </div>
     </div>
   );
