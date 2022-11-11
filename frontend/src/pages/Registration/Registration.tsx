@@ -12,6 +12,7 @@ import classes from "./Registration.module.scss";
 const Registration = () => {
   const { token } = useContext(AuthContext);
   const [errorMessege, setErrorMessege] = useState(false);
+  const [alertMessege, setAlertMessege] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,13 +23,15 @@ const Registration = () => {
 
   function onSubmitSuccess(formData) {
     setErrorMessege(false);
+    setAlertMessege(false);
     registerUser(formData)
       .then((response) => {
         navigate("/");
       })
       .catch((err) => {
-        setErrorMessege(true);
-        console.error(err);
+        err.response.data.message == "User already exists"
+          ? setAlertMessege(true)
+          : setErrorMessege(true);
       });
   }
 
@@ -41,6 +44,7 @@ const Registration = () => {
         <RegistrationForm onFinish={onSubmitSuccess} />
         <Text type="danger" className={classes.err_text}>
           {errorMessege ? "Ошибка на сервере, попробуйте еще раз" : " "}
+          {alertMessege ? "Такой пользователь уже зарегистрирован" : " "}
         </Text>
       </div>
       <Link className={classes.autorisation_link} to="/">
