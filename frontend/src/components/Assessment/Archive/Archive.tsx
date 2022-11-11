@@ -1,83 +1,17 @@
+import { useEffect, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
-import { Table, DatePicker, Input } from "antd";
+import { Table, DatePicker, Input, Typography } from "antd";
 import { ColumnType } from "antd/lib/table";
 import moment from "moment";
 
 import classes from "./Archive.module.scss";
+import { getArchive, getExel } from "api/floors";
 
 interface DataType {
   key: string;
   date: string;
   address: string;
 }
-
-const mock = [
-  {
-    key: "1",
-    date: "02.11.2021",
-    address: "г. Москва. ул. Красных партизан, д. 21, кв. 46",
-  },
-  {
-    key: "2",
-    date: "02.11.2021",
-    address: "г. Москва. ул. Красных партизан, д. 21, кв. 46",
-  },
-  {
-    key: "3",
-    date: "02.12.2021",
-    address: "г. Москва. ул. Красных партизан, д. 21, кв. 46",
-  },
-  {
-    key: "4",
-    date: "01.10.2022",
-    address: "г. Москва. ул. Красных партизан, д. 21, кв. 46",
-  },
-  {
-    key: "5",
-    date: "02.02.2022",
-    address: "г. Москва. ул. Красных партизан, д. 21, кв. 46",
-  },
-  {
-    key: "6",
-    date: "01.10.2022",
-    address: "г. Москва. ул. Красных партизан, д. 21, кв. 46",
-  },
-  {
-    key: "7",
-    date: "02.02.2022",
-    address: "г. Москва. ул. Красных партизан, д. 21, кв. 46",
-  },
-  {
-    key: "8",
-    date: "01.10.2022",
-    address: "г. Москва. ул. Красных партизан, д. 21, кв. 46",
-  },
-  {
-    key: "9",
-    date: "02.02.2022",
-    address: "г. Москва. ул. Красных партизан, д. 21, кв. 46",
-  },
-  {
-    key: "10",
-    date: "01.10.2022",
-    address: "г. Москва. ул. Красных партизан, д. 21, кв. 46",
-  },
-  {
-    key: "11",
-    date: "02.02.2022",
-    address: "г. Москва. ул. Красных партизан, д. 21, кв. 46",
-  },
-  {
-    key: "522",
-    date: "01.10.2022",
-    address: "г. Москва. ул. Красных партизан, д. 21, кв. 46",
-  },
-  {
-    key: "112",
-    date: "02.02.2022",
-    address: "г. Москва. ул. Красных партизан, д. 21, кв. 46",
-  },
-];
 
 const getDateSearchProps = (): ColumnType<DataType> => ({
   filterDropdown: ({ setSelectedKeys, confirm }) => (
@@ -101,15 +35,18 @@ const getDateSearchProps = (): ColumnType<DataType> => ({
     const filterDates = (value as string)
       .split("|")
       .map((date: string) => moment(date, "DD.MM.YYYY"));
-    const itemDate = moment(item.date, "DD.MM.YYYY");
+
+    const itemDate = moment(item.date);
 
     return itemDate.isBetween(filterDates[0], filterDates[1]);
   },
+  render: (date) => moment(date).format("DD.MM.YYYY"),
 });
 
 const getAdderssSearchProps = (): ColumnType<DataType> => ({
   filterDropdown: ({ setSelectedKeys, confirm }) => (
     <Input
+      allowClear
       placeholder={"Найти адрес"}
       onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
       onPressEnter={() => confirm()}
@@ -136,9 +73,35 @@ const columns = [
     key: "address",
     ...getAdderssSearchProps(),
   },
+  {
+    title: "Файлы",
+    dataIndex: "id",
+    key: "id",
+    width: "20%",
+    render: (elem) => (
+      <Typography.Link
+        onClick={() => {
+          getExel(elem);
+        }}
+      >
+        Загрузить
+      </Typography.Link>
+    ),
+  },
 ];
 
 export const Archive = () => {
+  const [data, setData] = useState();
+  useEffect(() => {
+    getArchive()
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
   return (
     <div className={classes.container}>
       <Table
@@ -151,7 +114,7 @@ export const Archive = () => {
           position: ["bottomCenter"],
         }}
         className={classes.archive_table}
-        dataSource={mock}
+        dataSource={data}
         columns={columns}
       />
     </div>

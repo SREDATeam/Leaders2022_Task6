@@ -12,9 +12,94 @@ import {
 } from "antd";
 import moment from "moment";
 import numberInWords from "utils/numInWords";
+import {
+  segInetify,
+  remInetify,
+  roomsInetify,
+  balcInetify,
+  wallInetify,
+} from "../../../utils/indentify";
+import { numParser, rubParser } from "utils/parsers";
+import { secureRound } from "../../../utils/rounding";
 
 import classes from "./Forecast.module.scss";
 import { Indexes } from "components/Indexes/Indexes";
+
+const getPrisePerMetr = (price, metrs) => {
+  return numParser(secureRound(price / metrs, 0));
+};
+
+const ForecastForm = ({ data }) => {
+  return (
+    <Form
+      colon={false}
+      size="small"
+      className={classes.forecast_form}
+      name="forecast_form"
+      labelAlign="left"
+      labelCol={{ span: 12 }}
+      wrapperCol={{ span: 12 }}
+    >
+      <Form.Item name="date" label="Дата оценки">
+        <Typography.Text>{moment().format("DD.MM.YYYY")}</Typography.Text>
+      </Form.Item>
+
+      <Form.Item name="address" label="Адрес">
+        <Typography.Text>{data?.address || "Нет данных"}</Typography.Text>
+      </Form.Item>
+
+      <Form.Item name="floor" label="Этаж">
+        <Typography.Text>{data?.floor || "Нет данных"}</Typography.Text>
+      </Form.Item>
+
+      <Form.Item name="seg" label="Сегмент">
+        <Typography.Text>{segInetify(data?.seg)}</Typography.Text>
+      </Form.Item>
+
+      <Form.Item name="rooms" label="Количество комнат">
+        <Typography.Text>{roomsInetify(data?.rooms)}</Typography.Text>
+      </Form.Item>
+
+      <Form.Item name="mat" label="Материал стен">
+        <Typography.Text>{wallInetify(data?.mat)}</Typography.Text>
+      </Form.Item>
+
+      <Form.Item name="area" label="Площадь общая">
+        <Typography.Text>
+          {data?.area + " м.кв." || "Нет данных"}
+        </Typography.Text>
+      </Form.Item>
+
+      <Form.Item name="area_kitchen" label="Площадь кухни">
+        <Typography.Text>
+          {data?.area_kitchen + " м.кв." || "Нет данных"}
+        </Typography.Text>
+      </Form.Item>
+
+      <Form.Item name="balk" label="Лоджия/Балкон">
+        <Typography.Text>{balcInetify(data?.balk)}</Typography.Text>
+      </Form.Item>
+
+      <Form.Item name="repair" label="Состояние">
+        <Typography.Text>{remInetify(data?.repair)}</Typography.Text>
+      </Form.Item>
+
+      <Form.Item name="per_meter" label="Рыночная стоймость">
+        <Typography.Text>
+          {numParser(secureRound(data?.price, 0))}
+          {`\u20bd`}
+        </Typography.Text>
+      </Form.Item>
+
+      <Form.Item name="per_meter" label="Рыночная стоймость за м.кв.">
+        <Typography.Text>
+          {numParser(secureRound(data?.per_meter, 0))}
+          {`\u20bd`}
+        </Typography.Text>
+      </Form.Item>
+    </Form>
+  );
+};
 
 export const Forecast = ({ forecastProps }) => {
   const navigate = useNavigate();
@@ -27,12 +112,30 @@ export const Forecast = ({ forecastProps }) => {
       {
         center: [55.63, 37.45],
         zoom: 10,
-        controls: ["fullscreenControl"],
+        controls: ["fullscreenControl", "zoomControl"],
       },
       {
         yandexMapDisablePoiInteractivity: true,
       },
     );
+
+    const house = new ymaps.GeoObjectCollection();
+
+    if (forecastProps.state) {
+      const coords = [forecastProps.data.lat, forecastProps.data.lng];
+      house.add(
+        new ymaps.Placemark(
+          coords,
+          {},
+          {
+            preset: "islands#icon",
+            iconColor: "#0095b6",
+          },
+        ),
+      );
+      myMap.geoObjects.add(house);
+      myMap.setCenter(coords, 16);
+    }
   }
 
   useEffect(() => {
@@ -47,109 +150,38 @@ export const Forecast = ({ forecastProps }) => {
     };
   }, []);
 
-  const ForecastForm = ({ flatsData }) => {
-    return (
-      <Form
-        colon={false}
-        className={classes.forecast_form}
-        name="forecast_form"
-        labelAlign="left"
-        labelCol={{ span: 12 }}
-        wrapperCol={{ span: 12 }}
-      >
-        <Form.Item name="date" label="Дата оценки">
-          <Typography.Text>
-            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
-          </Typography.Text>
-        </Form.Item>
-
-        <Form.Item name="subject" label="Субъект РФ">
-          <Typography.Text>
-            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
-          </Typography.Text>
-        </Form.Item>
-
-        <Form.Item name="AO" label="Административный округ">
-          <Typography.Text>
-            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
-          </Typography.Text>
-        </Form.Item>
-
-        <Form.Item name="street" label="Улица">
-          <Typography.Text>
-            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
-          </Typography.Text>
-        </Form.Item>
-
-        <Form.Item name="num" label="Hoмер дома">
-          <Typography.Text>
-            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
-          </Typography.Text>
-        </Form.Item>
-
-        <Form.Item name="floor" label="Этаж">
-          <Typography.Text>
-            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
-          </Typography.Text>
-        </Form.Item>
-
-        <Form.Item name="rooms" label="Количество комнат">
-          <Typography.Text>
-            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
-          </Typography.Text>
-        </Form.Item>
-
-        <Form.Item name="total_area" label="Площадь общая">
-          <Typography.Text>
-            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
-          </Typography.Text>
-        </Form.Item>
-
-        <Form.Item name="living_area" label="Площадь жилая">
-          <Typography.Text>
-            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
-          </Typography.Text>
-        </Form.Item>
-
-        <Form.Item name="kitchen_area" label="Площадь кухни">
-          <Typography.Text>
-            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
-          </Typography.Text>
-        </Form.Item>
-
-        <Form.Item name="balcony" label="Лоджия/Балкон" valuePropName="checked">
-          <Typography.Text>
-            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
-          </Typography.Text>
-        </Form.Item>
-
-        <Form.Item name="condition" label="Состояние">
-          <Typography.Text>
-            {flatsData?.analog_weight ? flatsData.analog_weight : "Нет данных"}
-          </Typography.Text>
-        </Form.Item>
-      </Form>
-    );
-  };
-
   return (
     <div className={classes.container}>
-      <ForecastForm flatsData={forecastProps.data} />
+      <ForecastForm data={forecastProps.data} />
       <div className={classes.wrap}>
         <Typography.Title className={classes.title} level={5}>
           Прогнозная стоимость объекта оценки по состоянию на:{" "}
-          {moment().format("DD MM YYYY")}
+          {moment().add(3, "M").format("DD MM YYYY")}
           {"* "}
-          <p>65 000 000 ({numberInWords(65_000_000)}) рублей</p>
+          <p>
+            {numParser(forecastProps.data.forecast)} (
+            {numberInWords(forecastProps.data.forecast)}) рублей
+          </p>
         </Typography.Title>
         <Typography.Text className={classes.title}>
           Прогнозная стоимость 1 м.кв.{" "}
-          <p>650 000 ({numberInWords(650_000)}) рублей</p>
+          <p>
+            {getPrisePerMetr(
+              forecastProps.data.forecast,
+              forecastProps.data.area,
+            )}{" "}
+            (
+            {numberInWords(
+              getPrisePerMetr(
+                forecastProps.data.forecast,
+                forecastProps.data.area,
+              ),
+            )}
+            ) рублей
+          </p>
         </Typography.Text>
         <div id="map" className={classes.map}>
-          <div className={classes.index_wrap}>
-            <Indexes />
-          </div>
+          <div className={classes.index_wrap}>{/* <Indexes /> */}</div>
         </div>
         <Typography.Text className={classes.footnote}>
           *Прогноз изменения стоймости объекта оценки носит справочный характер.

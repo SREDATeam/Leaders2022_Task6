@@ -32,24 +32,12 @@
     border-bottom: none;
 
     .load_label {
-      padding: 0.5em 1em;
-
-      position: absolute;
-      bottom: 50%;
-      left: -2px;
-
-      transform: translate3d(-100%, 50%, 0);
-      transition: opacity 1s;
-      opacity: 0;
-
-      transition: color 0.5s;
+      display: none;
 
       background: #fff;
-      border: 2px solid $blue_dark;
-      border-right: none;
 
       &.active {
-        opacity: 1;
+        display: block;
       }
 
       .text {
