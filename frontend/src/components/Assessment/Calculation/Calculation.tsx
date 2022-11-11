@@ -34,18 +34,18 @@ const corrValues = (cost: number) => {
         </div>
       );
     } else {
-      const persent = secureRound((newCost / 100) * delta, 0);
+      const value = secureRound((newCost / 100) * delta, 0);
       return (
         <div>
           <Typography.Text
             style={{
-              color: persent > 0 ? "green" : persent == 0 ? "black" : "red",
+              color: delta > 0 ? "green" : delta == 0 ? "black" : "red",
             }}
           >
-            {persent}% | {delta}
+            {delta}% | {value}
             {`\u20bd`}
           </Typography.Text>
-          <div>{rubParser((newCost += delta))}</div>
+          <div>{rubParser((newCost += value))}</div>
         </div>
       );
     }
