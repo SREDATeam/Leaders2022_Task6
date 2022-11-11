@@ -22,6 +22,8 @@ metro_corr = pd.read_csv(f'/app/leaders_index/{DIR}/metro_corr.csv', index_col='
 rep_corr = pd.read_csv(f'/app/leaders_index/{DIR}/rep_corr.csv', index_col='index')
 metro_stations = pd.read_csv('/app/leaders_index/geo_data/metro_coords.csv')
 ads_data_parsed = pd.read_csv('/app/leaders_index/sreda_expert_data/ads_data.csv')
+with open('/app/leaders_index/geo_data/minjkh_year_walls.json', 'r', encoding='utf-8') as f:
+    minjkh_js = json.load(f)
 
 
 def get_ads(date1, city='Москва'):
@@ -205,6 +207,8 @@ def prepare_raw_exl(data):
             return 2
         if row == 'старый жилой фонд' or row == 'Старый жилой фонд':
             return 3
+        else:
+            return 2
         return 0
 
     def rename_walls(row):
@@ -268,9 +272,9 @@ def rank_standart_object(data_compare, data_to_rank):
     data_compare['area_coef'] = data_compare.apply(
         lambda x: get_area_coef(data_to_rank, x, area_corr), axis=1)
     data_compare['metro_coef'] = data_compare.apply(
-        lambda x: get_metro_coef(data_to_rank, x, area_corr), axis=1)
+        lambda x: get_metro_coef(data_to_rank, x, metro_corr), axis=1)
     data_compare['rep_coef'] = data_compare.apply(
-        lambda x: get_rep_coef(data_to_rank, x, area_corr), axis=1)
+        lambda x: get_rep_coef(data_to_rank, x, rep_corr), axis=1)
     data_compare['new_per_meter'] = data_compare['per_meter'] + (
             (data_compare['main_corr'] / 100) * data_compare['per_meter'])
     data_compare['new_per_meter'] = data_compare['new_per_meter'] + (
@@ -285,6 +289,7 @@ def rank_standart_object(data_compare, data_to_rank):
             (data_compare['metro_coef'] / 100) * data_compare['new_per_meter'])
     data_compare['new_per_meter'] = round(data_compare['new_per_meter'])
     data_compare['new_price'] = (data_compare['area'] * data_compare['new_per_meter'])
+    data_compare['new_price'] = (data_compare['new_price'] - data_compare['rep_coef'])
     data_compare['sum_coef'] = abs(data_compare['balk_coef']) + abs(
         data_compare['kit_coef']) + abs(data_compare['floor_coef']) + abs(
         data_compare['area_coef']) + abs(data_compare['metro_coef'])
@@ -300,24 +305,41 @@ def rank_standart_object(data_compare, data_to_rank):
 
 
 def find_nearest_objects(standart, data):
+    def get_house_segment(address, seg):
+        segment_from_data = seg
+        address_to_find = address.split(', ')
+        street = address_to_find[0]
+        house_num = address_to_find[1].split(" ")[0]
+        address_to_find = street + ", " + house_num
+        address_from_dict = minjkh_js.get(address_to_find, 0)
+        if address_from_dict != 0:
+            if int(address_from_dict['year']) > 2020:
+                segment_from_data = 1
+            elif int(address_from_dict['year']) >= 2000 and int(address_from_dict['year']) > 2020:
+                segment_from_data = 2
+            elif int(address_from_dict['year']) < 2000:
+                segment_from_data = 3
+        return segment_from_data
+
     data = data[data['rooms'] == standart['rooms']]
     dataframe = pd.DataFrame()
     dataframe['idk'] = data['idk']
+    print(data.columns)
+    data['seg'] = data.is_new.apply(lambda x: 1 if x == 1 else 2)
+    data['seg'] = data.apply(lambda x: get_house_segment(x['address'], x['seg']), axis=1)
     dataframe['compare'] = 3 * (abs(standart['area_kitchen'] - data['area_kitchen'].astype(float))) + \
                            5 * (abs(standart['area'] - data['area'].astype(float))) + \
                            0.7 * (abs(abs(standart['floors'] - standart['floor']) - abs(
-        data['floors'] - data['floor']).astype(float)))
+        data['floors'] - data['floor']).astype(float))) + 5*(abs(standart['seg'] - data['seg'].astype(float)))
     return dataframe.sort_values('compare').merge(data, how='inner', on='idk')
 
 
 def prepare_compare_data(get_filter_nearest):
     torg_corr = -4.5
-    # TODO seg and rep
     data_compare = get_filter_nearest.copy()
     data_compare['balk'] = 1
     data_compare['metro'] = data_compare.apply(lambda x: find_dist_from_nearest_metro(x, metro_stations), axis=1)
     data_compare['repair'] = 1
-    data_compare['seg'] = 1
     data_compare['per_meter'] = round(data_compare['price'].astype(float) / data_compare['area'].astype(float))
     data_compare['main_corr'] = torg_corr
     data_compare = data_compare.drop(columns=['is_rent'])
